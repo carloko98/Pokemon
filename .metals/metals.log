@@ -50,3 +50,9 @@ Okt. 30, 2025 4:58:29 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint noti
 INFORMATION: Unsupported notification method: $/setTrace
 Okt. 30, 2025 4:58:30 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
 INFORMATION: Unsupported notification method: $/setTrace
+2025.10.30 17:00:10 INFO  compiling root (1 scala source)
+2025.10.30 17:00:10 INFO  time: compiled root in 0.29s
+2025.10.30 17:07:52 INFO  compiling root (1 scala source)
+2025.10.30 17:07:52 INFO  time: compiled root in 0.54s
+2025.10.30 17:10:23 INFO  compiling root (1 scala source)
+2025.10.30 17:10:23 INFO  time: compiled root in 0.24s

@@ -1,28 +1,29 @@
 package de.htwg
 
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 @main def runBattleUI(): Unit =
   
   val enemyName       = "HORSEA"
   val enemyLevel      = 16
   val enemyHpBar      = "#######-------"
-  val enemySprite     = "(≖‿≖)"
+  val enemyPokemon     = "EnemiePicture"
   
   val playerName      = "SHELLY"
   val playerLevel     = 12
   val playerHpBar     = "##########-----"
   val playerHpCurr    = 28
   val playerHpMax     = 34
-  val playerSprite    = "(•̀ᴗ•́)و"
+  val playerPokemon    = "PlayerPicture"
   
   val messageLine1    = "Enemy HORSEA used BUBBLE!"
   val messageLine2    = ""
 
  
   println(renderBattleScreen(
-    enemyName, enemyLevel, enemyHpBar, enemySprite,
-    playerName, playerLevel, playerHpBar, playerHpCurr, playerHpMax, playerSprite,
+    enemyName, enemyLevel, enemyHpBar, enemyPokemon
+,
+    playerName, playerLevel, playerHpBar, playerHpCurr, playerHpMax, playerPokemon
+,
     messageLine1, messageLine2
   ))
 
@@ -31,13 +32,13 @@ def renderBattleScreen(
   enemyName: String,
   enemyLevel: Int,
   enemyHpBar: String,
-  enemySprite: String,
+  enemyPokemon: String,
   playerName: String,
   playerLevel: Int,
   playerHpBar: String,
   playerHpCurr: Int,
   playerHpMax: Int,
-  playerSprite: String,
+  playerPokemon: String,
   messageLine1: String,
   messageLine2: String
 ): String =
@@ -57,13 +58,15 @@ def renderBattleScreen(
       line(s"$enemyName${" " * (width - enemyName.length - 10)}L$enemyLevel"),
       line(s"HP: [$enemyHpBar]"),
       line(""),
-      line(padRight(enemySprite, width - 4))
+      line(padRight(enemyPokemon
+  , width - 4))
     )
 
   val playerStatus =
     Seq(
       line(""),
-      line(padRight(playerSprite, width - 4)),
+      line(padRight(playerPokemon
+  , width - 4)),
       line(s"$playerName${" " * (width - playerName.length - 10)}L$playerLevel"),
       line(s"HP: [$playerHpBar]     $playerHpCurr/$playerHpMax")
     )
