@@ -2,14 +2,78 @@ package de.htwg
 
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-@main
-def main(): Unit =
-  //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-  // to see how IntelliJ IDEA suggests fixing it.
-  (1 to 5).map(println)
+@main def runBattleUI(): Unit =
+  
+  val enemyName       = "HORSEA"
+  val enemyLevel      = 16
+  val enemyHpBar      = "#######-------"
+  val enemySprite     = "(≖‿≖)"
+  
+  val playerName      = "SHELLY"
+  val playerLevel     = 12
+  val playerHpBar     = "##########-----"
+  val playerHpCurr    = 28
+  val playerHpMax     = 34
+  val playerSprite    = "(•̀ᴗ•́)و"
+  
+  val messageLine1    = "Enemy HORSEA used BUBBLE!"
+  val messageLine2    = ""
 
-  for (i <- 1 to 5) do
-    //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-    // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-    println(s"i = $i")
+ 
+  println(renderBattleScreen(
+    enemyName, enemyLevel, enemyHpBar, enemySprite,
+    playerName, playerLevel, playerHpBar, playerHpCurr, playerHpMax, playerSprite,
+    messageLine1, messageLine2
+  ))
 
+
+def renderBattleScreen(
+  enemyName: String,
+  enemyLevel: Int,
+  enemyHpBar: String,
+  enemySprite: String,
+  playerName: String,
+  playerLevel: Int,
+  playerHpBar: String,
+  playerHpCurr: Int,
+  playerHpMax: Int,
+  playerSprite: String,
+  messageLine1: String,
+  messageLine2: String
+): String =
+
+  val width = 62 
+
+  def padRight(text: String, total: Int): String =
+    text + " " * (total - text.length).max(0)
+
+  def line(content: String): String =
+    "| " + padRight(content, width - 4) + " |"
+
+  val border = "+" + "-" * (width - 2) + "+"
+
+  val enemyStatus =
+    Seq(
+      line(s"$enemyName${" " * (width - enemyName.length - 10)}L$enemyLevel"),
+      line(s"HP: [$enemyHpBar]"),
+      line(""),
+      line(padRight(enemySprite, width - 4))
+    )
+
+  val playerStatus =
+    Seq(
+      line(""),
+      line(padRight(playerSprite, width - 4)),
+      line(s"$playerName${" " * (width - playerName.length - 10)}L$playerLevel"),
+      line(s"HP: [$playerHpBar]     $playerHpCurr/$playerHpMax")
+    )
+
+  val messageBox =
+    Seq(
+      border,
+      line(padRight(messageLine1, width - 4)),
+      line(padRight(messageLine2, width - 4)),
+      border
+    )
+
+  (Seq(border) ++ enemyStatus ++ playerStatus ++ messageBox).mkString("\n")
