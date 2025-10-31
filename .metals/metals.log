@@ -300,3 +300,68 @@ java.nio.file.FileSystemNotFoundException: Provider "git" not installed
 2025.10.31 08:17:31 INFO  time: compiled root-test in 0.4s
 Okt. 31, 2025 8:21:17 AM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
 INFORMATION: Unsupported notification method: $/setTrace
+Okt. 31, 2025 8:26:30 AM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFORMATION: Unsupported notification method: $/setTrace
+Okt. 31, 2025 8:28:06 AM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNUNG: Unmatched cancel notification for request id 879
+Okt. 31, 2025 8:31:53 AM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFORMATION: Unsupported notification method: $/setTrace
+Okt. 31, 2025 8:33:01 AM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFORMATION: Unsupported notification method: $/setTrace
+[31merror[39m: src/main/scala/test.worksheet.sc:1:1: 
+Not found: ich
+ich bin main
+^^^
+2025.10.31 08:39:10 INFO  time: evaluated worksheet 'test.worksheet.sc' in 1.77s
+2025.10.31 08:39:20 INFO  time: evaluated worksheet 'test.worksheet.sc' in 0.69s
+2025.10.31 08:39:48 INFO  time: evaluated worksheet 'test.worksheet.sc' in 0.35s
+[31merror[39m: src/main/scala/test.worksheet.sc:2:12: 
+Not found: padRight
+    "| " + padRight(content, width - 4) + " |"
+           ^^^^^^^^
+[31merror[39m: src/main/scala/test.worksheet.sc:2:30: 
+Not found: width
+    "| " + padRight(content, width - 4) + " |"
+                             ^^^^^
+2025.10.31 08:39:54 INFO  time: evaluated worksheet 'test.worksheet.sc' in 0.1s
+[31merror[39m: src/main/scala/test.worksheet.sc:2:12: 
+Not found: padRight
+    "| " + padRight(content, width - 4) + " |"
+           ^^^^^^^^
+[31merror[39m: src/main/scala/test.worksheet.sc:2:30: 
+Not found: width
+    "| " + padRight(content, width - 4) + " |"
+                             ^^^^^
+2025.10.31 08:39:58 INFO  time: evaluated worksheet 'test.worksheet.sc' in 74ms
+[31merror[39m: src/main/scala/test.worksheet.sc:2:12: 
+Not found: padRight
+    "| " + padRight(content, width - 4) + " |"
+           ^^^^^^^^
+[31merror[39m: src/main/scala/test.worksheet.sc:2:30: 
+Not found: width
+    "| " + padRight(content, width - 4) + " |"
+                             ^^^^^
+2025.10.31 08:40:23 INFO  time: evaluated worksheet 'test.worksheet.sc' in 88ms
+[31merror[39m: src/main/scala/test.worksheet.sc:2:12: 
+Not found: padRight
+    "| " + padRight(content, width - 4) + " |"
+           ^^^^^^^^
+[31merror[39m: src/main/scala/test.worksheet.sc:2:30: 
+Not found: width
+    "| " + padRight(content, width - 4) + " |"
+                             ^^^^^
+2025.10.31 08:40:43 INFO  time: evaluated worksheet 'test.worksheet.sc' in 0.1s
+2025.10.31 08:40:51 INFO  time: evaluated worksheet 'test.worksheet.sc' in 0.25s
+2025.10.31 08:41:04 INFO  time: evaluated worksheet 'test.worksheet.sc' in 0.24s
+2025.10.31 08:41:26 INFO  time: evaluated worksheet 'test.worksheet.sc' in 0.22s
+2025.10.31 08:46:27 INFO  time: evaluated worksheet 'test.worksheet.sc' in 0.62s
+2025.10.31 08:46:37 INFO  time: evaluated worksheet 'test.worksheet.sc' in 0.25s
+2025.10.31 08:46:38 INFO  time: evaluated worksheet 'test.worksheet.sc' in 0.21s
+2025.10.31 08:46:39 INFO  time: evaluated worksheet 'test.worksheet.sc' in 0.18s
+2025.10.31 08:46:59 INFO  time: evaluated worksheet 'test.worksheet.sc' in 0.17s
+2025.10.31 08:47:03 INFO  time: evaluated worksheet 'test.worksheet.sc' in 0.16s
+2025.10.31 08:47:05 INFO  time: evaluated worksheet 'test.worksheet.sc' in 0.15s
+2025.10.31 08:48:11 INFO  compiling root (1 scala source)
+2025.10.31 08:48:11 INFO  time: compiled root in 0.86s
+2025.10.31 08:48:11 INFO  compiling root-test (1 scala source)
+2025.10.31 08:48:12 INFO  time: compiled root-test in 0.29s
