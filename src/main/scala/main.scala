@@ -78,3 +78,8 @@ def renderBattleScreen(
     )
 
   (Seq(border) ++ enemyStatus ++ playerStatus ++ messageBox).mkString("\n")
+
+
+enum PokemonType{
+    case Water, Fire, Plant, Electric, Normal, Flying
+}

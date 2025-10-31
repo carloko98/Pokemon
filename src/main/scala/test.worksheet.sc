@@ -9,3 +9,7 @@ def line(content: String): String =
 line("..")
 
 padRight("-", 1)
+
+enum PokemonType{
+    case Water, Fire, Plant, Electric, Normal, Flying
+}
