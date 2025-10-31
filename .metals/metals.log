@@ -56,3 +56,247 @@ INFORMATION: Unsupported notification method: $/setTrace
 2025.10.30 17:07:52 INFO  time: compiled root in 0.54s
 2025.10.30 17:10:23 INFO  compiling root (1 scala source)
 2025.10.30 17:10:23 INFO  time: compiled root in 0.24s
+2025.10.30 17:13:58 INFO  time: evaluated worksheet 'test.worksheet.sc' in 0.29s
+[31merror[39m: src/main/scala/test.worksheet.sc:1:1: 
+Not found: ich
+ich bin main
+^^^
+[31merror[39m: src/main/scala/test.worksheet.sc:1:1: 
+Not found: ich
+ich bin main
+^^^
+2025.10.30 17:13:59 INFO  time: evaluated worksheet 'test.worksheet.sc' in 0.1s
+2025.10.30 17:34:03 INFO  time: code lens generation in 1.2s
+2025.10.30 17:34:19 INFO  running '/opt/homebrew/bin/sbt -Dbloop.export-jar-classifiers=sources bloopInstall'
+2025.10.30 17:34:20 INFO  [info] welcome to sbt 1.11.7 (Microsoft Java 21.0.8)
+2025.10.30 17:34:20 INFO  [info] loading settings for project pokemon-build-build-build from metals.sbt...
+2025.10.30 17:34:20 INFO  [info] loading project definition from /Users/carlo/git/Pokemon/project/project/project
+2025.10.30 17:34:21 INFO  [info] loading settings for project pokemon-build-build from metals.sbt...
+2025.10.30 17:34:21 INFO  [info] loading project definition from /Users/carlo/git/Pokemon/project/project
+2025.10.30 17:34:21 INFO  [success] Generated .bloop/pokemon-build-build.json
+2025.10.30 17:34:21 INFO  [success] Total time: 1 s, completed 30.10.2025, 17:34:22
+2025.10.30 17:34:23 INFO  [info] loading settings for project pokemon-build from metals.sbt, plugins.sbt...
+2025.10.30 17:34:23 INFO  [info] loading project definition from /Users/carlo/git/Pokemon/project
+2025.10.30 17:34:25 INFO  [success] Generated .bloop/pokemon-build.json
+2025.10.30 17:34:25 INFO  [success] Total time: 2 s, completed 30.10.2025, 17:34:25
+2025.10.30 17:34:25 INFO  [info] loading settings for project root from build.sbt...
+2025.10.30 17:34:25 INFO  [info] set current project to Pokemon (in build file:/Users/carlo/git/Pokemon/)
+2025.10.30 17:34:25 INFO  [warn] there's a key that's not used by any other settings/tasks:
+2025.10.30 17:34:25 INFO  [warn]  
+2025.10.30 17:34:25 INFO  [warn] * root / idePackagePrefix
+2025.10.30 17:34:25 INFO  [warn]   +- /Users/carlo/git/Pokemon/build.sbt:8
+2025.10.30 17:34:25 INFO  [warn]  
+2025.10.30 17:34:25 INFO  [warn] note: a setting might still be used by a command; to exclude a key from this `lintUnused` check
+2025.10.30 17:34:25 INFO  [warn] either append it to `Global / excludeLintKeys` or call .withRank(KeyRanks.Invisible) on the key
+2025.10.30 17:34:26 INFO  [success] Generated .bloop/root-test.json
+2025.10.30 17:34:26 INFO  [success] Generated .bloop/root.json
+2025.10.30 17:34:26 INFO  [success] Total time: 0 s, completed 30.10.2025, 17:34:26
+2025.10.30 17:34:26 INFO  time: ran 'sbt bloopInstall' in 7s
+2025.10.30 17:34:26 INFO  Disconnecting from Bloop session...
+2025.10.30 17:34:26 INFO  Shut down connection with build server.
+2025.10.30 17:34:26 INFO  Shut down connection with build server.
+2025.10.30 17:34:26 INFO  Shut down connection with build server.
+2025.10.30 17:34:26 INFO  Attempting to connect to the build server...
+2025.10.30 17:34:26 INFO  Found a Bloop server running
+2025.10.30 17:34:26 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/carlo/git/Pokemon/.metals/bsp.trace.json or /Users/carlo/Library/Caches/org.scalameta.metals/bsp.trace.json
+2025.10.30 17:34:26 INFO  Attempting to connect to the build server...
+2025.10.30 17:34:26 INFO  Found a Bloop server running
+2025.10.30 17:34:26 INFO  Attempting to connect to the build server...
+2025.10.30 17:34:26 INFO  Found a Bloop server running
+2025.10.30 17:34:26 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/carlo/git/Pokemon/project/project/.metals/bsp.trace.json or /Users/carlo/Library/Caches/org.scalameta.metals/bsp.trace.json
+2025.10.30 17:34:26 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/carlo/git/Pokemon/project/.metals/bsp.trace.json or /Users/carlo/Library/Caches/org.scalameta.metals/bsp.trace.json
+2025.10.30 17:34:26 INFO  time: Connected to build server in 0.25s
+2025.10.30 17:34:26 INFO  Connected to Build server: Bloop v2.0.16
+2025.10.30 17:34:28 INFO  time: indexed workspace in 1.55s
+2025.10.30 17:43:31 INFO  no build target found for /Users/carlo/git/Pokemon/src/test/codeCoverage.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2025.10.30 17:43:31 INFO  no build target found for /Users/carlo/git/Pokemon/src/test/codeCoverage.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2025.10.30 17:43:31 WARN  no build target for: /Users/carlo/git/Pokemon/src/test/codeCoverage.scala
+2025.10.30 17:43:31 WARN  no build target for: /Users/carlo/git/Pokemon/src/test/codeCoverage.scala
+2025.10.30 17:44:47 INFO  running '/opt/homebrew/bin/sbt -Dbloop.export-jar-classifiers=sources bloopInstall'
+2025.10.30 17:44:48 INFO  [info] welcome to sbt 1.11.7 (Microsoft Java 21.0.8)
+2025.10.30 17:44:48 INFO  [info] loading settings for project pokemon-build-build-build from metals.sbt...
+2025.10.30 17:44:49 INFO  [info] loading project definition from /Users/carlo/git/Pokemon/project/project/project
+2025.10.30 17:44:49 INFO  [info] loading settings for project pokemon-build-build from metals.sbt...
+2025.10.30 17:44:49 INFO  [info] loading project definition from /Users/carlo/git/Pokemon/project/project
+2025.10.30 17:44:51 INFO  [success] Generated .bloop/pokemon-build-build.json
+2025.10.30 17:44:51 INFO  [success] Total time: 1 s, completed 30.10.2025, 17:44:51
+2025.10.30 17:44:51 INFO  [info] loading settings for project pokemon-build from metals.sbt, plugins.sbt...
+2025.10.30 17:44:51 INFO  [info] loading project definition from /Users/carlo/git/Pokemon/project
+2025.10.30 17:44:51 INFO  [success] Generated .bloop/pokemon-build.json
+2025.10.30 17:44:51 INFO  [success] Total time: 0 s, completed 30.10.2025, 17:44:52
+2025.10.30 17:44:52 INFO  [info] loading settings for project root from build.sbt...
+2025.10.30 17:44:52 INFO  [info] set current project to Pokemon (in build file:/Users/carlo/git/Pokemon/)
+2025.10.30 17:44:52 INFO  [warn] there's a key that's not used by any other settings/tasks:
+2025.10.30 17:44:52 INFO  [warn]  
+2025.10.30 17:44:52 INFO  [warn] * root / idePackagePrefix
+2025.10.30 17:44:52 INFO  [warn]   +- /Users/carlo/git/Pokemon/build.sbt:8
+2025.10.30 17:44:52 INFO  [warn]  
+2025.10.30 17:44:52 INFO  [warn] note: a setting might still be used by a command; to exclude a key from this `lintUnused` check
+2025.10.30 17:44:52 INFO  [warn] either append it to `Global / excludeLintKeys` or call .withRank(KeyRanks.Invisible) on the key
+2025.10.30 17:44:59 INFO  [success] Generated .bloop/root-test.json
+2025.10.30 17:44:59 INFO  [success] Generated .bloop/root.json
+2025.10.30 17:44:59 INFO  [success] Total time: 7 s, completed 30.10.2025, 17:44:59
+2025.10.30 17:44:59 INFO  time: ran 'sbt bloopInstall' in 12s
+2025.10.30 17:44:59 INFO  Disconnecting from Bloop session...
+2025.10.30 17:44:59 INFO  Shut down connection with build server.
+2025.10.30 17:44:59 INFO  Shut down connection with build server.
+2025.10.30 17:44:59 INFO  Shut down connection with build server.
+2025.10.30 17:44:59 INFO  Attempting to connect to the build server...
+2025.10.30 17:44:59 INFO  Found a Bloop server running
+2025.10.30 17:44:59 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/carlo/git/Pokemon/.metals/bsp.trace.json or /Users/carlo/Library/Caches/org.scalameta.metals/bsp.trace.json
+2025.10.30 17:44:59 INFO  Attempting to connect to the build server...
+2025.10.30 17:44:59 INFO  Found a Bloop server running
+2025.10.30 17:44:59 INFO  Attempting to connect to the build server...
+2025.10.30 17:44:59 INFO  Found a Bloop server running
+2025.10.30 17:45:00 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/carlo/git/Pokemon/project/project/.metals/bsp.trace.json or /Users/carlo/Library/Caches/org.scalameta.metals/bsp.trace.json
+2025.10.30 17:44:59 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/carlo/git/Pokemon/project/.metals/bsp.trace.json or /Users/carlo/Library/Caches/org.scalameta.metals/bsp.trace.json
+2025.10.30 17:44:59 INFO  time: Connected to build server in 0.24s
+2025.10.30 17:44:59 INFO  Connected to Build server: Bloop v2.0.16
+2025.10.30 17:45:01 INFO  time: indexed workspace in 1.87s
+2025.10.30 17:45:02 WARN  no build target for: /Users/carlo/git/Pokemon/src/test/codeCoverage.scala
+2025.10.30 17:45:26 WARN  no build target for: /Users/carlo/git/Pokemon/src/test/codeCoverage.scala
+2025.10.30 17:45:26 INFO  no build target found for /Users/carlo/git/Pokemon/src/test/codeCoverage.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2025.10.30 17:45:31 INFO  no build target found for /Users/carlo/git/Pokemon/src/test/codeCoverage.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2025.10.30 17:45:31 INFO  no build target found for /Users/carlo/git/Pokemon/src/test/codeCoverage.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2025.10.30 17:45:31 INFO  no build target found for /Users/carlo/git/Pokemon/src/test/codeCoverage.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2025.10.30 17:45:31 INFO  no build target found for /Users/carlo/git/Pokemon/src/test/codeCoverage.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2025.10.30 17:45:41 WARN  no build target for: /Users/carlo/git/Pokemon/src/test/codeCoverage.scala
+2025.10.30 17:47:54 INFO  no build target found for /Users/carlo/git/Pokemon/src/test/codeCoverage.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2025.10.30 17:47:54 WARN  no build target for: /Users/carlo/git/Pokemon/src/test/codeCoverage.scala
+2025.10.30 17:51:33 INFO  compiling root (1 scala source)
+2025.10.30 17:51:33 INFO  time: compiled root in 0.15s
+2025.10.30 17:52:00 INFO  compiling root (1 scala source)
+2025.10.30 17:52:00 INFO  time: compiled root in 0.42s
+2025.10.30 17:52:55 INFO  compiling root-test (1 scala source)
+2025.10.30 17:52:55 INFO  time: compiled root-test in 91ms
+2025.10.30 17:53:08 INFO  compiling root-test (1 scala source)
+2025.10.30 17:53:08 INFO  time: compiled root-test in 0.7s
+2025.10.30 17:58:23 INFO  no build target found for /Users/carlo/git/Pokemon/src/test/codeCoverage.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2025.10.30 17:58:23 WARN  no build target for: /Users/carlo/git/Pokemon/src/test/codeCoverage.scala
+2025.10.30 17:58:35 INFO  no build target found for /Users/carlo/git/Pokemon/src/test/codeCoverage.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2025.10.30 17:58:35 WARN  no build target for: /Users/carlo/git/Pokemon/src/test/codeCoverage.scala
+2025.10.30 17:58:43 INFO  no build target found for /Users/carlo/git/Pokemon/src/test/codeCoverage.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2025.10.30 17:58:44 INFO  no build target found for /Users/carlo/git/Pokemon/src/test/codeCoverage.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2025.10.30 17:58:44 INFO  no build target found for /Users/carlo/git/Pokemon/src/test/codeCoverage.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2025.10.30 17:58:44 WARN  no build target for: /Users/carlo/git/Pokemon/src/test/codeCoverage.scala
+2025.10.30 17:58:50 INFO  no build target found for /Users/carlo/git/Pokemon/src/test/codeCoverage.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2025.10.30 18:09:54 INFO  running '/opt/homebrew/bin/sbt -Dbloop.export-jar-classifiers=sources bloopInstall'
+2025.10.30 18:09:55 INFO  [info] welcome to sbt 1.11.7 (Microsoft Java 21.0.8)
+2025.10.30 18:09:55 INFO  [info] loading settings for project pokemon-build-build-build from metals.sbt...
+2025.10.30 18:09:55 INFO  [info] loading project definition from /Users/carlo/git/Pokemon/project/project/project
+2025.10.30 18:09:57 INFO  [info] loading settings for project pokemon-build-build from metals.sbt...
+2025.10.30 18:09:57 INFO  [info] loading project definition from /Users/carlo/git/Pokemon/project/project
+2025.10.30 18:09:57 INFO  [success] Generated .bloop/pokemon-build-build.json
+2025.10.30 18:09:58 INFO  [success] Total time: 1 s, completed 30.10.2025, 18:09:58
+2025.10.30 18:09:58 INFO  [info] loading settings for project pokemon-build from metals.sbt, plugins.sbt...
+2025.10.30 18:09:58 INFO  [info] loading project definition from /Users/carlo/git/Pokemon/project
+2025.10.30 18:09:58 INFO  [success] Generated .bloop/pokemon-build.json
+2025.10.30 18:09:58 INFO  [success] Total time: 0 s, completed 30.10.2025, 18:09:58
+2025.10.30 18:09:59 INFO  [info] loading settings for project root from build.sbt...
+2025.10.30 18:09:59 INFO  [info] set current project to Pokemon (in build file:/Users/carlo/git/Pokemon/)
+2025.10.30 18:09:59 INFO  [warn] there's a key that's not used by any other settings/tasks:
+2025.10.30 18:09:59 INFO  [warn]  
+2025.10.30 18:09:59 INFO  [warn] * root / idePackagePrefix
+2025.10.30 18:09:59 INFO  [warn]   +- /Users/carlo/git/Pokemon/build.sbt:8
+2025.10.30 18:09:59 INFO  [warn]  
+2025.10.30 18:09:59 INFO  [warn] note: a setting might still be used by a command; to exclude a key from this `lintUnused` check
+2025.10.30 18:09:59 INFO  [warn] either append it to `Global / excludeLintKeys` or call .withRank(KeyRanks.Invisible) on the key
+2025.10.30 18:09:59 INFO  [success] Generated .bloop/root.json
+2025.10.30 18:09:59 INFO  [success] Generated .bloop/root-test.json
+2025.10.30 18:09:59 INFO  [success] Total time: 0 s, completed 30.10.2025, 18:09:59
+2025.10.30 18:09:59 INFO  time: ran 'sbt bloopInstall' in 5.07s
+2025.10.30 18:09:59 INFO  Disconnecting from Bloop session...
+2025.10.30 18:09:59 INFO  Shut down connection with build server.
+2025.10.30 18:09:59 INFO  Shut down connection with build server.
+2025.10.30 18:09:59 INFO  Shut down connection with build server.
+2025.10.30 18:09:59 INFO  Attempting to connect to the build server...
+2025.10.30 18:09:59 INFO  Found a Bloop server running
+2025.10.30 18:10:00 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/carlo/git/Pokemon/.metals/bsp.trace.json or /Users/carlo/Library/Caches/org.scalameta.metals/bsp.trace.json
+2025.10.30 18:09:59 INFO  Attempting to connect to the build server...
+2025.10.30 18:09:59 INFO  Found a Bloop server running
+2025.10.30 18:09:59 INFO  Attempting to connect to the build server...
+2025.10.30 18:09:59 INFO  Found a Bloop server running
+2025.10.30 18:10:00 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/carlo/git/Pokemon/project/project/.metals/bsp.trace.json or /Users/carlo/Library/Caches/org.scalameta.metals/bsp.trace.json
+2025.10.30 18:09:59 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/carlo/git/Pokemon/project/.metals/bsp.trace.json or /Users/carlo/Library/Caches/org.scalameta.metals/bsp.trace.json
+2025.10.30 18:10:00 INFO  time: Connected to build server in 0.25s
+2025.10.30 18:09:59 INFO  Connected to Build server: Bloop v2.0.16
+2025.10.30 18:10:02 INFO  time: indexed workspace in 1.73s
+2025.10.30 18:12:22 INFO  compiling root-test (1 scala source)
+2025.10.30 18:12:22 INFO  time: compiled root-test in 0.87s
+2025.10.30 18:20:58 INFO  compiling root-test (1 scala source)
+2025.10.30 18:21:00 INFO  time: compiled root-test in 1.37s
+2025.10.30 18:24:36 INFO  Shutting down server
+2025.10.30 18:24:36 INFO  shutting down Metals
+2025.10.30 18:24:37 INFO  Shut down connection with build server.
+2025.10.30 18:24:37 INFO  Shut down connection with build server.
+2025.10.30 18:24:37 INFO  Shut down connection with build server.
+2025.10.30 18:24:36 INFO  Exiting server
+2025.10.31 07:53:08 INFO  Started: Metals version 1.6.3 in folders '/Users/carlo/git/Pokemon' for client Visual Studio Code 1.105.1.
+2025.10.31 07:53:08 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2025.10.31 07:53:09 INFO  Attempting to connect to the build server...
+2025.10.31 07:53:09 INFO  Found a Bloop server running
+2025.10.31 07:53:09 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/carlo/git/Pokemon/.metals/bsp.trace.json or /Users/carlo/Library/Caches/org.scalameta.metals/bsp.trace.json
+2025.10.31 07:53:09 INFO  Attempting to connect to the build server...
+2025.10.31 07:53:09 INFO  Found a Bloop server running
+2025.10.31 07:53:09 INFO  Attempting to connect to the build server...
+2025.10.31 07:53:09 INFO  Found a Bloop server running
+2025.10.31 07:53:09 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/carlo/git/Pokemon/project/.metals/bsp.trace.json or /Users/carlo/Library/Caches/org.scalameta.metals/bsp.trace.json
+2025.10.31 07:53:09 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/carlo/git/Pokemon/project/project/.metals/bsp.trace.json or /Users/carlo/Library/Caches/org.scalameta.metals/bsp.trace.json
+2025.10.31 07:53:09 INFO  time: Connected to build server in 0.34s
+2025.10.31 07:53:09 INFO  Connected to Build server: Bloop v2.0.16
+2025.10.31 07:53:09 INFO  time: Imported build in 0.12s
+2025.10.31 07:53:12 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2025.10.31 07:53:12 INFO  time: indexed workspace in 2.81s
+2025.10.31 07:53:51 INFO  compiling root (1 scala source)
+2025.10.31 07:53:51 INFO  time: compiled root in 0.71s
+Okt. 31, 2025 8:04:29 AM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleNotification
+WARNUNG: Notification threw an exception: {
+  "jsonrpc": "2.0",
+  "method": "metals/didFocusTextDocument",
+  "params": [
+    "git:/Users/carlo/git/Pokemon/src/main/scala/main.scala?%7B%22path%22%3A%22%2FUsers%2Fcarlo%2Fgit%2FPokemon%2Fsrc%2Fmain%2Fscala%2Fmain.scala%22%2C%22ref%22%3A%22c113e5fc6e64d5cbd2d0d91c1043edd516b3f216%22%7D"
+  ]
+}
+java.nio.file.FileSystemNotFoundException: Provider "git" not installed
+	at java.base/java.nio.file.Path.of(Path.java:213)
+	at java.base/java.nio.file.Paths.get(Paths.java:98)
+	at scala.meta.internal.mtags.MtagsEnrichments$XtensionURIMtags.toAbsolutePath(MtagsEnrichments.scala:149)
+	at scala.meta.internal.mtags.MtagsEnrichments$XtensionStringMtags.toAbsolutePath(MtagsEnrichments.scala:209)
+	at scala.meta.internal.metals.MetalsEnrichments$XtensionString.toAbsolutePath(MetalsEnrichments.scala:796)
+	at scala.meta.internal.metals.MetalsEnrichments$XtensionString.toAbsolutePath(MetalsEnrichments.scala:793)
+	at scala.meta.internal.metals.WorkspaceLspService.didFocus(WorkspaceLspService.scala:786)
+	at scala.meta.metals.lsp.DelegatingScalaService.didFocus(DelegatingScalaService.scala:42)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint.lambda$recursiveFindRpcMethods$0(GenericEndpoint.java:65)
+	at org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint.notify(GenericEndpoint.java:160)
+	at org.eclipse.lsp4j.jsonrpc.RemoteEndpoint.handleNotification(RemoteEndpoint.java:231)
+	at org.eclipse.lsp4j.jsonrpc.RemoteEndpoint.consume(RemoteEndpoint.java:198)
+	at org.eclipse.lsp4j.jsonrpc.json.StreamMessageProducer.handleMessage(StreamMessageProducer.java:185)
+	at org.eclipse.lsp4j.jsonrpc.json.StreamMessageProducer.listen(StreamMessageProducer.java:97)
+	at org.eclipse.lsp4j.jsonrpc.json.ConcurrentMessageProcessor.run(ConcurrentMessageProcessor.java:114)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+2025.10.31 08:07:58 INFO  compiling root-test (1 scala source)
+2025.10.31 08:07:58 INFO  time: compiled root-test in 0.19s
+2025.10.31 08:09:04 INFO  compiling root-test (1 scala source)
+2025.10.31 08:09:04 INFO  time: compiled root-test in 0.87s
+2025.10.31 08:09:15 INFO  tracing is disabled for protocol dap-server, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/carlo/git/Pokemon/.metals/dap-server.trace.json or /Users/carlo/Library/Caches/org.scalameta.metals/dap-server.trace.json
+2025.10.31 08:09:15 INFO  tracing is disabled for protocol dap-client, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/carlo/git/Pokemon/.metals/dap-client.trace.json or /Users/carlo/Library/Caches/org.scalameta.metals/dap-client.trace.json
+2025.10.31 08:09:15 INFO  Starting debug proxy for [de.htwg.battle.BattleUISpec()]
+2025.10.31 08:09:16 INFO  Initialized Scala 3 decoder in 2 milliseconds
+2025.10.31 08:09:16 INFO  Trying to attach to remote debuggee VM localhost:61793 .
+2025.10.31 08:09:16 INFO  Attaching to debuggee VM succeeded.
+2025.10.31 08:09:17 INFO  Canceling debug proxy for [de.htwg.battle.BattleUISpec()]
+2025.10.31 08:09:17 INFO  Closing debug server tcp://0.0.0.0:61787
+2025.10.31 08:14:45 INFO  time: code lens generation in 1.05s
+2025.10.31 08:17:17 INFO  compiling root-test (1 scala source)
+2025.10.31 08:17:17 INFO  time: compiled root-test in 0.51s
+2025.10.31 08:17:31 INFO  compiling root-test (1 scala source)
+2025.10.31 08:17:31 INFO  time: compiled root-test in 0.4s
+Okt. 31, 2025 8:21:17 AM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFORMATION: Unsupported notification method: $/setTrace

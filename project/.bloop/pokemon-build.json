@@ -20,9 +20,14 @@
             "/Users/carlo/.sbt/boot/scala-2.12.20/lib/scala-library.jar",
             "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/ch/epfl/scala/sbt-bloop_2.12_1.0/2.0.16/sbt-bloop_2.12_1.0-2.0.16.jar",
             "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/jetbrains/scala/sbt-ide-settings_2.12_1.0/1.1.2/sbt-ide-settings_2.12_1.0-1.1.2.jar",
+            "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scoverage/sbt-scoverage_2.12_1.0/2.0.12/sbt-scoverage_2.12_1.0-2.0.12.jar",
             "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-sbt/main_2.12/1.11.7/main_2.12-1.11.7.jar",
             "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-sbt/io_2.12/1.10.5/io_2.12-1.10.5.jar",
             "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/ch/epfl/scala/bloop-config_2.12/2.3.3/bloop-config_2.12-2.3.3.jar",
+            "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scoverage/scalac-scoverage-plugin_2.12.19/2.1.1/scalac-scoverage-plugin_2.12.19-2.1.1.jar",
+            "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scoverage/scalac-scoverage-reporter_2.12/2.1.1/scalac-scoverage-reporter_2.12-2.1.1.jar",
+            "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scoverage/scalac-scoverage-domain_2.12/2.1.1/scalac-scoverage-domain_2.12-2.1.1.jar",
+            "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scoverage/scalac-scoverage-serializer_2.12/2.1.1/scalac-scoverage-serializer_2.12-2.1.1.jar",
             "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-sbt/logic_2.12/1.11.7/logic_2.12-1.11.7.jar",
             "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-sbt/actions_2.12/1.11.7/actions_2.12-1.11.7.jar",
             "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-sbt/main-settings_2.12/1.11.7/main-settings_2.12-1.11.7.jar",
@@ -148,8 +153,8 @@
                 "import _root_.sbt._",
                 "import _root_.sbt.Keys._",
                 "import _root_.sbt.nio.Keys._",
-                "import _root_.sbt.ScriptedPlugin.autoImport._, _root_.sbt.plugins.JUnitXmlReportPlugin.autoImport._, _root_.sbt.plugins.MiniDependencyTreePlugin.autoImport._, _root_.bloop.integrations.sbt.BloopPlugin.autoImport._, _root_.sbtide.ConfigPlugin.autoImport._",
-                "import _root_.sbt.plugins.IvyPlugin, _root_.sbt.plugins.JvmPlugin, _root_.sbt.plugins.CorePlugin, _root_.sbt.ScriptedPlugin, _root_.sbt.plugins.SbtPlugin, _root_.sbt.plugins.SemanticdbPlugin, _root_.sbt.plugins.JUnitXmlReportPlugin, _root_.sbt.plugins.Giter8TemplatePlugin, _root_.sbt.plugins.MiniDependencyTreePlugin, _root_.bloop.integrations.sbt.BloopPlugin, _root_.sbtide.ConfigPlugin"
+                "import _root_.sbt.ScriptedPlugin.autoImport._, _root_.sbt.plugins.JUnitXmlReportPlugin.autoImport._, _root_.sbt.plugins.MiniDependencyTreePlugin.autoImport._, _root_.bloop.integrations.sbt.BloopPlugin.autoImport._, _root_.sbtide.ConfigPlugin.autoImport._, _root_.scoverage.ScoverageSbtPlugin.autoImport._",
+                "import _root_.sbt.plugins.IvyPlugin, _root_.sbt.plugins.JvmPlugin, _root_.sbt.plugins.CorePlugin, _root_.sbt.ScriptedPlugin, _root_.sbt.plugins.SbtPlugin, _root_.sbt.plugins.SemanticdbPlugin, _root_.sbt.plugins.JUnitXmlReportPlugin, _root_.sbt.plugins.Giter8TemplatePlugin, _root_.sbt.plugins.MiniDependencyTreePlugin, _root_.bloop.integrations.sbt.BloopPlugin, _root_.sbtide.ConfigPlugin, _root_.scoverage.ScoverageSbtPlugin"
             ]
         },
         "test": {
@@ -214,7 +219,7 @@
         "platform": {
             "name": "jvm",
             "config": {
-                "home": "/Users/carlo/Library/Java/JavaVirtualMachines/ms-21.0.8/Contents/Home",
+                "home": "/opt/homebrew/Cellar/openjdk/25/libexec/openjdk.jdk/Contents/Home",
                 "options": [
                     "-Duser.dir=/Users/carlo/git/Pokemon/project"
                 ]
@@ -223,7 +228,7 @@
                 
             ],
             "runtimeConfig": {
-                "home": "/Users/carlo/Library/Java/JavaVirtualMachines/ms-21.0.8/Contents/Home",
+                "home": "/opt/homebrew/Cellar/openjdk/25/libexec/openjdk.jdk/Contents/Home",
                 "options": [
                     "-Duser.dir=/Users/carlo/git/Pokemon/project"
                 ]
@@ -232,10 +237,16 @@
                 "/Users/carlo/git/Pokemon/project/.bloop/pokemon-build/scala-2.12/sbt-1.0/classes",
                 "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/ch/epfl/scala/sbt-bloop_2.12_1.0/2.0.16/sbt-bloop_2.12_1.0-2.0.16.jar",
                 "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/jetbrains/scala/sbt-ide-settings_2.12_1.0/1.1.2/sbt-ide-settings_2.12_1.0-1.1.2.jar",
+                "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scoverage/sbt-scoverage_2.12_1.0/2.0.12/sbt-scoverage_2.12_1.0-2.0.12.jar",
                 "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/ch/epfl/scala/bloop-config_2.12/2.3.3/bloop-config_2.12-2.3.3.jar",
+                "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scoverage/scalac-scoverage-plugin_2.12.19/2.1.1/scalac-scoverage-plugin_2.12.19-2.1.1.jar",
+                "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scoverage/scalac-scoverage-reporter_2.12/2.1.1/scalac-scoverage-reporter_2.12-2.1.1.jar",
+                "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scoverage/scalac-scoverage-domain_2.12/2.1.1/scalac-scoverage-domain_2.12-2.1.1.jar",
+                "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scoverage/scalac-scoverage-serializer_2.12/2.1.1/scalac-scoverage-serializer_2.12-2.1.1.jar",
                 "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/plokhotnyuk/jsoniter-scala/jsoniter-scala-core_2.12/2.13.5.2/jsoniter-scala-core_2.12-2.13.5.2.jar",
                 "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/lihaoyi/unroll-annotation_2.12/0.1.12/unroll-annotation_2.12-0.1.12.jar",
-                "/Users/carlo/.sbt/boot/scala-2.12.20/lib/scala-library.jar"
+                "/Users/carlo/.sbt/boot/scala-2.12.20/lib/scala-library.jar",
+                "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.12/2.3.0/scala-xml_2.12-2.3.0.jar"
             ]
         },
         "resolution": {
@@ -275,6 +286,23 @@
                     ]
                 },
                 {
+                    "organization": "org.scoverage",
+                    "name": "sbt-scoverage",
+                    "version": "2.0.12",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "sbt-scoverage",
+                            "path": "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scoverage/sbt-scoverage_2.12_1.0/2.0.12/sbt-scoverage_2.12_1.0-2.0.12.jar"
+                        },
+                        {
+                            "name": "sbt-scoverage",
+                            "classifier": "sources",
+                            "path": "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scoverage/sbt-scoverage_2.12_1.0/2.0.12/sbt-scoverage_2.12_1.0-2.0.12-sources.jar"
+                        }
+                    ]
+                },
+                {
                     "organization": "ch.epfl.scala",
                     "name": "bloop-config_2.12",
                     "version": "2.3.3",
@@ -288,6 +316,74 @@
                             "name": "bloop-config_2.12",
                             "classifier": "sources",
                             "path": "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/ch/epfl/scala/bloop-config_2.12/2.3.3/bloop-config_2.12-2.3.3-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scoverage",
+                    "name": "scalac-scoverage-plugin_2.12.19",
+                    "version": "2.1.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "scalac-scoverage-plugin_2.12.19",
+                            "path": "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scoverage/scalac-scoverage-plugin_2.12.19/2.1.1/scalac-scoverage-plugin_2.12.19-2.1.1.jar"
+                        },
+                        {
+                            "name": "scalac-scoverage-plugin_2.12.19",
+                            "classifier": "sources",
+                            "path": "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scoverage/scalac-scoverage-plugin_2.12.19/2.1.1/scalac-scoverage-plugin_2.12.19-2.1.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scoverage",
+                    "name": "scalac-scoverage-reporter_2.12",
+                    "version": "2.1.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "scalac-scoverage-reporter_2.12",
+                            "path": "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scoverage/scalac-scoverage-reporter_2.12/2.1.1/scalac-scoverage-reporter_2.12-2.1.1.jar"
+                        },
+                        {
+                            "name": "scalac-scoverage-reporter_2.12",
+                            "classifier": "sources",
+                            "path": "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scoverage/scalac-scoverage-reporter_2.12/2.1.1/scalac-scoverage-reporter_2.12-2.1.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scoverage",
+                    "name": "scalac-scoverage-domain_2.12",
+                    "version": "2.1.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "scalac-scoverage-domain_2.12",
+                            "path": "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scoverage/scalac-scoverage-domain_2.12/2.1.1/scalac-scoverage-domain_2.12-2.1.1.jar"
+                        },
+                        {
+                            "name": "scalac-scoverage-domain_2.12",
+                            "classifier": "sources",
+                            "path": "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scoverage/scalac-scoverage-domain_2.12/2.1.1/scalac-scoverage-domain_2.12-2.1.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scoverage",
+                    "name": "scalac-scoverage-serializer_2.12",
+                    "version": "2.1.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "scalac-scoverage-serializer_2.12",
+                            "path": "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scoverage/scalac-scoverage-serializer_2.12/2.1.1/scalac-scoverage-serializer_2.12-2.1.1.jar"
+                        },
+                        {
+                            "name": "scalac-scoverage-serializer_2.12",
+                            "classifier": "sources",
+                            "path": "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scoverage/scalac-scoverage-serializer_2.12/2.1.1/scalac-scoverage-serializer_2.12-2.1.1-sources.jar"
                         }
                     ]
                 },
@@ -339,6 +435,23 @@
                             "name": "scala-library",
                             "classifier": "sources",
                             "path": "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-library/2.12.20/scala-library-2.12.20-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-lang.modules",
+                    "name": "scala-xml_2.12",
+                    "version": "2.3.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "scala-xml_2.12",
+                            "path": "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.12/2.3.0/scala-xml_2.12-2.3.0.jar"
+                        },
+                        {
+                            "name": "scala-xml_2.12",
+                            "classifier": "sources",
+                            "path": "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.12/2.3.0/scala-xml_2.12-2.3.0-sources.jar"
                         }
                     ]
                 },
@@ -543,23 +656,6 @@
                             "name": "util-logging_2.12",
                             "classifier": "sources",
                             "path": "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-sbt/util-logging_2.12/1.11.7/util-logging_2.12-1.11.7-sources.jar"
-                        }
-                    ]
-                },
-                {
-                    "organization": "org.scala-lang.modules",
-                    "name": "scala-xml_2.12",
-                    "version": "2.3.0",
-                    "configurations": "default",
-                    "artifacts": [
-                        {
-                            "name": "scala-xml_2.12",
-                            "path": "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.12/2.3.0/scala-xml_2.12-2.3.0.jar"
-                        },
-                        {
-                            "name": "scala-xml_2.12",
-                            "classifier": "sources",
-                            "path": "/Users/carlo/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.12/2.3.0/scala-xml_2.12-2.3.0-sources.jar"
                         }
                     ]
                 },

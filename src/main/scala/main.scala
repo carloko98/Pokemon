@@ -58,15 +58,13 @@ def renderBattleScreen(
       line(s"$enemyName${" " * (width - enemyName.length - 10)}L$enemyLevel"),
       line(s"HP: [$enemyHpBar]"),
       line(""),
-      line(padRight(enemyPokemon
-  , width - 4))
+      line(padRight(enemyPokemon, width - 4))
     )
 
   val playerStatus =
     Seq(
       line(""),
-      line(padRight(playerPokemon
-  , width - 4)),
+      line(padRight(playerPokemon, width - 4)),
       line(s"$playerName${" " * (width - playerName.length - 10)}L$playerLevel"),
       line(s"HP: [$playerHpBar]     $playerHpCurr/$playerHpMax")
     )

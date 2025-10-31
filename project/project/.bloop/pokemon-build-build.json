@@ -214,7 +214,7 @@
         "platform": {
             "name": "jvm",
             "config": {
-                "home": "/Users/carlo/Library/Java/JavaVirtualMachines/ms-21.0.8/Contents/Home",
+                "home": "/opt/homebrew/Cellar/openjdk/25/libexec/openjdk.jdk/Contents/Home",
                 "options": [
                     "-Duser.dir=/Users/carlo/git/Pokemon/project/project"
                 ]
@@ -223,7 +223,7 @@
                 
             ],
             "runtimeConfig": {
-                "home": "/Users/carlo/Library/Java/JavaVirtualMachines/ms-21.0.8/Contents/Home",
+                "home": "/opt/homebrew/Cellar/openjdk/25/libexec/openjdk.jdk/Contents/Home",
                 "options": [
                     "-Duser.dir=/Users/carlo/git/Pokemon/project/project"
                 ]
