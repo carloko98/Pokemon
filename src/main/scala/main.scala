@@ -6,7 +6,7 @@ package de.htwg
   val enemyName       = "HORSEA"
   val enemyLevel      = 16
   val enemyHpBar      = "#######-------"
-  val enemyPokemon     = "EnemiePicture"
+  val enemyPokemon     = "EnemyPicture"
   
   val playerName      = "SHELLY"
   val playerLevel     = 12
