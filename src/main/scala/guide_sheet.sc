@@ -18,7 +18,11 @@ case Water, Fire, Plant, Electric, Normal, Flying
 }
 
 
-case class Attack(name: String, damage: Int, attackType: PokemonType)
+case class Attack(
+    name: String, 
+    damage: Int,
+    attackType: PokemonType
+)
 
 
 case class Pokemon(
