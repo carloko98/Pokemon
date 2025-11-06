@@ -219,7 +219,7 @@
         "platform": {
             "name": "jvm",
             "config": {
-                "home": "C:\\Users\\marco\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-25.0.1.8-hotspot",
+                "home": "C:\\Users\\marco\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-21.0.9.10-hotspot",
                 "options": [
                     "-Duser.dir=D:\\Desktop\\AIN\\WS 25_26\\Software Engineering\\Programme_Scala\\Pokemon\\project"
                 ]
@@ -228,7 +228,7 @@
                 
             ],
             "runtimeConfig": {
-                "home": "C:\\Users\\marco\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-25.0.1.8-hotspot",
+                "home": "C:\\Users\\marco\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-21.0.9.10-hotspot",
                 "options": [
                     "-Duser.dir=D:\\Desktop\\AIN\\WS 25_26\\Software Engineering\\Programme_Scala\\Pokemon\\project"
                 ]
