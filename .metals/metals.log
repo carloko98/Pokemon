@@ -556,3 +556,71 @@ WARNUNG: Unmatched cancel notification for request id 2
 2025.10.31 10:38:25 INFO  time: compiled root in 0.19s
 Okt. 31, 2025 10:38:27 AM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
 INFORMATION: Unsupported notification method: $/setTrace
+2025.11.06 19:09:09 INFO  Started: Metals version 1.6.3 in folders 'D:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon' for client Visual Studio Code 1.105.1.
+2025.11.06 19:09:14 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2025.11.06 19:09:20 INFO  running 'C:\Users\marco\AppData\Local\Programs\Eclipse Adoptium\jdk-25.0.1.8-hotspot\bin\java.exe -Djline.terminal=jline.UnsupportedTerminal -Dsbt.log.noformat=true -Dfile.encoding=UTF-8 -jar C:\Users\marco\AppData\Local\Temp\metals6787581205538267419\sbt-launch.jar -Dbloop.export-jar-classifiers=sources bloopInstall'
+2025.11.06 19:09:20 ERROR WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+2025.11.06 19:09:20 ERROR WARNING: sun.misc.Unsafe::arrayBaseOffset has been called by net.openhft.hashing.UnsafeAccess (file:/C:/Users/marco/.sbt/boot/scala-2.12.20/org.scala-sbt/sbt/1.11.7/zero-allocation-hashing-0.16.jar)
+2025.11.06 19:09:20 ERROR WARNING: Please consider reporting this to the maintainers of class net.openhft.hashing.UnsafeAccess
+2025.11.06 19:09:20 ERROR WARNING: sun.misc.Unsafe::arrayBaseOffset will be removed in a future release
+2025.11.06 19:09:20 ERROR WARNING: A restricted method in java.lang.System has been called
+2025.11.06 19:09:20 ERROR WARNING: java.lang.System::load has been called by com.sun.jna.Native in an unnamed module (file:/C:/Users/marco/.sbt/boot/scala-2.12.20/org.scala-sbt/sbt/1.11.7/jna-5.12.0.jar)
+2025.11.06 19:09:20 ERROR WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+2025.11.06 19:09:20 ERROR WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+2025.11.06 19:09:20 ERROR 
+2025.11.06 19:09:20 INFO  [info] welcome to sbt 1.11.7 (Eclipse Adoptium Java 25.0.1)
+2025.11.06 19:09:22 INFO  [info] loading settings for project pokemon-build-build-build from metals.sbt...
+2025.11.06 19:09:22 INFO  [info] loading project definition from D:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon\project\project\project
+2025.11.06 19:09:24 INFO  [info] loading settings for project pokemon-build-build from metals.sbt...
+2025.11.06 19:09:24 INFO  [info] loading project definition from D:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon\project\project
+2025.11.06 19:09:26 INFO  [success] Generated .bloop\pokemon-build-build.json
+2025.11.06 19:09:26 INFO  [success] Total time: 3 s, completed 06.11.2025, 19:09:26
+2025.11.06 19:09:27 INFO  [info] loading settings for project pokemon-build from metals.sbt, plugins.sbt...
+2025.11.06 19:09:27 INFO  [info] loading project definition from D:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon\project
+2025.11.06 19:09:29 INFO  [success] Generated .bloop\pokemon-build.json
+2025.11.06 19:09:29 INFO  [success] Total time: 2 s, completed 06.11.2025, 19:09:29
+2025.11.06 19:09:30 INFO  [info] loading settings for project root from build.sbt...
+2025.11.06 19:09:30 INFO  [info] set current project to Pokemon (in build file:/D:/Desktop/AIN/WS%2025_26/Software%20Engineering/Programme_Scala/Pokemon/)
+2025.11.06 19:09:30 INFO  [warn] there's a key that's not used by any other settings/tasks:
+2025.11.06 19:09:30 INFO  [warn]  
+2025.11.06 19:09:30 INFO  [warn] * root / idePackagePrefix
+2025.11.06 19:09:30 INFO  [warn]   +- D:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon\build.sbt:8
+2025.11.06 19:09:30 INFO  [warn]  
+2025.11.06 19:09:30 INFO  [warn] note: a setting might still be used by a command; to exclude a key from this `lintUnused` check
+2025.11.06 19:09:30 INFO  [warn] either append it to `Global / excludeLintKeys` or call .withRank(KeyRanks.Invisible) on the key
+2025.11.06 19:09:30 INFO  [success] Generated .bloop\root.json
+2025.11.06 19:09:31 INFO  [success] Generated .bloop\root-test.json
+2025.11.06 19:09:31 INFO  [success] Total time: 1 s, completed 06.11.2025, 19:09:31
+2025.11.06 19:09:31 INFO  time: ran 'sbt bloopInstall' in 11s
+2025.11.06 19:09:31 INFO  Attempting to connect to the build server...
+2025.11.06 19:09:31 INFO  Found a Bloop server running
+2025.11.06 19:09:31 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at D:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon\.metals\bsp.trace.json or C:\Users\marco\AppData\Local\scalameta\metals\cache\bsp.trace.json
+2025.11.06 19:09:32 INFO  Attempting to connect to the build server...
+2025.11.06 19:09:32 INFO  Found a Bloop server running
+2025.11.06 19:09:32 INFO  Attempting to connect to the build server...
+2025.11.06 19:09:32 INFO  Found a Bloop server running
+2025.11.06 19:09:32 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at D:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon\project\project\.metals\bsp.trace.json or C:\Users\marco\AppData\Local\scalameta\metals\cache\bsp.trace.json
+2025.11.06 19:09:32 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at D:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon\project\.metals\bsp.trace.json or C:\Users\marco\AppData\Local\scalameta\metals\cache\bsp.trace.json
+2025.11.06 19:09:32 INFO  time: Connected to build server in 0.34s
+2025.11.06 19:09:32 INFO  Connected to Build server: Bloop v2.0.16
+2025.11.06 19:09:38 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2025.11.06 19:09:49 INFO  time: indexed workspace in 17s
+2025.11.06 19:10:49 INFO  compiling root (2 scala sources)
+2025.11.06 19:10:51 INFO  time: compiled root in 1.44s
+2025.11.06 19:10:54 INFO  compiling root (2 scala sources)
+2025.11.06 19:10:54 INFO  time: compiled root in 0.47s
+2025.11.06 19:10:55 INFO  time: evaluated worksheet 'test.worksheet.sc' in 0.26s
+2025.11.06 19:11:11 INFO  compiling root (2 scala sources)
+2025.11.06 19:11:11 INFO  time: compiled root in 0.17s
+Nov. 06, 2025 7:11:17 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFORMATION: Unsupported notification method: $/setTrace
+2025.11.06 19:11:38 INFO  compiling root (2 scala sources)
+2025.11.06 19:11:38 INFO  time: compiled root in 0.14s
+Nov. 06, 2025 7:13:29 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFORMATION: Unsupported notification method: $/setTrace
+Nov. 06, 2025 7:13:29 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFORMATION: Unsupported notification method: $/setTrace
+Nov. 06, 2025 7:13:31 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFORMATION: Unsupported notification method: $/setTrace
+Nov. 06, 2025 7:13:55 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNUNG: Unmatched cancel notification for request id 127
