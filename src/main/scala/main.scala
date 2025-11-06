@@ -3,7 +3,7 @@ package de.htwg
 
 @main def runBattleUI(): Unit =
   
-  val enemyName       = "HORSEA"
+  val enemyName       = "Pikachu"
   val enemyLevel      = 16
   val enemyHpBar      = "#######-------"
   val enemyPokemon     = "EnemiePicture"

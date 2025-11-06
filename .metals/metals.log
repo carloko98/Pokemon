@@ -556,3 +556,5 @@ WARNUNG: Unmatched cancel notification for request id 2
 2025.10.31 10:38:25 INFO  time: compiled root in 0.19s
 Okt. 31, 2025 10:38:27 AM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
 INFORMATION: Unsupported notification method: $/setTrace
+2025.11.06 19:09:09 INFO  Started: Metals version 1.6.3 in folders 'D:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon' for client Visual Studio Code 1.105.1.
+2025.11.06 19:09:14 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
