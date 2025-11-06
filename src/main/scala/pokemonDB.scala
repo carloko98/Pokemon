@@ -1,5 +1,3 @@
-
-
 package de.htwg
 
 case class Pokemon(
