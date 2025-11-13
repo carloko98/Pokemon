@@ -5,7 +5,7 @@ ThisBuild / scalaVersion := "3.3.7"
 lazy val root = (project in file("."))
   .settings(
     name := "Pokemon",
-    idePackagePrefix := Some("de.htwg")
+   // idePackagePrefix := Some("de.htwg")
   )
 
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.18" % Test

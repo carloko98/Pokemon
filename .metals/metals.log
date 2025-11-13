@@ -7413,3 +7413,160 @@ INFORMATION: Unsupported notification method: $/setTrace
 2025.11.13 18:43:01 INFO  no build target found for D:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon\src\controller\Controller.scala. Using presentation compiler with project's scala-library version: 3.3.7
 2025.11.13 18:43:02 INFO  no build target found for D:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon\src\controller\Controller.scala. Using presentation compiler with project's scala-library version: 3.3.7
 2025.11.13 18:43:01 INFO  no build target found for d:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon\src\controller\Controller.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2025.11.13 18:47:44 INFO  time: code lens generation in 2.21s
+2025.11.13 18:48:21 INFO  Shutting down server
+2025.11.13 18:48:21 INFO  shutting down Metals
+2025.11.13 18:48:21 INFO  Shut down connection with build server.
+2025.11.13 18:48:21 INFO  Shut down connection with build server.
+2025.11.13 18:48:21 INFO  Shut down connection with build server.
+2025.11.13 18:48:21 INFO  Exiting server
+2025.11.13 18:48:25 INFO  Started: Metals version 1.6.3 in folders 'D:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon' for client Visual Studio Code 1.106.0.
+2025.11.13 18:48:28 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2025.11.13 18:48:28 INFO  no build target found for D:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon\build.sbt. Using presentation compiler with project's scala-library version: 3.3.6
+Nov. 13, 2025 6:48:29 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFORMATION: Unsupported notification method: $/setTrace
+Nov. 13, 2025 6:48:29 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNUNG: Unmatched cancel notification for request id 2
+2025.11.13 18:48:29 INFO  no build target found for D:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon\build.sbt. Using presentation compiler with project's scala-library version: 3.3.6
+2025.11.13 18:48:29 INFO  no build target found for D:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon\build.sbt. Using presentation compiler with project's scala-library version: 3.3.6
+Nov. 13, 2025 6:48:29 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNUNG: Unmatched cancel notification for request id 9
+2025.11.13 18:48:29 INFO  Attempting to connect to the build server...
+2025.11.13 18:48:29 INFO  Found a Bloop server running
+2025.11.13 18:48:29 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at D:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon\.metals\bsp.trace.json or C:\Users\marco\AppData\Local\scalameta\metals\cache\bsp.trace.json
+2025.11.13 18:48:29 INFO  Attempting to connect to the build server...
+2025.11.13 18:48:29 INFO  Found a Bloop server running
+2025.11.13 18:48:29 INFO  Attempting to connect to the build server...
+2025.11.13 18:48:29 INFO  Found a Bloop server running
+2025.11.13 18:48:30 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at D:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon\project\project\.metals\bsp.trace.json or C:\Users\marco\AppData\Local\scalameta\metals\cache\bsp.trace.json
+2025.11.13 18:48:30 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at D:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon\project\.metals\bsp.trace.json or C:\Users\marco\AppData\Local\scalameta\metals\cache\bsp.trace.json
+2025.11.13 18:48:30 INFO  time: Connected to build server in 0.55s
+2025.11.13 18:48:30 INFO  Connected to Build server: Bloop v2.0.16
+2025.11.13 18:48:30 INFO  time: Imported build in 0.11s
+2025.11.13 18:48:33 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2025.11.13 18:48:36 INFO  time: indexed workspace in 6.25s
+Nov. 13, 2025 6:49:47 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleNotification
+WARNUNG: Notification threw an exception: {
+  "jsonrpc": "2.0",
+  "method": "metals/didFocusTextDocument",
+  "params": [
+    "git:/d%3A/Desktop/AIN/WS%2025_26/Software%20Engineering/Programme_Scala/Pokemon/build.sbt?%7B%22path%22%3A%22d%3A%5C%5CDesktop%5C%5CAIN%5C%5CWS%2025_26%5C%5CSoftware%20Engineering%5C%5CProgramme_Scala%5C%5CPokemon%5C%5Cbuild.sbt%22%2C%22ref%22%3A%2247e99f830e91036a3ff909d0b2b6f30d7cfe270c%22%7D"
+  ]
+}
+java.nio.file.FileSystemNotFoundException: Provider "git" not installed
+	at java.base/java.nio.file.Path.of(Path.java:213)
+	at java.base/java.nio.file.Paths.get(Paths.java:98)
+	at scala.meta.internal.mtags.MtagsEnrichments$XtensionURIMtags.toAbsolutePath(MtagsEnrichments.scala:149)
+	at scala.meta.internal.mtags.MtagsEnrichments$XtensionStringMtags.toAbsolutePath(MtagsEnrichments.scala:209)
+	at scala.meta.internal.metals.MetalsEnrichments$XtensionString.toAbsolutePath(MetalsEnrichments.scala:796)
+	at scala.meta.internal.metals.MetalsEnrichments$XtensionString.toAbsolutePath(MetalsEnrichments.scala:793)
+	at scala.meta.internal.metals.WorkspaceLspService.didFocus(WorkspaceLspService.scala:786)
+	at scala.meta.metals.lsp.DelegatingScalaService.didFocus(DelegatingScalaService.scala:42)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint.lambda$recursiveFindRpcMethods$0(GenericEndpoint.java:65)
+	at org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint.notify(GenericEndpoint.java:160)
+	at org.eclipse.lsp4j.jsonrpc.RemoteEndpoint.handleNotification(RemoteEndpoint.java:231)
+	at org.eclipse.lsp4j.jsonrpc.RemoteEndpoint.consume(RemoteEndpoint.java:198)
+	at org.eclipse.lsp4j.jsonrpc.json.StreamMessageProducer.handleMessage(StreamMessageProducer.java:185)
+	at org.eclipse.lsp4j.jsonrpc.json.StreamMessageProducer.listen(StreamMessageProducer.java:97)
+	at org.eclipse.lsp4j.jsonrpc.json.ConcurrentMessageProcessor.run(ConcurrentMessageProcessor.java:114)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+2025.11.13 18:51:44 INFO  compiling root (1 scala source)
+2025.11.13 18:51:44 INFO  time: compiled root in 0.4s
+2025.11.13 18:51:45 WARN  Could not find semantic tokens for: file:///D:/Desktop/AIN/WS%2025_26/Software%20Engineering/Programme_Scala/Pokemon/src/main/scala/controller/Controller.scala
+2025.11.13 18:51:55 INFO  compiling root (1 scala source)
+2025.11.13 18:51:55 INFO  time: compiled root in 0.79s
+2025.11.13 18:52:07 INFO  compiling root (2 scala sources)
+2025.11.13 18:52:07 WARN  Could not find semantic tokens for: file:///D:/Desktop/AIN/WS%2025_26/Software%20Engineering/Programme_Scala/Pokemon/src/main/scala/controller/ControllerImpl.scala
+2025.11.13 18:52:07 WARN  Could not load snapshot text for D:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon\src\main\scala\controller\ControllerImpl.scala
+2025.11.13 18:52:07 INFO  time: compiled root in 0.48s
+2025.11.13 18:52:08 WARN  Could not load snapshot text for D:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon\src\main\scala\controller\ControllerImpl.scala
+2025.11.13 18:52:09 WARN  Could not load snapshot text for D:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon\src\main\scala\controller\ControllerImpl.scala
+2025.11.13 18:52:11 WARN  Could not load snapshot text for D:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon\src\main\scala\controller\ControllerImpl.scala
+2025.11.13 18:52:13 INFO  compiling root (2 scala sources)
+2025.11.13 18:52:13 INFO  time: compiled root in 0.38s
+2025.11.13 18:52:13 WARN  Could not load snapshot text for D:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon\src\main\scala\controller\ControllerImpl.scala
+2025.11.13 18:52:22 WARN  Could not load snapshot text for D:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon\src\main\scala\controller\ControllerImpl.scala
+2025.11.13 18:52:37 INFO  compiling root (3 scala sources)
+2025.11.13 18:52:37 WARN  Could not find semantic tokens for: file:///D:/Desktop/AIN/WS%2025_26/Software%20Engineering/Programme_Scala/Pokemon/src/main/scala/view/Tui.scala
+2025.11.13 18:52:37 INFO  time: compiled root in 0.32s
+2025.11.13 18:52:37 WARN  Could not load snapshot text for D:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon\src\main\scala\view\Tui.scala
+2025.11.13 18:52:39 WARN  Could not load snapshot text for D:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon\src\main\scala\view\Tui.scala
+2025.11.13 18:52:40 WARN  Could not load snapshot text for D:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon\src\main\scala\view\Tui.scala
+2025.11.13 18:52:41 INFO  compiling root (3 scala sources)
+2025.11.13 18:52:41 INFO  time: compiled root in 0.41s
+2025.11.13 18:52:41 WARN  Could not load snapshot text for D:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon\src\main\scala\view\Tui.scala
+2025.11.13 18:53:01 INFO  compiling root (7 scala sources)
+2025.11.13 18:53:01 INFO  time: compiled root in 0.37s
+2025.11.13 18:53:28 INFO  compiling root (7 scala sources)
+2025.11.13 18:53:28 INFO  time: compiled root in 0.38s
+2025.11.13 18:53:30 INFO  compiling root (7 scala sources)
+2025.11.13 18:53:30 INFO  time: compiled root in 0.35s
+2025.11.13 18:53:31 INFO  compiling root (7 scala sources)
+2025.11.13 18:53:31 INFO  time: compiled root in 0.33s
+2025.11.13 18:53:35 INFO  time: evaluated worksheet 'test.worksheet.sc' in 0.82s
+2025.11.13 18:53:36 ERROR worksheet: D:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon\src\main\scala\test.worksheet.sc
+java.nio.file.NoSuchFileException: D:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon\src\main\scala\test.worksheet.sc
+	at sun.nio.fs.WindowsException.translateToIOException(WindowsException.java:85)
+	at sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:103)
+	at sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:108)
+	at sun.nio.fs.WindowsFileSystemProvider.newByteChannel(WindowsFileSystemProvider.java:234)
+	at java.nio.file.Files.newByteChannel(Files.java:380)
+	at java.nio.file.Files.newByteChannel(Files.java:432)
+	at java.nio.file.Files.readAllBytes(Files.java:3281)
+	at scala.meta.internal.io.PlatformFileIO$.slurp(PlatformFileIO.scala:42)
+	at scala.meta.internal.io.FileIO$.slurp(FileIO.scala:18)
+	at scala.meta.internal.mtags.ScalametaCommonEnrichments$XtensionAbsolutePath.toInput(ScalametaCommonEnrichments.scala:509)
+	at scala.meta.internal.metals.MetalsEnrichments$XtensionAbsolutePathBuffers.toInputFromBuffers(MetalsEnrichments.scala:641)
+	at scala.meta.internal.worksheets.WorksheetProvider.scala$meta$internal$worksheets$WorksheetProvider$$evaluateWorksheet(WorksheetProvider.scala:450)
+	at scala.meta.internal.worksheets.WorksheetProvider$$anon$1.liftedTree1$1(WorksheetProvider.scala:334)
+	at scala.meta.internal.worksheets.WorksheetProvider$$anon$1.run(WorksheetProvider.scala:334)
+
+2025.11.13 18:53:36 ERROR worksheet: D:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon\src\main\scala\test.worksheet.sc
+java.nio.file.NoSuchFileException: D:\Desktop\AIN\WS 25_26\Software Engineering\Programme_Scala\Pokemon\src\main\scala\test.worksheet.sc
+	at sun.nio.fs.WindowsException.translateToIOException(WindowsException.java:85)
+	at sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:103)
+	at sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:108)
+	at sun.nio.fs.WindowsFileSystemProvider.newByteChannel(WindowsFileSystemProvider.java:234)
+	at java.nio.file.Files.newByteChannel(Files.java:380)
+	at java.nio.file.Files.newByteChannel(Files.java:432)
+	at java.nio.file.Files.readAllBytes(Files.java:3281)
+	at scala.meta.internal.io.PlatformFileIO$.slurp(PlatformFileIO.scala:42)
+	at scala.meta.internal.io.FileIO$.slurp(FileIO.scala:18)
+	at scala.meta.internal.mtags.ScalametaCommonEnrichments$XtensionAbsolutePath.toInput(ScalametaCommonEnrichments.scala:509)
+	at scala.meta.internal.metals.MetalsEnrichments$XtensionAbsolutePathBuffers.toInputFromBuffers(MetalsEnrichments.scala:641)
+	at scala.meta.internal.worksheets.WorksheetProvider.scala$meta$internal$worksheets$WorksheetProvider$$evaluateWorksheet(WorksheetProvider.scala:450)
+	at scala.meta.internal.worksheets.WorksheetProvider$$anon$1.liftedTree1$1(WorksheetProvider.scala:334)
+	at scala.meta.internal.worksheets.WorksheetProvider$$anon$1.run(WorksheetProvider.scala:334)
+
+2025.11.13 18:53:36 INFO  time: evaluated worksheet 'test.worksheet.sc' in 1ms
+2025.11.13 18:53:42 INFO  compiling root (7 scala sources)
+2025.11.13 18:53:42 INFO  time: compiled root in 0.2s
+2025.11.13 18:53:47 INFO  compiling root (7 scala sources)
+2025.11.13 18:53:47 INFO  time: compiled root in 0.15s
+2025.11.13 18:53:52 INFO  compiling root (7 scala sources)
+2025.11.13 18:53:52 INFO  time: compiled root in 0.79s
+2025.11.13 18:54:57 INFO  compiling root (1 scala source)
+2025.11.13 18:54:57 INFO  time: compiled root in 0.27s
+2025.11.13 18:56:45 INFO  compiling root (1 scala source)
+2025.11.13 18:56:45 INFO  time: compiled root in 0.24s
+2025.11.13 18:56:57 INFO  compiling root (1 scala source)
+2025.11.13 18:56:57 INFO  time: compiled root in 0.26s
+2025.11.13 18:57:03 INFO  compiling root (1 scala source)
+2025.11.13 18:57:03 INFO  time: compiled root in 0.21s
+2025.11.13 18:57:15 INFO  compiling root (1 scala source)
+2025.11.13 18:57:15 INFO  time: compiled root in 0.12s
+2025.11.13 18:57:23 INFO  compiling root (1 scala source)
+2025.11.13 18:57:23 INFO  time: compiled root in 0.24s
+2025.11.13 18:57:53 INFO  compiling root (1 scala source)
+2025.11.13 18:57:53 INFO  time: compiled root in 0.22s
+2025.11.13 18:58:01 INFO  compiling root (1 scala source)
+2025.11.13 18:58:01 INFO  time: compiled root in 0.19s
+2025.11.13 18:58:38 INFO  compiling root (1 scala source)
+2025.11.13 18:58:38 INFO  time: compiled root in 0.25s
