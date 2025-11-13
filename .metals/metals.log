@@ -7580,3 +7580,109 @@ INFORMATION: Unsupported notification method: $/setTrace
 2025.11.13 19:15:03 INFO  time: compiled root-test in 0.14s
 2025.11.13 19:15:09 INFO  compiling root-test (1 scala source)
 2025.11.13 19:15:11 INFO  time: compiled root-test in 1.71s
+2025.11.13 19:16:19 INFO  compiling root-test (1 scala source)
+2025.11.13 19:16:20 INFO  time: compiled root-test in 1.14s
+2025.11.13 19:24:21 INFO  compiling root (1 scala source)
+2025.11.13 19:24:24 INFO  time: compiled root in 2.05s
+2025.11.13 19:26:17 INFO  compiling root (1 scala source)
+2025.11.13 19:26:19 INFO  time: compiled root in 1.72s
+Nov. 13, 2025 7:26:32 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNUNG: Unmatched cancel notification for request id 939
+2025.11.13 19:28:54 INFO  compiling root (1 scala source)
+2025.11.13 19:28:55 INFO  time: compiled root in 1.72s
+2025.11.13 19:30:31 INFO  compiling root (1 scala source)
+2025.11.13 19:30:31 INFO  time: compiled root in 0.77s
+Exception in thread "pool-8-thread-1" java.lang.InterruptedException
+	at scala.meta.internal.metals.FutureCancelToken.checkCanceled(FutureCancelToken.scala:29)
+	at scala.meta.internal.pc.CompilerAccess.onCompilerJobQueue$$anonfun$1(CompilerAccess.scala:208)
+	at scala.meta.internal.pc.CompilerJobQueue$Job.run(CompilerJobQueue.scala:153)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Exception in thread "pool-8-thread-2" java.lang.InterruptedException
+	at scala.meta.internal.metals.FutureCancelToken.checkCanceled(FutureCancelToken.scala:29)
+	at scala.meta.internal.pc.CompilerAccess.onCompilerJobQueue$$anonfun$1(CompilerAccess.scala:208)
+	at scala.meta.internal.pc.CompilerJobQueue$Job.run(CompilerJobQueue.scala:153)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025.11.13 19:33:07 INFO  compiling root (1 scala source)
+2025.11.13 19:33:09 INFO  time: compiled root in 1.38s
+2025.11.13 19:39:30 INFO  compiling root (1 scala source)
+2025.11.13 19:39:32 INFO  time: compiled root in 1.41s
+2025.11.13 19:39:32 INFO  compiling root (3 scala sources)
+2025.11.13 19:39:33 INFO  time: compiled root in 1.11s
+2025.11.13 19:39:42 INFO  compiling root (2 scala sources)
+2025.11.13 19:39:42 INFO  time: compiled root in 0.57s
+2025.11.13 19:39:42 INFO  compiling root (3 scala sources)
+2025.11.13 19:39:43 INFO  time: compiled root in 0.61s
+2025.11.13 19:39:52 INFO  compiling root (3 scala sources)
+2025.11.13 19:39:52 INFO  time: compiled root in 0.35s
+2025.11.13 19:40:11 INFO  compiling root (3 scala sources)
+2025.11.13 19:40:11 INFO  time: compiled root in 0.39s
+2025.11.13 19:40:31 INFO  compiling root (3 scala sources)
+2025.11.13 19:40:31 WARN  Could not find semantic tokens for: file:///D:/Desktop/AIN/WS%2025_26/Software%20Engineering/Programme_Scala/Pokemon/src/test/scala/model/PokemonTypeSpec.scala
+2025.11.13 19:40:31 INFO  time: compiled root in 0.34s
+2025.11.13 19:40:35 INFO  compiling root (3 scala sources)
+2025.11.13 19:40:35 INFO  time: compiled root in 0.25s
+2025.11.13 19:41:32 INFO  compiling root (7 scala sources)
+2025.11.13 19:41:32 INFO  time: compiled root in 0.91s
+2025.11.13 19:42:32 INFO  file:///D:/Desktop/AIN/WS%2025_26/Software%20Engineering/Programme_Scala/Pokemon/src/main/scala/view/Tui.scala:14:43: stale bloop error: Cyclic reference involving val <import>
+
+ Run with -explain-cyclic for more details.
+class TUI(controller: Controller) extends Observer {
+                                          ^
+2025.11.13 19:42:32 INFO  file:///D:/Desktop/AIN/WS%2025_26/Software%20Engineering/Programme_Scala/Pokemon/src/main/scala/view/Tui.scala:4:8: stale bloop error: value util is not a member of de.htwg
+import de.htwg.util.Observer
+       ^^^^^^^^^^^^
+2025.11.13 19:42:32 INFO  file:///D:/Desktop/AIN/WS%2025_26/Software%20Engineering/Programme_Scala/Pokemon/src/main/scala/view/Tui.scala:15:26: stale bloop error: Found:    (TUI.this : de.htwg.view.TUI)
+Required: de.htwg.controller.Observer
+  controller.addObserver(this)
+                         ^^^^
+2025.11.13 19:42:32 WARN  Could not find semantic tokens for: file:///D:/Desktop/AIN/WS%2025_26/Software%20Engineering/Programme_Scala/Pokemon/src/main/scala/view/Tui.scala
+2025.11.13 19:43:46 WARN  Could not find semantic tokens for: file:///D:/Desktop/AIN/WS%2025_26/Software%20Engineering/Programme_Scala/Pokemon/src/main/scala/view/Tui.scala
+2025.11.13 19:44:47 INFO  compiling root (7 scala sources)
+2025.11.13 19:44:48 INFO  time: compiled root in 1.49s
+2025.11.13 19:45:42 INFO  compiling root (7 scala sources)
+2025.11.13 19:45:44 INFO  time: compiled root in 1.28s
+Nov. 13, 2025 7:46:52 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNUNG: Unmatched cancel notification for request id 2021
+Nov. 13, 2025 7:46:53 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNUNG: Unmatched cancel notification for request id 2032
+2025.11.13 19:46:55 INFO  compiling root (1 scala source)
+2025.11.13 19:46:55 INFO  time: compiled root in 0.41s
+2025.11.13 19:47:27 INFO  compiling root-test (2 scala sources)
+2025.11.13 19:47:28 INFO  time: compiled root-test in 1.06s
+Exception in thread "pool-11-thread-1" java.lang.InterruptedException
+	at scala.meta.internal.metals.FutureCancelToken.checkCanceled(FutureCancelToken.scala:29)
+	at scala.meta.internal.pc.CompilerAccess.onCompilerJobQueue$$anonfun$1(CompilerAccess.scala:208)
+	at scala.meta.internal.pc.CompilerJobQueue$Job.run(CompilerJobQueue.scala:153)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025.11.13 19:48:12 INFO  compiling root-test (2 scala sources)
+2025.11.13 19:48:12 INFO  time: compiled root-test in 0.84s
+2025.11.13 19:48:19 INFO  compiling root-test (1 scala source)
+2025.11.13 19:48:19 INFO  time: compiled root-test in 0.53s
+2025.11.13 19:53:21 INFO  compiling root-test (1 scala source)
+2025.11.13 19:53:24 INFO  time: compiled root-test in 3.17s
+2025.11.13 19:53:43 INFO  compiling root-test (1 scala source)
+2025.11.13 19:53:43 WARN  Could not find semantic tokens for: file:///D:/Desktop/AIN/WS%2025_26/Software%20Engineering/Programme_Scala/Pokemon/src/test/scala/model/AttackSpec.scala
+2025.11.13 19:53:43 INFO  time: compiled root-test in 0.1s
+2025.11.13 19:53:45 INFO  compiling root-test (1 scala source)
+2025.11.13 19:53:45 INFO  time: compiled root-test in 0.76s
+Nov. 13, 2025 7:53:58 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNUNG: Unmatched cancel notification for request id 2322
+2025.11.13 19:53:58 INFO  compiling root-test (1 scala source)
+2025.11.13 19:53:58 INFO  time: compiled root-test in 0.63s
+2025.11.13 19:54:11 INFO  compiling root-test (1 scala source)
+2025.11.13 19:54:11 WARN  Could not find semantic tokens for: file:///D:/Desktop/AIN/WS%2025_26/Software%20Engineering/Programme_Scala/Pokemon/src/test/scala/model/ControllerImplSpec.scala
+2025.11.13 19:54:11 INFO  time: compiled root-test in 63ms
+2025.11.13 19:54:12 WARN  Could not find semantic tokens for: file:///D:/Desktop/AIN/WS%2025_26/Software%20Engineering/Programme_Scala/Pokemon/src/test/scala/model/ControllerImplSpec.scala
+2025.11.13 19:54:15 INFO  compiling root-test (1 scala source)
+2025.11.13 19:54:15 INFO  time: compiled root-test in 0.78s
+2025.11.13 19:54:26 INFO  compiling root-test (1 scala source)
+2025.11.13 19:54:26 WARN  Could not find semantic tokens for: file:///D:/Desktop/AIN/WS%2025_26/Software%20Engineering/Programme_Scala/Pokemon/src/test/scala/model/TuiSpec.scala
+2025.11.13 19:54:26 INFO  time: compiled root-test in 65ms
+2025.11.13 19:54:29 INFO  compiling root-test (1 scala source)
+2025.11.13 19:54:29 INFO  time: compiled root-test in 0.53s
