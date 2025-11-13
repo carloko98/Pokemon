@@ -7570,3 +7570,13 @@ java.nio.file.NoSuchFileException: D:\Desktop\AIN\WS 25_26\Software Engineering\
 2025.11.13 18:58:01 INFO  time: compiled root in 0.19s
 2025.11.13 18:58:38 INFO  compiling root (1 scala source)
 2025.11.13 18:58:38 INFO  time: compiled root in 0.25s
+Nov. 13, 2025 7:04:34 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFORMATION: Unsupported notification method: $/setTrace
+2025.11.13 19:12:45 INFO  compiling root-test (1 scala source)
+2025.11.13 19:12:46 INFO  time: compiled root-test in 1.06s
+2025.11.13 19:15:03 INFO  compiling root-test (1 scala source)
+2025.11.13 19:15:03 WARN  Could not find semantic tokens for: file:///D:/Desktop/AIN/WS%2025_26/Software%20Engineering/Programme_Scala/Pokemon/src/test/scala/model/PokemonTest.scala
+2025.11.13 19:15:03 WARN  Invalid text document uri received from build server: file:///D:/Desktop/AIN/WS%2025_26/Software%20Engineering/Programme_Scala/Pokemon/src/test/scala/uiTest.scala
+2025.11.13 19:15:03 INFO  time: compiled root-test in 0.14s
+2025.11.13 19:15:09 INFO  compiling root-test (1 scala source)
+2025.11.13 19:15:11 INFO  time: compiled root-test in 1.71s
