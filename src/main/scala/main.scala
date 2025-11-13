@@ -7,7 +7,7 @@ import de.htwg.view.Tui
 
 @main def runBattleUI(): Unit = {
   // Angriffe erstellen
-  val tackle = Attack("Tackle", 6, PokemonType.Normal)
+  val tackle = Attack("Tackle", 11, PokemonType.Normal)
   val bubble = Attack("Bubble", 8, PokemonType.Water)
 
   // Pokémon erstellen – OHNE LEVEL!
