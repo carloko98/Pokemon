@@ -1,4 +1,4 @@
-// src/main/scala/de/htwg/view/Tui.scala
+
 package de.htwg.view
 
 import de.htwg.controller.{Controller, Observer}
@@ -6,7 +6,7 @@ import de.htwg.model.{Pokemon, Attack}
 import scala.io.StdIn.readLine
 
 /**
- * Pokémon-Style TUI mit Rahmen, HP-Balken, Sprites und dynamischem Menü
+ * Pokemon-Style TUI mit Rahmen, HP-Balken, Sprites und dynamischem Menü
  */
 class Tui(controller: Controller) extends Observer {
 
@@ -22,7 +22,7 @@ class Tui(controller: Controller) extends Observer {
   }
   private val border = "+" + "-" * (width - 2) + "+"
 
-  // Sprite-Platzhalter (kann später durch ASCII-Art ersetzt werden)
+  // Sprite-Platzhalter
   private val enemySprite = " " * 27 + "HORSEA"
   private val playerSprite = " " * 27 + "PIKACHU"
 

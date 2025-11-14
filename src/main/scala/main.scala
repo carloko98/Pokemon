@@ -1,4 +1,4 @@
-// src/main/scala/de/htwg/Main.scala
+
 package de.htwg
 
 import de.htwg.model.{Pokemon, Attack, PokemonType}
@@ -10,7 +10,7 @@ import de.htwg.view.Tui
   val tackle = Attack("Tackle", 6, PokemonType.Normal)
   val bubble = Attack("Bubble", 4, PokemonType.Water)
 
-  // Pokémon erstellen – OHNE LEVEL!
+  // Pokemon erstellen NOCH OHNE LEVEL
   val enemy = Pokemon(
     name = "HORSEA",
     pType = PokemonType.Water,

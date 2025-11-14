@@ -1,7 +1,7 @@
 package de.htwg.model
 
 /**
- * Pokémon-Typen-Enum mit **vollständiger Effektivitäts-Matrix** (Gen 9+ Standard)
+ * Pokemon-Typen-Enum mit **vollständiger Effektivitäts-Matrix** (Gen 9+ Standard)
  * 
  * - **2.0** = super effektiv ("Sehr effektiv!")
  * - **0.5** = nicht sehr effektiv ("Nicht sehr effektiv...")
