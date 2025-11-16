@@ -1,16 +1,16 @@
 
-package de.htwg
+package de.htwg.se
 
-import de.htwg.model.{Pokemon, Attack, PokemonType}
-import de.htwg.controller.ControllerImpl
-import de.htwg.view.Tui
+import de.htwg.se.model.{Pokemon, Attack, PokemonType}
+import de.htwg.se.controller.ControllerImpl
+import de.htwg.se.view.Tui
 
 @main def runBattleUI(): Unit = {
-  // Angriffe erstellen
+  // Angriffe und Pokemon erstellen
   val tackle = Attack("Tackle", 6, PokemonType.Normal)
   val bubble = Attack("Bubble", 4, PokemonType.Water)
 
-  // Pokemon erstellen NOCH OHNE LEVEL
+
   val enemy = Pokemon(
     name = "HORSEA",
     pType = PokemonType.Water,
@@ -27,11 +27,10 @@ import de.htwg.view.Tui
     attacks = Vector(tackle)
   )
 
-  // Controller und View starten
+  // Eigentliche Main
   val ctrl = new ControllerImpl(player, enemy)
   val tui = new Tui(ctrl)
 
-  // Spiel starten
   tui.intro()
   tui.render()
   tui.inputLoop()

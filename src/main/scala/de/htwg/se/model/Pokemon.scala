@@ -1,4 +1,6 @@
-package de.htwg.model
+package de.htwg.se.model
+
+import de.htwg.se.model.PokemonType
 
 /**
  * Pokémon-Klasse (Model-Layer)

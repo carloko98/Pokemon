@@ -1,8 +1,8 @@
 
-package de.htwg.view
+package de.htwg.se.view
 
-import de.htwg.controller.{Controller, Observer}
-import de.htwg.model.{Pokemon, Attack}
+import de.htwg.se.controller.{Controller, Observer}
+import de.htwg.se.model.{Pokemon, Attack}
 import scala.io.StdIn.readLine
 
 /**

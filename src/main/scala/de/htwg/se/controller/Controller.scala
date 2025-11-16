@@ -1,6 +1,6 @@
-package de.htwg.controller
+package de.htwg.se.controller
 
-import de.htwg.model.{Pokemon, Attack}
+import de.htwg.se.model.{Pokemon, Attack}
 
 // Öffentliche Schnittstelle für die View (TUI)
 trait Controller {

@@ -1,4 +1,4 @@
-package de.htwg.model
+package de.htwg.se.model
 
 /**
  * Pokemon-Typen-Enum mit **vollständiger Effektivitäts-Matrix** (Gen 9+ Standard)

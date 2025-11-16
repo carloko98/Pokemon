@@ -1,10 +1,11 @@
-package de.htwg.controller
+package de.htwg.se.controller
 
 
-import de.htwg.model.{Pokemon, Attack, PokemonType} 
+import de.htwg.se.model.{Pokemon, Attack, PokemonType} 
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
+import de.htwg.se.controller.{Controller, ControllerImpl, Observer}
 
 /**
  * Test-Spezifikation für den ControllerImpl.

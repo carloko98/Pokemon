@@ -1,6 +1,6 @@
-package de.htwg.controller
+package de.htwg.se.controller
 
-import de.htwg.model.{Pokemon, Attack, PokemonType}
+import de.htwg.se.model.{Pokemon, Attack, PokemonType}
 import scala.util.Random
 
 /**

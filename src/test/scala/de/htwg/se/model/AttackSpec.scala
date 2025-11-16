@@ -1,7 +1,8 @@
-package de.htwg.model
+package de.htwg.se.model
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
+import de.htwg.se.model.Attack
 
 class AttackSpec extends AnyWordSpec {
 

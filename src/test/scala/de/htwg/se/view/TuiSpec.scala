@@ -1,7 +1,8 @@
-package de.htwg.view
+package de.htwg.se.view
 
-import de.htwg.controller.{Controller, ControllerImpl, Observer}
-import de.htwg.model.{Pokemon, Attack, PokemonType}
+import de.htwg.se.controller.{Controller, Observer}
+import de.htwg.se.controller.ControllerImpl
+import de.htwg.se.model.{Pokemon, Attack, PokemonType}
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 import java.io.{ByteArrayOutputStream, PrintStream}

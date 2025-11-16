@@ -1,4 +1,4 @@
-package de.htwg.model
+package de.htwg.se.model
 
 // Angriff: Name, Schaden, Typ
 case class Attack(
