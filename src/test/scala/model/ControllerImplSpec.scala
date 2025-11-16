@@ -37,7 +37,7 @@ class ControllerImplSpec extends AnyWordSpec {
    * Verwendet Pokémon mit niedriger HP für Sieg/Niederlage-Tests.
    */
   def createTestController: (ControllerImpl, Pokemon, Pokemon, Attack) = {
-    // Diese Pokémon sind spezifisch für die Sieg/Niederlage-Tests
+
     val pikachuTest = Pokemon("PIKACHU", PokemonType.Electric, 34, 34, Vector(electroBall, tackle))
     val horseaTest = Pokemon("HORSEA", PokemonType.Water, 40, 40, Vector(bubble, tackle))
     

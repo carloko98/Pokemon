@@ -22,6 +22,8 @@ class ControllerImpl(var player: Pokemon, var enemy: Pokemon) extends Controller
   private var msg2 = ""                             // Zeile 2 der Ausgabe
   private val observers = scala.collection.mutable.ListBuffer[Observer]()  // Observer-Liste
 
+  //keie´ne vars
+
   // ==================== OBSERVER-PATTERN (Vorlesung: Inversion of Control) ====================
   override def addObserver(o: Observer): Unit = observers += o
   override def notifyObservers(): Unit = observers.foreach(_.update())
