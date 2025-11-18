@@ -2,7 +2,7 @@
 package de.htwg.se
 
 import de.htwg.se.model.{Pokemon, Attack, PokemonType}
-import de.htwg.se.controller.ControllerImpl
+import de.htwg.se.controller.Controller
 import de.htwg.se.view.Tui
 
 @main def runBattleUI(): Unit = {
@@ -28,10 +28,9 @@ import de.htwg.se.view.Tui
   )
 
   // Eigentliche Main
-  val ctrl = new ControllerImpl(player, enemy)
+  val ctrl = new Controller(player, enemy)
   val tui = new Tui(ctrl)
 
   tui.intro()
-  tui.render()
   tui.inputLoop()
 }
