@@ -1,18 +1,17 @@
-ThisBuild / version := "0.1.0-SNAPSHOT"
-
-ThisBuild / scalaVersion := "3.3.7"
+val scala3Version = "3.3.7"
 
 lazy val root = (project in file("."))
   .settings(
     name := "Pokemon",
-   // idePackagePrefix := Some("de.htwg")
+    version := "0.1.0-SNAPSHOT",
+
+    scalaVersion := scala3Version,
+
+    // Bibliotheken hier drinnen definieren
+    libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.18" % Test,
+
+    // --- COVERAGE EINSTELLUNGEN ---
+   
+    coverageExcludedPackages := ".*view.*",
+    coverageExcludedFiles := "(?i).*main.scala"
   )
-
-libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.18" % Test
-
-
-
-// alles, was nicht bewertet werden soll (z. B. Templates, Main)
-coverageExcludedPackages := "de\\.htwg\\..*"
-coverageExcludedFiles := ".*Main\\.scala"
-coverageExcludedPackages := ".*view.*;.*Main.*"

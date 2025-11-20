@@ -4,6 +4,7 @@ import de.htwg.se.controller.Controller
 import de.htwg.se.util.Observer
 import scala.io.StdIn.readLine
 
+// $COVERAGE-OFF$
 class Tui(controller: Controller) extends Observer {
 
   controller.add(this) 
@@ -97,3 +98,4 @@ class Tui(controller: Controller) extends Observer {
     readLine()
   }
 }
+// $COVERAGE-ON$

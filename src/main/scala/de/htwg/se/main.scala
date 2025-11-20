@@ -4,6 +4,7 @@ import de.htwg.se.model.{Pokemon, Attack, PokemonType}
 import de.htwg.se.controller.Controller
 import de.htwg.se.view.Tui
 
+// $COVERAGE-OFF$
 @main def runBattleUI(): Unit = {
   val tackle = Attack("Tackle", 6, PokemonType.Normal)
   val bubble = Attack("Bubble", 4, PokemonType.Water)
@@ -30,3 +31,4 @@ import de.htwg.se.view.Tui
   tui.intro()
   tui.inputLoop()
 }
+// $COVERAGE-ON$
