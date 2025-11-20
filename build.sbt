@@ -15,3 +15,4 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.18" % Test
 // alles, was nicht bewertet werden soll (z. B. Templates, Main)
 coverageExcludedPackages := "de\\.htwg\\..*"
 coverageExcludedFiles := ".*Main\\.scala"
+coverageExcludedPackages := ".*view.*;.*Main.*"
