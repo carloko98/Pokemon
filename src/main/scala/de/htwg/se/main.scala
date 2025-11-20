@@ -1,4 +1,3 @@
-
 package de.htwg.se
 
 import de.htwg.se.model.{Pokemon, Attack, PokemonType}
@@ -6,10 +5,8 @@ import de.htwg.se.controller.Controller
 import de.htwg.se.view.Tui
 
 @main def runBattleUI(): Unit = {
-  // Angriffe und Pokemon erstellen
   val tackle = Attack("Tackle", 6, PokemonType.Normal)
   val bubble = Attack("Bubble", 4, PokemonType.Water)
-
 
   val enemy = Pokemon(
     name = "HORSEA",
@@ -27,7 +24,6 @@ import de.htwg.se.view.Tui
     attacks = Vector(tackle)
   )
 
-  // Eigentliche Main
   val ctrl = new Controller(player, enemy)
   val tui = new Tui(ctrl)
 

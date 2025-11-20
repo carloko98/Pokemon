@@ -1,26 +1,11 @@
 package de.htwg.se.model
-
-/**
- * Pokemon-Typen-Enum mit **vollständiger Effektivitäts-Matrix** (Gen 9+ Standard)
- * 
- * - **2.0** = super effektiv ("Sehr effektiv!")
- * - **0.5** = nicht sehr effektiv ("Nicht sehr effektiv...")
- * - **0.0** = immun ("Hat keine Wirkung!")
- * - **1.0** = neutral
- * 
- * **MVC-konform**: Logik im Model (unterste Schicht)
- * **Quelle**: Pokémon Database (pokemondb.net/type)
- */
+ 
 enum PokemonType {
   case Normal, Fire, Water, Grass, Electric, Ice, Fighting, Poison, Ground,
        Flying, Psychic, Bug, Rock, Ghost, Dragon, Dark, Steel, Fairy
 
-  /**
-   * **Kernmethode**: Berechnet Schadensmultiplikator gegen Verteidiger-Typ
-   * 
-   * @param defender Der Typ des Ziel-Pokémons
-   * @return Multiplikator als Double (2.0, 0.5, 0.0, 1.0)
-   */
+   //**Quelle**: Pokémon Database (pokemondb.net/type)
+
   def effectivenessAgainst(defender: PokemonType): Double = (this, defender) match {
     
     // =====================================================
