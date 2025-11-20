@@ -1,3 +1,9 @@
+# Pokémon
+
+[![Scala CI](https://github.com/CARLOKO98/Pokemon/actions/workflows/scala.yml/badge.svg)](https://github.com/CARLOKO98/Pokemon/actions/workflows/scala.yml)
+[![Coverage Status](https://coveralls.io/repos/github/CARLOKO98/Pokemon/badge.svg?branch=main)](https://coveralls.io/github/CARLOKO98/Pokemon?branch=main)
+
+Ein scala-basiertes Pokémon-Spiel...
 ## Features
 - Vollständiges **MVC-Pattern**
 - **Immutable Model** (`Pokemon.withHp`)
