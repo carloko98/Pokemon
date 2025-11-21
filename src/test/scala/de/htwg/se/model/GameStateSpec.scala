@@ -29,7 +29,7 @@ class GameStateSpec extends AnyWordSpec with Matchers {
       s1 should not be theSameInstanceAs(s2)
     }
 
-    "nur geänderte Felder überschreiben" in {
+    "nur geaenderte Felder ueberschreiben" in {
       val s1 = GameState(pikachu, horsea)
       val s2 = s1.copy(enemy = s1.enemy.withHp(10))
       val s3 = s2.copy(battleOver = true, msg1 = "Gewonnen!")
