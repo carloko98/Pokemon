@@ -4,26 +4,10 @@ import de.htwg.se.controller.Controller
 import de.htwg.se.util.Observer
 import scala.io.StdIn.readLine
 
-// $COVERAGE-OFF$
-class Tui(controller: Controller) extends Observer {
+class Tui(val controller: Controller) extends Observer {
 
-  controller.add(this) 
+  controller.add(this)
 
-  // Konstanten für die Anzeige
-  private val width = 62
-  private def pad(s: String): String = s + " " * (width - 4 - s.length).max(0)
-  private def line(txt: String): String = s"| ${pad(txt)} |"
-  private def hpBar(cur: Int, max: Int): String = {
-    val filled = ((cur.toDouble / max) * 13).round.toInt.min(13).max(0)
-    "#" * filled + "-" * (13 - filled)
-  }
-  private val border = "+" + "-" * (width - 2) + "+"
-  private val enemySprite = " " * 27 + "HORSEA"
-  private val playerSprite = " " * 27 + "PIKACHU"
-  private def clearScreen(): Unit = print("\u001b[2J\u001b[H")
-
-
-  
   override def update(): Unit = {
     render()
   }
@@ -59,7 +43,8 @@ class Tui(controller: Controller) extends Observer {
       Seq(line(""), line(m1), line(m2))
     } else Seq(line(""))
 
-    val menuLines = if (!controller.battleOver) {
+    // Zugriff über Getter
+    val menuLines = if (!controller.isBattleOver) {
       val attacks = p.attacks.zipWithIndex.map { case (atk, i) =>
         s"  ${i + 1}. ${atk.name} (${atk.damage} DMG, ${atk.attackType})"
       }
@@ -75,7 +60,7 @@ class Tui(controller: Controller) extends Observer {
   def inputLoop(): Unit = {
     render() 
 
-    while (!controller.battleOver) {
+    while (!controller.isBattleOver) {
       val input = readLine().trim.toLowerCase
 
       input match {
@@ -97,5 +82,16 @@ class Tui(controller: Controller) extends Observer {
     println("\nDruecke Enter, um zu beenden...")
     readLine()
   }
+
+  private val width = 62
+  private def pad(s: String): String = s + " " * (width - 4 - s.length).max(0)
+  private def line(txt: String): String = s"| ${pad(txt)} |"
+  private def hpBar(cur: Int, max: Int): String = {
+    val filled = ((cur.toDouble / max) * 13).round.toInt.min(13).max(0)
+    "#" * filled + "-" * (13 - filled)
+  }
+  private val border = "+" + "-" * (width - 2) + "+"
+  private val enemySprite = " " * 27 + "HORSEA"
+  private val playerSprite = " " * 27 + "PIKACHU"
+  private def clearScreen(): Unit = print("\u001b[2J\u001b[H")
 }
-// $COVERAGE-ON$
