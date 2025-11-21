@@ -19,7 +19,7 @@ class GameStateSpec extends AnyWordSpec with Matchers {
       state.msg2 should be("")
     }
 
-    "immutable sein – copy erzeugt neue Instanz" in {
+    "immutable sein - copy erzeugt neue Instanz" in {
       val s1 = GameState(pikachu, horsea)
       val s2 = s1.copy(msg1 = "Angriff!", battleOver = true)
 
