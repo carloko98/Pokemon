@@ -43,7 +43,7 @@ class Tui(val controller: Controller) extends Observer {
       Seq(line(""), line(m1), line(m2))
     } else Seq(line(""))
 
-    // Zugriff über Getter
+
     val menuLines = if (!controller.isBattleOver) {
       val attacks = p.attacks.zipWithIndex.map { case (atk, i) =>
         s"  ${i + 1}. ${atk.name} (${atk.damage} DMG, ${atk.attackType})"

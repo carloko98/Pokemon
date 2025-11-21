@@ -21,23 +21,18 @@ class Controller(player: Pokemon, enemy: Pokemon) extends Observable {
     val currentEnemy = gameState.enemy
     val currentPlayer = gameState.player
 
-    // 2. Berechnung
     val eff = attack.attackType.effectivenessAgainst(currentEnemy.pType)
     val damage = (attack.damage * eff).toInt
     val newEnemy = currentEnemy.withHp(currentEnemy.currentHp - damage)
 
-    // 3. STATE UPDATE (mit copy!)
-    // Wir erstellen einen neuen State basierend auf dem alten
     gameState = gameState.copy(
       enemy = newEnemy,
       msg1 = s"${currentPlayer.name} setzte ${attack.name} ein!",
       msg2 = s"${damage} Schaden an ${currentEnemy.name}!${effMsg(eff)}"
     )
     
-    // 4. Bescheid sagen
     notifyObservers()
 
-    // Check ob Gegner besiegt
     if (newEnemy.isFainted) {
       endBattle(true)
       return
@@ -50,7 +45,7 @@ class Controller(player: Pokemon, enemy: Pokemon) extends Observable {
     val damage2 = (enemyAtk.damage * eff2).toInt
     val newPlayer = currentPlayer.withHp(currentPlayer.currentHp - damage2)
 
-    // STATE UPDATE 2 (Gegner-Angriff)
+
     gameState = gameState.copy(
       player = newPlayer,
       msg1 = s"${newEnemy.name} setzte ${enemyAtk.name} ein!",

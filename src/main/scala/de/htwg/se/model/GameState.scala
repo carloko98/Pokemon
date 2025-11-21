@@ -1,7 +1,6 @@
 package de.htwg.se.model
 
 
-
 case class GameState(
     player: Pokemon,
     enemy: Pokemon,
