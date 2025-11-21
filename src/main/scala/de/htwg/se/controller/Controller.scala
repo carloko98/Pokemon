@@ -38,6 +38,8 @@ class Controller(player: Pokemon, enemy: Pokemon) extends Observable {
       return
     }
 
+    Thread.sleep(2000)
+
     // --- Gegner Zug ---
     val rnd = Random()
     val enemyAtk = newEnemy.attacks(rnd.nextInt(newEnemy.attacks.size))
