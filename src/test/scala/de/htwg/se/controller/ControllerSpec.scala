@@ -115,5 +115,13 @@ class ControllerSpec extends AnyWordSpec {
       val msgNeutral = method.invoke(ctrl, 1.0).asInstanceOf[String]
       msgNeutral should be("")
     }
+    "nicht erneut fliehen können, wenn der Kampf bereits vorbei ist" in {
+      val ctrl = new Controller(basePikachu.copy(), baseHorsea.copy())
+      ctrl.doFlee()
+      val msgBefore = ctrl.getMessage
+      ctrl.doFlee()
+      ctrl.getMessage should be(msgBefore)
+      ctrl.isBattleOver should be(true)
+    }
   }
 }
