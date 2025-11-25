@@ -1,22 +1,28 @@
 package de.htwg.se.controller.state
 
-import de.htwg.se.model.{GameState, Attack}
+import de.htwg.se.controller.state.ControllerState
+import de.htwg.se.model.{GameState, Attack, BattleLogic}
 
-case class PlayerAttackState(gameState: GameState) extends ControllerState {
+// Nimmt jetzt 'logic' im Konstruktor entgegen
+case class PlayerAttackState(gameState: GameState, logic: BattleLogic) extends ControllerState {
 
   override def handle(input: String): ControllerState = input match {
     case "f" | "fliehen" =>
-      val newGameState = gameState.copy(
-        battleOver = true,
-        msg1 = "Du bist geflohen!",
-        msg2 = "Zurück im Menü."
-      )
-      MenuState(newGameState)
+      if (logic.isFleeingAllowed) {
+        val newGameState = gameState.copy(
+          battleOver = true,
+          msg1 = "Du bist geflohen!",
+          msg2 = "Zurück im Menü."
+        )
+        MenuState(newGameState)
+      } else {
+        val newGameState = gameState.copy(msg2 = "Flucht unmöglich! (Trainer Kampf)")
+        copy(gameState = newGameState)
+      }
 
     case s if s.forall(_.isDigit) && s.nonEmpty =>
       val index = s.toInt - 1
       val attacks = gameState.player.activePokemon.attacks
-      
       if (index >= 0 && index < attacks.length) {
         executePlayerAttack(attacks(index))
       } else {
@@ -35,6 +41,7 @@ case class PlayerAttackState(gameState: GameState) extends ControllerState {
     val activePlayerPoke = currentPlayer.activePokemon
     val activeEnemyPoke = currentEnemy.activePokemon
 
+
     val eff = attack.attackType.effectivenessAgainst(activeEnemyPoke.pType)
     val damage = (attack.damage * eff).toInt
     val newEnemyPoke = activeEnemyPoke.withHp(activeEnemyPoke.currentHp - damage)
@@ -47,14 +54,16 @@ case class PlayerAttackState(gameState: GameState) extends ControllerState {
     )
 
     if (newEnemy.isActiveFainted) {
+      val winMsg = logic.getWinMessage(currentPlayer.name)
+      
       val winState = intermediateGameState.copy(
         battleOver = true,
-        msg1 = "Gewonnen!",
-        msg2 = s"${newEnemy.activePokemon.name} besiegt! Zurück im Menü."
+        msg1 = "GEWONNEN!",
+        msg2 = winMsg
       )
       MenuState(winState)
     } else {
-      EnemyTurnState(intermediateGameState)
+      EnemyAttackState(intermediateGameState, logic)
     }
   }
   

@@ -1,9 +1,10 @@
 package de.htwg.se.controller.state
 
-import de.htwg.se.model.GameState
+import de.htwg.se.controller.state.ControllerState
+import de.htwg.se.model.{GameState, BattleLogic}
 import scala.util.Random
 
-case class EnemyTurnState(gameState: GameState) extends ControllerState {
+case class EnemyAttackState(gameState: GameState, logic: BattleLogic) extends ControllerState {
 
   override def handle(input: String): ControllerState = {
     executeEnemyAttack()
@@ -15,11 +16,11 @@ case class EnemyTurnState(gameState: GameState) extends ControllerState {
     val activeEnemyPoke = currentEnemy.activePokemon
     val activePlayerPoke = currentPlayer.activePokemon
 
-    // --- SIMPLE KI ---
     val rnd = new Random()
     val enemyAtk = activeEnemyPoke.attacks(rnd.nextInt(activeEnemyPoke.attacks.size))
     val eff = enemyAtk.attackType.effectivenessAgainst(activePlayerPoke.pType)
     val damage = (enemyAtk.damage * eff).toInt
+    
     val newPlayerPoke = activePlayerPoke.withHp(activePlayerPoke.currentHp - damage)
     val newPlayer = currentPlayer.updatePokemon(newPlayerPoke)
 
@@ -30,14 +31,16 @@ case class EnemyTurnState(gameState: GameState) extends ControllerState {
     )
 
     if (newPlayer.isActiveFainted) {
+       val lossMsg = logic.getLossMessage(currentPlayer.name)
+       
        val looseState = finalGameState.copy(
         battleOver = true,
-        msg1 = "Verloren!",
-        msg2 = s"${newPlayer.activePokemon.name} besiegt! Zurück im Menü."
+        msg1 = "VERLOREN!",
+        msg2 = lossMsg
       )
         MenuState(looseState)
     } else {
-      PlayerAttackState(finalGameState)
+      PlayerAttackState(finalGameState, logic)
     }
   }
 

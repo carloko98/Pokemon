@@ -6,20 +6,15 @@
 Ein scala-basiertes Pokémon-Spiel...
 ## Features
 - Vollständiges **MVC-Pattern**
-- **Immutable Model** (`Pokemon.withHp`)
-- **Komplette Typ-Effektivitäts-Matrix** (Gen 9)
-- **TUI** mit HP-Balken, Rahmen, dynamischem Menü
-- **Observer-Pattern** (Controller → TUI)
-- **100 % Testabdeckung** (Scoverage)
+```bash
+Design Pattern:
 
-## Tests
-- `PokemonSpec`: Immutabilität, HP-Clamping
-- `PokemonTypeSpec`: Alle 324 Typ-Kombinationen
-- `ControllerImplSpec`: Angriff, Flucht, Sieg/Niederlage
-- `TuiSpec`: Rendering, HP-Balken
+    - StatePattern in controller/state/*
+    - FactoryPattern in model/PokemonFactory
+    - TemplatePattern in model/BattleLogic
+```
 
-## Coverage
-![Scoverage 100%](docs/coverage.png)
+
 
 ## Ausführung
 ```bash
