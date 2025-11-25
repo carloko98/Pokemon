@@ -1,6 +1,7 @@
 package de.htwg.se.view
 
 import de.htwg.se.controller.Controller
+import de.htwg.se.controller.state.{MenuState, PlayerAttackState, EnemyTurnState}
 import de.htwg.se.util.Observer
 import scala.io.StdIn.readLine
 
@@ -14,18 +15,41 @@ class Tui(val controller: Controller) extends Observer {
 
   def intro(): Unit = {
     clearScreen()
-    println(border)
-    // Hier greifen wir auf den Namen des Gegners (Trainer) UND dessen aktives Pokemon zu
-    println(line(s"${controller.getEnemy.name} fordert dich heraus!"))
-    println(line(s"Er schickt ${controller.getEnemyPokemon.name} in den Kampf!"))
-    println(border)
-    Thread.sleep(1800)
+    println("POKEMON SCALA EDITION")
+    println("... lade Texturen ...")
+    Thread.sleep(1000)
+    // Das erste Render wird durch den Observer-Update oder inputLoop getriggert
   }
 
   def render(): Unit = {
-    val (m1, m2) = controller.getMessage
+    clearScreen()
     
-    // WICHTIG: Wir holen uns hier direkt die aktiven Pokemon für die Anzeige
+    // Hier hat der Case gefehlt:
+    controller.state match {
+      case MenuState(_) =>
+        println(border)
+        println(line("HAUPTMENUE"))
+        println(line(""))
+        println(line("s. Neues Spiel starten"))
+        println(line("q. Beenden"))
+        println(border)
+        val (m1, m2) = controller.getMessage
+        if (m1.nonEmpty) println(s"\n$m1\n$m2")
+
+      // Wenn der Spieler dran ist: Zeige Attacken (true)
+      case PlayerAttackState(_) =>
+        renderBattle(showActions = true)
+
+      // NEU: Wenn der Gegner dran ist: Zeige nur "Weiter" (false)
+      case EnemyTurnState(_) =>
+        renderBattle(showActions = false)
+    }
+  }
+  
+  // Hilfsmethode (falls du sie noch nicht angepasst hattest):
+  private def renderBattle(showActions: Boolean): Unit = {
+    val (m1, m2) = controller.getMessage
+    // Achtung: Nutze die neuen Getter vom Controller!
     val e = controller.getEnemyPokemon
     val p = controller.getPlayerPokemon
 
@@ -47,57 +71,42 @@ class Tui(val controller: Controller) extends Observer {
       Seq(line(""), line(m1), line(m2))
     } else Seq(line(""))
 
-
-    val menuLines = if (!controller.isBattleOver) {
-      // Auch hier: Zugriff auf die Attacken des aktiven Pokemons
+    val menuLines = if (showActions) {
+      // PlayerAttackState: Zeige Menü
       val attacks = p.attacks.zipWithIndex.map { case (atk, i) =>
         s"  ${i + 1}. ${atk.name} (${atk.damage} DMG, ${atk.attackType})"
       }
       val flee = "  f. Fliehen"
-      Seq(line("Waehle eine Aktion:"), line(attacks.mkString("  |  ")), line(flee))
-    } else Seq.empty
+      Seq(line("Kampf-Aktion waehlen:"), line(attacks.mkString(" | ")), line(flee))
+    } else {
+      // EnemyTurnState: Zeige nur Info
+      Seq(line(""), line(">> Druecke Enter fuer Gegnerzug... <<"))
+    }
 
-    clearScreen()
     val allLines = Seq(border) ++ enemyLines ++ playerLines ++ msgLines ++ menuLines ++ Seq(border)
     println(allLines.mkString("\n"))
   }
 
   def inputLoop(): Unit = {
     render() 
-
-    while (!controller.isBattleOver) {
+    // Endlosschleife: Wir lesen Input und geben ihn einfach an den Controller weiter.
+    // Der Controller (bzw. der aktuelle State) entscheidet, was passiert.
+    while (true) {
       val input = readLine().trim.toLowerCase
-
-      input match {
-        case "f" =>
-          controller.doFlee()
-
-        case s if s.forall(_.isDigit) && s.nonEmpty =>
-          val choice = s.toInt
-          // Zugriff auf Attacken des aktiven Spieler-Pokemons
-          val attacks = controller.getPlayerPokemon.attacks
-          if (choice >= 1 && choice <= attacks.length) {
-            controller.doPlayerAttack(attacks(choice - 1))
-          } else {
-            println("Ungueltige Eingabe")
-          }
-        case _ => println("Ungueltige Eingabe")
-      }
+      controller.handleInput(input)
     }
-    
-    println("\nDruecke Enter, um zu beenden...")
-    readLine()
   }
 
-  private val width = 62
+  // --- Hilfsmethoden für Layout ---
+  private val width = 80 
   private def pad(s: String): String = s + " " * (width - 4 - s.length).max(0)
   private def line(txt: String): String = s"| ${pad(txt)} |"
   private def hpBar(cur: Int, max: Int): String = {
-    val filled = ((cur.toDouble / max) * 13).round.toInt.min(13).max(0)
-    "#" * filled + "-" * (13 - filled)
+    val filled = ((cur.toDouble / max) * 20).round.toInt.min(20).max(0)
+    "#" * filled + "-" * (20 - filled)
   }
   private val border = "+" + "-" * (width - 2) + "+"
-  private val enemySprite = " " * 27 + "/^\\" // Simpler Platzhalter
-  private val playerSprite = " " * 27 + "(o.o)" // Simpler Platzhalter
+  private val enemySprite = " " * 40 
+  private val playerSprite = " " * 10 
   private def clearScreen(): Unit = print("\u001b[2J\u001b[H")
 }

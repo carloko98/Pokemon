@@ -23,6 +23,6 @@ object PokemonFactory {
   
   // spaeter zu random machen
   def createRandomEnemy(): Player = {
-    createPlayer("Team Rocket Rüpel", Vector("Rattfratz", "Zubat"))
+    createPlayer("Team Rocket Rüpel", Vector("Bisaflor", "Zubat"))
   }
 }
