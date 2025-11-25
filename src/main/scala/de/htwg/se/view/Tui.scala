@@ -15,18 +15,22 @@ class Tui(val controller: Controller) extends Observer {
   def intro(): Unit = {
     clearScreen()
     println(border)
-    println(line(s"Ein wildes ${controller.getEnemy.name} ist erschienen!"))
+    // Hier greifen wir auf den Namen des Gegners (Trainer) UND dessen aktives Pokemon zu
+    println(line(s"${controller.getEnemy.name} fordert dich heraus!"))
+    println(line(s"Er schickt ${controller.getEnemyPokemon.name} in den Kampf!"))
     println(border)
     Thread.sleep(1800)
   }
 
   def render(): Unit = {
     val (m1, m2) = controller.getMessage
-    val e = controller.getEnemy
-    val p = controller.getPlayer
+    
+    // WICHTIG: Wir holen uns hier direkt die aktiven Pokemon für die Anzeige
+    val e = controller.getEnemyPokemon
+    val p = controller.getPlayerPokemon
 
     val enemyLines = Seq(
-      line(s"  ${e.name}"),
+      line(s"  ${e.name} (${e.pType})"),
       line(s"  HP: [${hpBar(e.currentHp, e.maxHp)}] ${e.currentHp}/${e.maxHp}"),
       line(""),
       line(enemySprite)
@@ -35,7 +39,7 @@ class Tui(val controller: Controller) extends Observer {
     val playerLines = Seq(
       line(playerSprite),
       line(""),
-      line(s"  ${p.name}"),
+      line(s"  ${p.name} (${p.pType})"),
       line(s"  HP: [${hpBar(p.currentHp, p.maxHp)}] ${p.currentHp}/${p.maxHp}")
     )
 
@@ -45,6 +49,7 @@ class Tui(val controller: Controller) extends Observer {
 
 
     val menuLines = if (!controller.isBattleOver) {
+      // Auch hier: Zugriff auf die Attacken des aktiven Pokemons
       val attacks = p.attacks.zipWithIndex.map { case (atk, i) =>
         s"  ${i + 1}. ${atk.name} (${atk.damage} DMG, ${atk.attackType})"
       }
@@ -67,15 +72,16 @@ class Tui(val controller: Controller) extends Observer {
         case "f" =>
           controller.doFlee()
 
-        case s if s.forall(_.isDigit) =>
+        case s if s.forall(_.isDigit) && s.nonEmpty =>
           val choice = s.toInt
-          val attacks = controller.getPlayer.attacks
+          // Zugriff auf Attacken des aktiven Spieler-Pokemons
+          val attacks = controller.getPlayerPokemon.attacks
           if (choice >= 1 && choice <= attacks.length) {
             controller.doPlayerAttack(attacks(choice - 1))
           } else {
-            println("Ungültige Eingabe")
+            println("Ungueltige Eingabe")
           }
-        case _ => println("Ungültige Eingabe")
+        case _ => println("Ungueltige Eingabe")
       }
     }
     
@@ -91,7 +97,7 @@ class Tui(val controller: Controller) extends Observer {
     "#" * filled + "-" * (13 - filled)
   }
   private val border = "+" + "-" * (width - 2) + "+"
-  private val enemySprite = " " * 27 + "HORSEA"
-  private val playerSprite = " " * 27 + "PIKACHU"
+  private val enemySprite = " " * 27 + "/^\\" // Simpler Platzhalter
+  private val playerSprite = " " * 27 + "(o.o)" // Simpler Platzhalter
   private def clearScreen(): Unit = print("\u001b[2J\u001b[H")
 }

@@ -1,15 +1,19 @@
 package de.htwg.se.controller
 
-import de.htwg.se.model.{Pokemon, Attack, GameState}
+import de.htwg.se.model.{Player, Attack, GameState, Pokemon}
 import de.htwg.se.util.Observable
 import scala.util.Random
 
-class Controller(player: Pokemon, enemy: Pokemon) extends Observable {
+class Controller(initialPlayer: Player, initialEnemy: Player) extends Observable {
 
-  var gameState: GameState = GameState(player, enemy)
+  var gameState: GameState = GameState(initialPlayer, initialEnemy)
 
-  def getPlayer: Pokemon = gameState.player
-  def getEnemy: Pokemon = gameState.enemy
+  // Getter Tui
+  def getPlayer: Player = gameState.player
+  def getEnemy: Player = gameState.enemy
+  def getPlayerPokemon: Pokemon = gameState.player.activePokemon
+  def getEnemyPokemon: Pokemon = gameState.enemy.activePokemon
+
   def isBattleOver: Boolean = gameState.battleOver
   def getMessage: (String, String) = (gameState.msg1, gameState.msg2)
 
@@ -21,9 +25,10 @@ class Controller(player: Pokemon, enemy: Pokemon) extends Observable {
     val currentEnemy = gameState.enemy
     val currentPlayer = gameState.player
 
-    val eff = attack.attackType.effectivenessAgainst(currentEnemy.pType)
+    val eff = attack.attackType.effectivenessAgainst(currentEnemy.activePokemon.pType)
     val damage = (attack.damage * eff).toInt
-    val newEnemy = currentEnemy.withHp(currentEnemy.currentHp - damage)
+    val newEnemyPokemon = currentEnemy.activePokemon.withHp(currentEnemy.activePokemon.currentHp - damage)
+    val newEnemy = currentEnemy.updatePokemon(newEnemyPokemon)
 
     gameState = gameState.copy(
       enemy = newEnemy,
@@ -33,30 +38,34 @@ class Controller(player: Pokemon, enemy: Pokemon) extends Observable {
     
     notifyObservers()
 
-    if (newEnemy.isFainted) {
+    if (newEnemy.isActiveFainted) {
+      // spaeter pruefen i=ob noch andere pokemon vorhanden
       endBattle(true)
       return
     }
 
     Thread.sleep(2000)
-
-    // --- Gegner Zug ---
+    doEnemyTurn(newEnemy, currentPlayer)
+  }
+    private def doEnemyTurn(currentEnemy: Player, currentPlayer: Player): Unit = {
     val rnd = Random()
-    val enemyAtk = newEnemy.attacks(rnd.nextInt(newEnemy.attacks.size))
-    val eff2 = enemyAtk.attackType.effectivenessAgainst(currentPlayer.pType)
+    val enemyAtk = currentEnemy.activePokemon.attacks(rnd.nextInt(currentEnemy.activePokemon.attacks.size))
+    val eff2 = enemyAtk.attackType.effectivenessAgainst(currentPlayer.activePokemon.pType)
     val damage2 = (enemyAtk.damage * eff2).toInt
-    val newPlayer = currentPlayer.withHp(currentPlayer.currentHp - damage2)
+    val newPlayerPokemon = currentPlayer.activePokemon.withHp(currentPlayer.activePokemon.currentHp - damage2)
+    val newPlayer = currentPlayer.updatePokemon(newPlayerPokemon)
 
 
     gameState = gameState.copy(
       player = newPlayer,
-      msg1 = s"${newEnemy.name} setzte ${enemyAtk.name} ein!",
+      msg1 = s"${currentEnemy.name} setzte ${enemyAtk.name} ein!",
       msg2 = s"${damage2} Schaden an ${currentPlayer.name}!${effMsg(eff2)}"
     )
 
     notifyObservers()
 
-    if (newPlayer.isFainted) endBattle(false)
+    // spaeter pruefen i=ob noch andere pokemon vorhanden
+    if (newPlayer.isActiveFainted) endBattle(false)
   }
 
   def doFlee(): Unit = {
@@ -71,13 +80,13 @@ class Controller(player: Pokemon, enemy: Pokemon) extends Observable {
   }
 
   private def endBattle(won: Boolean): Unit = {
-    val e = gameState.enemy
-    val p = gameState.player
+    val winnerName = if(won) gameState.player.name else gameState.enemy.name
+    val loserPokemon = if(won) gameState.enemy.activePokemon.name else gameState.player.activePokemon.name
     
     gameState = gameState.copy(
       battleOver = true,
-      msg1 = if (won) "Du hast gewonnen!" else "Du hast verloren!",
-      msg2 = if (won) s"${e.name} ist besiegt!" else s"${p.name} ist besiegt!"
+      msg1 = if (won) "Gewonnen!" else "Verloren!",
+      msg2 = s"$loserPokemon wurde besiegt! Sieger: $winnerName"
     )
     notifyObservers()
   }
