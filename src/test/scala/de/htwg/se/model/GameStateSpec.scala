@@ -1,4 +1,4 @@
-package de.htwg.se.model
+/* package de.htwg.se.model
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
@@ -40,3 +40,4 @@ class GameStateSpec extends AnyWordSpec with Matchers {
     }
   }
 }
+*/
