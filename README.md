@@ -11,7 +11,10 @@ Design Pattern:
 
     - StatePattern in controller/state/*
     - FactoryPattern in model/PokemonFactory
-    - TemplatePattern in model/BattleLogic
+    - TemplatePattern in model/BattleLogic executeAttack ist das Template 
+    - Strategy Pattern model/BattleLogic
+    - Memento Patter model/GameMemento controller/Controller saveGame loadGame
+    - Singleton Pattern PokemonDBS, PokemonFactory, WildBattleLogic enthalten keine Daten
 ```
 
 

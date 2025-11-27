@@ -1,7 +1,7 @@
 package de.htwg.se.view
 
 import de.htwg.se.controller.Controller
-import de.htwg.se.controller.state.{MenuState, PlayerAttackState, EnemyAttackState}
+import de.htwg.se.controller.state.{MenuState, PlayerAttackState, EnemyAttackState, NameInputState, SelectProfileState, TitleState}
 import de.htwg.se.util.Observer
 import scala.io.StdIn.readLine
 
@@ -24,13 +24,24 @@ class Tui(val controller: Controller) extends Observer {
     clearScreen()
     
     controller.state match {
-      
+
+      case TitleState(_) =>
+        println(border)
+        println(line("POKEMON SCALA EDITION"))
+        println(line(""))
+        println(line("n. Neues Spiel"))
+        println(line("l. Spiel laden"))
+        println(line("q. Beenden"))
+        println(border)
+        val (_, m2) = controller.getMessage
+        if (m2.nonEmpty) println(s"\n$m2")
+
       case MenuState(_) =>
         println(border)
         println(line("HAUPTMENUE"))
         println(line(""))
         println(line("s. Wilden Kampf starten"))   
-        println(line("t. Trainer Kampf starten"))  
+        println(line("t. Trainer Kampf starten")) 
         println(line("q. Beenden"))
         println(border)
         val (m1, m2) = controller.getMessage
@@ -41,6 +52,36 @@ class Tui(val controller: Controller) extends Observer {
 
       case EnemyAttackState(_, _) =>
         renderBattle(showActions = false)
+      
+      case NameInputState(_) =>
+        println(border)
+        println(line("NEUES SPIEL"))
+        println(line(""))
+        println(line("Wie heisst du, Trainer?"))
+        println(line(""))
+        println(line(">>> Tippe Namen und Enter <<<"))
+        println(border)
+        val (m1, m2) = controller.getMessage
+        if (m2.nonEmpty) println(s"\n$m2") // Fehlermeldung bei leerem Namen
+
+      case SelectProfileState(_) =>
+        println(border)
+        println(line("SPIEL LADEN"))
+        println(line(""))
+        println(line("Verfuegbare Profile:"))
+        
+        val saves = controller.getAvailableSaves
+        if (saves.isEmpty) {
+            println(line("  - Keine Spielstaende gefunden -"))
+        } else {
+            saves.foreach(name => println(line(s"  * $name")))
+        }
+        
+        println(line(""))
+        println(line("Gib den Namen ein (oder 'b' fuer Zurueck):"))
+        println(border)
+        val (m1, m2) = controller.getMessage
+        if (m2.nonEmpty) println(s"\n$m2") // Fehlermeldung "Profil nicht gefunden"
     }
   }
   

@@ -5,12 +5,12 @@ import de.htwg.se.controller.Controller
 import de.htwg.se.view.Tui
 
 @main def runBattleUI(): Unit = {
-  
-  val player = PokemonFactory.createPlayer("Ash Ketchum", Vector("Glurak", "Bisaflor"))
-  val enemy = PokemonFactory.createRandomEnemy()
-  val ctrl = new Controller(player, enemy)
-  val tui = new Tui(ctrl)
 
+  val dummyPlayer = PokemonFactory.createPlayer("Gast", Vector("Glurak"))
+  val dummyEnemy = PokemonFactory.createRandomEnemy()
+
+  val ctrl = new Controller(dummyPlayer, dummyEnemy)
+  val tui = new Tui(ctrl)
   tui.intro()
   tui.inputLoop()
 }
