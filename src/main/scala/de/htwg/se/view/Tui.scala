@@ -3,6 +3,7 @@ package de.htwg.se.view
 import de.htwg.se.controller.Controller
 import de.htwg.se.util.Observer
 import scala.io.StdIn.readLine
+import de.htwg.se.model.Command._
 
 class Tui(val controller: Controller) extends Observer {
 
@@ -65,13 +66,13 @@ class Tui(val controller: Controller) extends Observer {
 
       input match {
         case "f" =>
-          controller.doFlee()
+          controller.execute(FleeCommand)                 // Jetzt mit Command!
 
         case s if s.forall(_.isDigit) =>
           val choice = s.toInt
           val attacks = controller.getPlayer.attacks
           if (choice >= 1 && choice <= attacks.length) {
-            controller.doPlayerAttack(attacks(choice - 1))
+            controller.execute(AttackCommand(attacks(choice - 1)))  // Jetzt mit Command!
           } else {
             println("Ungültige Eingabe")
           }
