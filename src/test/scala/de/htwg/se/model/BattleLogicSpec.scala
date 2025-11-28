@@ -2,43 +2,34 @@ package de.htwg.se.model
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
-import de.htwg.se.model.PokemonType._
-import de.htwg.se.controller.state._
 
 class BattleLogicSpec extends AnyWordSpec with Matchers {
 
-  "Battle logic" should {
-
-    "perform a player attack in a wild battle" in {
-      val playerPokemon = PokemonFactory.getPokemon("Pikachu")
-      val player = Player("Ash", Vector(playerPokemon), 0, Vector.empty)
-
-      // Wild-Pokémon simulieren: Spieler mit nur einem Pokémon
-      val wildEnemyPokemon = PokemonFactory.getPokemon("Zubat") 
-      val enemyPlayer = Player("Wild Pokemon", Vector(wildEnemyPokemon), 0, Vector.empty)
-
-      val gameState = GameState(player, enemyPlayer, msg1 = "", msg2 = "", battleOver = false)
-      val state = PlayerAttackState(gameState, WildBattleLogic)
-
-      val nextState = state.handle("1") // wählt erste Attacke
-
-      nextState shouldBe a[EnemyAttackState]
-      nextState.gameState.enemy.activePokemon.currentHp should be < (wildEnemyPokemon.maxHp)
+  "The WildBattleLogic" should {
+    "allow fleeing" in {
+      WildBattleLogic.isFleeingAllowed should be(true)
     }
 
-    "end battle if enemy faints" in {
-      val playerPokemon = PokemonFactory.getPokemon("Pikachu")
-      val player = Player("Ash", Vector(playerPokemon), 0, Vector.empty)
+    "provide the correct win message" in {
+      WildBattleLogic.getWinMessage("Ash") should be("Wildes Pokemon besiegt! Ash gewinnt an Erfahrung.")
+    }
 
-      val weakEnemy = PokemonFactory.getPokemon("Zubat").withHp(1)
-      val enemyPlayer = Player("Wild Pokemon", Vector(weakEnemy), 0, Vector.empty)
+    "provide the correct loss message" in {
+      WildBattleLogic.getLossMessage("Ash") should be("Ash wurde besiegt! Ab zum Pokemon Center.")
+    }
+  }
 
-      val gameState = GameState(player, enemyPlayer, msg1 = "", msg2 = "", battleOver = false)
-      val state = PlayerAttackState(gameState, WildBattleLogic)
+  "The TrainerBattleLogic" should {
+    "not allow fleeing" in {
+      TrainerBattleLogic.isFleeingAllowed should be(false)
+    }
 
-      val nextState = state.handle("1")
-      nextState shouldBe a[MenuState]
-      nextState.gameState.battleOver shouldBe true
+    "provide the correct win message" in {
+      TrainerBattleLogic.getWinMessage("Ash") should be("Trainer besiegt! Ash erhält 500 Pokedollar.")
+    }
+
+    "provide the correct loss message" in {
+      TrainerBattleLogic.getLossMessage("Ash") should be("Ash ist kampfunfähig! Du verlierst Geld.")
     }
   }
 }

@@ -2,28 +2,34 @@ package de.htwg.se.model
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
-import de.htwg.se.model.PokemonType._
+import de.htwg.se.model.PokemonType.Fire
 
 class PokemonSpec extends AnyWordSpec with Matchers {
 
-  val tackle = Attack("Tackle", 40, Normal)
-  val bubble = Attack("Bubble", 4, Water)
-
   "A Pokemon" should {
-    "have correct attacks" in {
-      val horsea = Pokemon("Horsea", Water, 50, 50, Vector(tackle, bubble))
-      horsea.attacks should contain(tackle)
+    val attack = Attack("Glut", 20, Fire)
+    val pokemon = Pokemon("Glumanda", Fire, 100, 50, Vector(attack))
+
+    "have a correct toString representation" in {
+      pokemon.toString should be("Glumanda (HP: 50/100)")
     }
 
-    "update HP correctly" in {
-      val pikachu = Pokemon("Pikachu", Electric, 100, 100, Vector(tackle))
-      val damaged = pikachu.withHp(50)
-      damaged.currentHp shouldBe 50
+    "correctly update HP with withHp" in {
+      val damagedPokemon = pokemon.withHp(30)
+      damagedPokemon.currentHp should be(30)
+
+      val healedOverMax = pokemon.withHp(200)
+      healedOverMax.currentHp should be(100)
+
+      val deadPokemon = pokemon.withHp(-50)
+      deadPokemon.currentHp should be(0)
     }
 
-    "faint correctly" in {
-      val pikachu = Pokemon("Pikachu", Electric, 100, 0, Vector(tackle))
-      pikachu.isFainted shouldBe true
+    "correctly detect if it is fainted" in {
+      pokemon.isFainted should be(false)
+      
+      val deadPokemon = pokemon.withHp(0)
+      deadPokemon.isFainted should be(true)
     }
   }
 }
