@@ -4,114 +4,97 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
 import de.htwg.se.model._
 import de.htwg.se.controller.state._
-import de.htwg.se.model.PokemonType._
+import java.io.File
 
 class ControllerSpec extends AnyWordSpec with Matchers {
 
-  val pikachu = Pokemon(
-    name = "Pikachu",
-    maxHp = 100,
-    currentHp = 100,
-    pType = Electric,
-    attacks = Vector(
-      Attack("Thunder Shock", 40, Electric),
-      Attack("Quick Attack", 30, Normal)
-    )
-  )
-
-  val charizard = Pokemon(
-    name = "Charizard",
-    maxHp = 150,
-    currentHp = 150,
-    pType = Fire,
-    attacks = Vector(
-      Attack("Flamethrower", 90, Fire),
-      Attack("Slash", 70, Normal)
-    )
-  )
-
   "A Controller" should {
+    val pokemon = Pokemon("TestMon", PokemonType.Fire, 100, 100, Vector(Attack("Hit", 10, PokemonType.Normal)))
+    val player = Player("TestControllerUser", Vector(pokemon))
+    val enemy = Player("Enemy", Vector(pokemon))
+    
+    val controller = new Controller(player, enemy)
 
     "start in TitleState" in {
-      val controller = new Controller(
-        Player("Ash", Vector(pikachu), 0, Vector.empty),
-        Player("Gary", Vector(charizard), 0, Vector.empty)
-      )
-      controller.state shouldBe a[TitleState]
+      controller.state shouldBe a [TitleState]
     }
 
-    "handle NameInputState correctly" in {
-      val initialState = NameInputState(GameState(
-        player = Player("Ash", Vector(pikachu), 0, Vector.empty),
-        enemy = Player("Gary", Vector(charizard), 0, Vector.empty)
-      ))
-
-      val next = initialState.handle("Eevee")
-      next shouldBe a[MenuState]
-      next.gameState.player.name shouldBe "Eevee"
-    }
-
-    "start a wild battle from MenuState" in {
-      val menu = MenuState(GameState(
-        player = Player("Ash", Vector(pikachu), 0, Vector.empty),
-        enemy = Player("MissingNo", Vector.empty), // Wild Pokemon
-        battleOver = false
-      ))
-
-      val next = menu.handle("s")
-      next shouldBe a[PlayerAttackState]
-      next.gameState.battleOver shouldBe false
-    }
-
-    "start a trainer battle from MenuState" in {
-      val menu = MenuState(GameState(
-        player = Player("Ash", Vector(pikachu), 0, Vector.empty),
-        enemy = PokemonFactory.createRandomEnemy(),
-        battleOver = false
-      ))
-
-      val next = menu.handle("t")
-      next shouldBe a[PlayerAttackState]
-      next.gameState.battleOver shouldBe false
-    }
-
-    "execute a player attack correctly" in {
-      val enemyPokemon = PokemonFactory.getPokemon("Bisaflor")
-      val enemyPlayer = Player("Team Rocket", Vector(enemyPokemon))
-      val gs = GameState(
-        player = Player("Ash", Vector(pikachu), 0, Vector.empty),
-        enemy = enemyPlayer,
-        battleOver = false
-      )
-      val state = PlayerAttackState(gs, WildBattleLogic)
-      val next = state.handle("1") // erste Attacke
+    "provide correct getters delegating to the current state" in {
+      controller.getPlayer shouldBe player
+      controller.getEnemy shouldBe enemy
       
-      // Wenn Gegner überlebt, nächste State = EnemyAttackState
-      if (next.gameState.battleOver) {
-        next shouldBe a[MenuState]
-      } else {
-        next shouldBe a[EnemyAttackState]
-        next.gameState.enemy.activePokemon.currentHp should be < enemyPokemon.maxHp
-      }
+      controller.getPlayerPokemon shouldBe pokemon
+      controller.getEnemyPokemon shouldBe pokemon
+      
+      controller.isBattleOver shouldBe false
     }
 
-    "execute enemy attack correctly" in {
-      val player = pikachu.copy(currentHp = 50)
-      val enemy = PokemonFactory.getPokemon("Zubat")
-      val gs = GameState(
-        player = Player("Ash", Vector(player), 0, Vector.empty),
-        enemy = Player("Team Rocket", Vector(enemy)),
-        battleOver = false
-      )
-      val state = EnemyAttackState(gs, WildBattleLogic)
-      val next = state.handle("any")
+    "handle 'save' input globally" in {
+      controller.handleInput("save")
+      
+      val file = new File("save_TestControllerUser.xml")
+      file.exists() should be(true)
+      
+      file.delete()
+    }
 
-      if (next.gameState.battleOver) {
-        next shouldBe a[MenuState]
-      } else {
-        next shouldBe a[PlayerAttackState]
-        next.gameState.player.activePokemon.currentHp should be < player.maxHp
-      }
+    "handle navigation 'b' (Back) in SelectProfileState" in {
+      val currentGameState = controller.state.gameState
+      controller.state = SelectProfileState(currentGameState)
+      
+      controller.handleInput("b")
+      
+      controller.state shouldBe a [TitleState]
+    }
+
+    "handle loading a non-existent profile (Error Case)" in {
+      val currentGameState = controller.state.gameState
+      controller.state = SelectProfileState(currentGameState)
+      
+      controller.handleInput("GibtsNicht")
+      
+      controller.state shouldBe a [SelectProfileState]
+      controller.state.gameState.msg2 should include ("nicht gefunden")
+    }
+
+    "handle loading an existing profile (Success Case)" in {
+      controller.saveGame()
+      
+      controller.state = SelectProfileState(controller.state.gameState)
+      
+      controller.handleInput("TestControllerUser")
+      
+      controller.state shouldBe a [MenuState]
+      controller.state.gameState.msg1 should include ("geladen")
+      
+      new File("save_TestControllerUser.xml").delete()
+    }
+
+    "trigger Auto-Save when transition from Battle to Menu happens" in {
+      val battleState = PlayerAttackState(controller.state.gameState, WildBattleLogic)
+      controller.state = battleState
+      
+      controller.handleInput("f")
+      controller.state shouldBe a [MenuState]
+      
+      val file = new File("save_TestControllerUser.xml")
+      file.exists() should be(true)
+      
+      file.delete()
+    }
+    
+    "delegate getAvailableSaves to FileIO" in {
+      controller.saveGame()
+      
+      val saves = controller.getAvailableSaves
+      saves should contain ("TestControllerUser")
+      
+      new File("save_TestControllerUser.xml").delete()
+    }
+    "return the correct message tuple" in {
+      val testGameState = controller.state.gameState.copy(msg1 = "Hallo", msg2 = "Welt")
+      controller.state = MenuState(testGameState)
+      controller.getMessage should be(("Hallo", "Welt"))
     }
   }
 }
