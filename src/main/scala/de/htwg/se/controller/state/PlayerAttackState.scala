@@ -3,44 +3,50 @@ package de.htwg.se.controller.state
 import de.htwg.se.controller.state.ControllerState
 import de.htwg.se.model.{GameState, Attack, BattleLogic}
 
-// Nimmt jetzt 'logic' im Konstruktor entgegen
 case class PlayerAttackState(gameState: GameState, logic: BattleLogic) extends ControllerState {
 
-  override def handle(input: String): ControllerState = input match {
-    case "f" | "fliehen" =>
-      if (logic.isFleeingAllowed) {
-        val newGameState = gameState.copy(
-          battleOver = true,
-          msg1 = "Du bist geflohen!",
-          msg2 = "Zurück im Menü."
-        )
-        MenuState(newGameState)
-      } else {
-        val newGameState = gameState.copy(msg2 = "Flucht unmöglich! (Trainer Kampf)")
-        copy(gameState = newGameState)
-      }
+  override def handle(input: String): ControllerState = {
+    if (input == "f" || input == "fliehen") {
+      return handleFlee()
+    }
 
-    case s if s.forall(_.isDigit) && s.nonEmpty =>
-      val index = s.toInt - 1
-      val attacks = gameState.player.activePokemon.attacks
-      if (index >= 0 && index < attacks.length) {
-        executePlayerAttack(attacks(index))
-      } else {
-        val newGameState = gameState.copy(msg2 = "Ungueltiger Angriff Index!")
-        copy(gameState = newGameState)
-      }
+    val attacks = gameState.player.activePokemon.attacks
+    
+    val selectedAttack: Option[Attack] = input.toIntOption 
+      .map(index => index - 1)                         
+      .flatMap(index => attacks.lift(index))           // gibt None bei IndexOutOfBounds
 
-    case _ =>
-      val newGameState = gameState.copy(msg2 = "Wähle Attacke (1-4) oder [f]liehen")
-      copy(gameState = newGameState)
+    selectedAttack match {
+      case Some(attack) => 
+        executePlayerAttack(attack)
+        
+      case None => 
+        val newGameState = gameState.copy(msg2 = "Ungültige Eingabe! Wähle (1-4) oder [f]liehen")
+        copy(gameState = newGameState)
+    }
   }
+
+
+  private def handleFlee(): ControllerState = {
+    if (logic.isFleeingAllowed) {
+      val newGameState = gameState.copy(
+        battleOver = true,
+        msg1 = "Du bist geflohen!",
+        msg2 = "Zurück im Menü."
+      )
+      MenuState(newGameState)
+    } else {
+      val newGameState = gameState.copy(msg2 = "Flucht unmöglich! (Trainer Kampf)")
+      copy(gameState = newGameState)
+    }
+  }
+
 
   private def executePlayerAttack(attack: Attack): ControllerState = {
     val currentPlayer = gameState.player
     val currentEnemy = gameState.enemy
     val activePlayerPoke = currentPlayer.activePokemon
     val activeEnemyPoke = currentEnemy.activePokemon
-
 
     val eff = attack.attackType.effectivenessAgainst(activeEnemyPoke.pType)
     val damage = (attack.damage * eff).toInt
@@ -55,7 +61,6 @@ case class PlayerAttackState(gameState: GameState, logic: BattleLogic) extends C
 
     if (newEnemy.isActiveFainted) {
       val winMsg = logic.getWinMessage(currentPlayer.name)
-      
       val winState = intermediateGameState.copy(
         battleOver = true,
         msg1 = "GEWONNEN!",

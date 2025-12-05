@@ -1,18 +1,16 @@
 package de.htwg.se.controller
 
 import de.htwg.se.model._
-import de.htwg.se.util.Observable
+import de.htwg.se.util.{Observable, UndoManager, Command}
 import de.htwg.se.controller.state._
 import de.htwg.se.model.fileio.XmlFileIO
 import scala.util.{Success, Failure}
-import de.htwg.se.util.{UndoManager, Command}
 
 class Controller(initialPlayer: Player, initialEnemy: Player) extends Observable {
 
   var state: ControllerState = TitleState(GameState(initialPlayer, initialEnemy))
   val fileIo = new XmlFileIO()
   private val undoManager = new UndoManager()
-
 
   def undo(): Unit = {
     undoManager.undoStep()
@@ -30,9 +28,8 @@ class Controller(initialPlayer: Player, initialEnemy: Player) extends Observable
   }
 
   class AttackCommand(input: String) extends Command {
-
-    val oldState = state 
-    val newState = state.handle(input) 
+    val oldState = state
+    val newState = state.handle(input)
 
     override def doStep(): Unit = state = newState
     override def undoStep(): Unit = state = oldState
@@ -40,7 +37,7 @@ class Controller(initialPlayer: Player, initialEnemy: Player) extends Observable
   }
 
   def handleInput(input: String): Unit = {
-    val oldState = state 
+    val oldState = state
 
     input match {
       case "z" | "undo" => undo()
@@ -61,7 +58,6 @@ class Controller(initialPlayer: Player, initialEnemy: Player) extends Observable
         }
     }
 
-   
     if (state.gameState.battleOver && !state.isInstanceOf[MenuState]) {
       state = MenuState(state.gameState)
     }
@@ -74,7 +70,6 @@ class Controller(initialPlayer: Player, initialEnemy: Player) extends Observable
     notifyObservers()
   }
 
-  
   private def wasBattleState(s: ControllerState): Boolean = {
     s.isInstanceOf[PlayerAttackState] || s.isInstanceOf[EnemyAttackState]
   }
@@ -82,8 +77,10 @@ class Controller(initialPlayer: Player, initialEnemy: Player) extends Observable
   def saveGame(): Unit = {
     val currentPlayer = state.gameState.player
     fileIo.save(currentPlayer) match {
-      case Success(_) => println(s"Spiel gespeichert: ${currentPlayer.name}")
-      case Failure(e) => println(s"Fehler beim Speichern: ${e.getMessage}")
+      case Success(_) => 
+        println(s"Spiel gespeichert: ${currentPlayer.name}")
+      case Failure(e) => 
+        println(s"Fehler beim Speichern: ${e.getMessage}")
     }
   }
 
