@@ -1,9 +1,9 @@
 <player>
-      <name>carlo</name>
+      <name>test</name>
       <team>
         <pokemon>
             <name>Glurak</name>
-            <hp>70</hp>
+            <hp>90</hp>
           </pokemon><pokemon>
             <name>Bisaflor</name>
             <hp>160</hp>

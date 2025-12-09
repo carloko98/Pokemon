@@ -1,5 +1,21 @@
 val scala3Version = "3.3.7"
 
+// Verbesserte OS-Erkennung (inkl. Apple Silicon Support)
+val osName: String = {
+  val n = System.getProperty("os.name").toLowerCase
+  val a = System.getProperty("os.arch").toLowerCase
+  if (n.contains("linux")) "linux"
+  else if (n.contains("mac")) {
+    // Prüfen ob Apple Silicon (M1/M2...) oder Intel
+    if (a == "aarch64") "mac-aarch64" else "mac"
+  }
+  else if (n.contains("windows")) "win"
+  else throw new Exception("Unknown OS")
+}
+
+// KORREKTUR: Die Version heißt im Repo "20", nicht "20.0.0"
+val javaFXVersion = "20"
+
 lazy val root = (project in file("."))
   .settings(
     name := "Pokemon",
@@ -7,12 +23,25 @@ lazy val root = (project in file("."))
 
     scalaVersion := scala3Version,
 
-    // Bibliotheken hier drinnen definieren
+    // Wichtig damit JavaFX Fenster sauber starten
+    fork := true,
+
+    // Testing & XML
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.18" % Test,
     libraryDependencies += "org.scala-lang.modules" %% "scala-xml" % "2.1.0",
 
-    // --- COVERAGE EINSTELLUNGEN ---
-   
+    // ScalaFX & JavaFX
+    libraryDependencies ++= Seq(
+      "org.scalafx" %% "scalafx" % "20.0.0-R31",
+      "org.openjfx" % "javafx-base" % javaFXVersion classifier osName,
+      "org.openjfx" % "javafx-controls" % javaFXVersion classifier osName,
+      "org.openjfx" % "javafx-fxml" % javaFXVersion classifier osName,
+      "org.openjfx" % "javafx-graphics" % javaFXVersion classifier osName,
+      "org.openjfx" % "javafx-media" % javaFXVersion classifier osName,
+      "org.openjfx" % "javafx-web" % javaFXVersion classifier osName
+    ),
+
+    // Coverage Einstellungen
     coverageExcludedPackages := ".*view.*",
     coverageExcludedFiles := "(?i).*main.scala"
   )
