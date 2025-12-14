@@ -3,10 +3,10 @@ package de.htwg.se.view.gui
 import scalafx.scene.layout.{BorderPane, VBox, HBox, Priority}
 import scalafx.scene.control.{Button, Label, ProgressBar}
 import scalafx.geometry.{Pos, Insets}
-import de.htwg.se.controller.Controller
 import de.htwg.se.controller.state.{PlayerAttackState, EnemyAttackState}
+import de.htwg.se.controller.ControllerInterface
 
-class BattleScene(controller: Controller) extends BorderPane {
+class BattleScene(controller: ControllerInterface) extends BorderPane {
 
   val playerPoke = controller.getPlayerPokemon
   val enemyPoke = controller.getEnemyPokemon

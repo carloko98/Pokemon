@@ -5,11 +5,11 @@ import scalafx.application.Platform
 import scalafx.scene.Scene
 import scalafx.scene.Parent
 import scalafx.Includes._  
-import de.htwg.se.controller.Controller
 import de.htwg.se.util.Observer
 import de.htwg.se.controller.state._
+import de.htwg.se.controller.ControllerInterface
 
-class Gui(val controller: Controller) extends JFXApp3 with Observer {
+class Gui(val controller: ControllerInterface) extends JFXApp3 with Observer {
 
   controller.add(this)
 

@@ -6,7 +6,7 @@ import de.htwg.se.controller.state._
 import de.htwg.se.model.fileio.XmlFileIO
 import scala.util.{Success, Failure}
 
-class Controller(initialPlayer: Player, initialEnemy: Player) extends Observable {
+class Controller(initialPlayer: Player, initialEnemy: Player) extends ControllerInterface {
 
   var state: ControllerState = TitleState(GameState(initialPlayer, initialEnemy))
   val fileIo = new XmlFileIO()

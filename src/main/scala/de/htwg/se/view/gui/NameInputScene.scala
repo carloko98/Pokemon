@@ -3,9 +3,9 @@ package de.htwg.se.view.gui
 import scalafx.scene.layout.VBox
 import scalafx.scene.control.{Button, Label, TextField}
 import scalafx.geometry.Pos
-import de.htwg.se.controller.Controller
+import de.htwg.se.controller.ControllerInterface
 
-class NameInputScene(controller: Controller) extends VBox {
+class NameInputScene(controller: ControllerInterface) extends VBox {
   spacing = 20
   alignment = Pos.Center
   style = "-fx-background-color: #222222;"
