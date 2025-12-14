@@ -4,7 +4,7 @@ import scalafx.application.JFXApp3
 import scalafx.application.Platform
 import scalafx.scene.Scene
 import scalafx.scene.Parent
-import scalafx.Includes._  // <--- DAS IST DER FIX! (Die "Magie")
+import scalafx.Includes._  
 import de.htwg.se.controller.Controller
 import de.htwg.se.util.Observer
 import de.htwg.se.controller.state._
@@ -36,7 +36,6 @@ class Gui(val controller: Controller) extends JFXApp3 with Observer {
       }
       
       if (stage != null && stage.scene() != null) {
-         // Dank dem Import 'Includes._' funktioniert das jetzt:
          stage.scene().root = newRoot
       }
     }

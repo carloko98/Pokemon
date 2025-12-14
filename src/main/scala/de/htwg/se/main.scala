@@ -25,12 +25,12 @@ object PokemonApp {
         System.exit(0)
       }
     }
-    // Daemon bedeutet: Wenn der Haupt-Thread (GUI) stirbt, stirbt auch dieser Thread
+    // Wenn der Haupt-Thread (GUI) stirbt, stirbt auch dieser Thread
     tuiThread.setDaemon(true) 
     tuiThread.start()
 
     // 3. GUI initialisieren und starten
-    // Die GUI blockiert den Main-Thread, deshalb am Ende
+    // Die GUI blockiert den Main-Thread
     val gui = new Gui(controller)
     gui.main(args) 
   }
