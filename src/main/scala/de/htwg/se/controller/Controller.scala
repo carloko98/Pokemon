@@ -3,13 +3,13 @@ package de.htwg.se.controller
 import de.htwg.se.model._
 import de.htwg.se.util.{Observable, UndoManager, Command}
 import de.htwg.se.controller.state._
-import de.htwg.se.model.fileio.XmlFileIO
+import de.htwg.se.model.fileio.{FileIOInterface, XmlFileIO}
 import scala.util.{Success, Failure}
 
 class Controller(initialPlayer: Player, initialEnemy: Player) extends ControllerInterface {
 
   var state: ControllerState = TitleState(GameState(initialPlayer, initialEnemy))
-  val fileIo = new XmlFileIO()
+  val fileIo: FileIOInterface = new XmlFileIO()
   private val undoManager = new UndoManager()
 
   def undo(): Unit = {

@@ -5,7 +5,7 @@ case class Player(
     team: Vector[Pokemon] = Vector.empty,
     currentPokemonIndex: Int = 0,
     items: Vector[String] = Vector.empty // Erstmal String spaeter erweitern
-){
+) extends PlayerInterface{
     def activePokemon: Pokemon = team(currentPokemonIndex)
 
     def updatePokemon(newPokemon: Pokemon): Player = {
