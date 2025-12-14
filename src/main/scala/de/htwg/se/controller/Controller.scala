@@ -6,7 +6,7 @@ import de.htwg.se.controller.state._
 import de.htwg.se.model.fileio.{FileIOInterface, XmlFileIO}
 import scala.util.{Success, Failure}
 
-class Controller(initialPlayer: Player, initialEnemy: Player) extends ControllerInterface {
+class Controller(initialPlayer: PlayerInterface, initialEnemy: PlayerInterface) extends ControllerInterface {
 
   var state: ControllerState = TitleState(GameState(initialPlayer, initialEnemy))
   val fileIo: FileIOInterface = new XmlFileIO()
@@ -75,12 +75,17 @@ class Controller(initialPlayer: Player, initialEnemy: Player) extends Controller
   }
 
   def saveGame(): Unit = {
-    val currentPlayer = state.gameState.player
-    fileIo.save(currentPlayer) match {
-      case Success(_) => 
-        println(s"Spiel gespeichert: ${currentPlayer.name}")
-      case Failure(e) => 
-        println(s"Fehler beim Speichern: ${e.getMessage}")
+    val currentPlayerInterface = state.gameState.player
+    currentPlayerInterface match {
+      case concretePlayer: Player =>
+        fileIo.save(concretePlayer) match {
+          case Success(_) => 
+            println(s"Spiel gespeichert: ${concretePlayer.name}")
+          case Failure(e) => 
+            println(s"Fehler beim Speichern: ${e.getMessage}")
+        }
+      case _ =>
+        println("Fehler: Kann nur konkrete Player-Objekte speichern.")
     }
   }
 
@@ -103,10 +108,10 @@ class Controller(initialPlayer: Player, initialEnemy: Player) extends Controller
   }
 
   def getAvailableSaves: List[String] = fileIo.listSaveGames()
-  def getPlayer: Player = state.gameState.player
-  def getEnemy: Player = state.gameState.enemy
-  def getPlayerPokemon: Pokemon = state.gameState.player.activePokemon
-  def getEnemyPokemon: Pokemon = state.gameState.enemy.activePokemon
+  def getPlayer: PlayerInterface = state.gameState.player
+  def getEnemy: PlayerInterface = state.gameState.enemy
+  def getPlayerPokemon: PokemonInterface = state.gameState.player.activePokemon
+  def getEnemyPokemon: PokemonInterface = state.gameState.enemy.activePokemon
   def isBattleOver: Boolean = state.gameState.battleOver
   def getMessage: (String, String) = (state.gameState.msg1, state.gameState.msg2)
 }
