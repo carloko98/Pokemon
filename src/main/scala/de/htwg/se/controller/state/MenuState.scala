@@ -3,12 +3,7 @@ package de.htwg.se.controller.state
 import de.htwg.se.controller.state.ControllerState
 import de.htwg.se.model.{GameState, WildBattleLogic, TrainerBattleLogic}
 
-private[controller] case class MenuState(gameState: GameState) extends ControllerState {
-
-  override def currentPhase: String = "menu"
-  override def prompt: String = gameState.msg1
-  override def hint: String = "[s]tart (Wild), [t]rainer, [save], [q]uit"
-  override def allowedInputs: Set[String] = Set("s", "start", "t", "trainer", "save", "q", "quit")
+case class MenuState(gameState: GameState) extends ControllerState {
   
   override def handle(input: String): ControllerState = input match {
     case "s" | "start" =>

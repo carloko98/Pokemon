@@ -4,12 +4,8 @@ import de.htwg.se.controller.state.ControllerState
 import de.htwg.se.model.{GameState, PokemonFactory}
 
 
-private[controller] case class TitleState(gameState: GameState) extends ControllerState {
+case class TitleState(gameState: GameState) extends ControllerState {
 
-    override def currentPhase: String = "title"
-    override def prompt: String = gameState.msg1
-    override def hint: String = "[n]eues Spiel, [l]aden oder [q]uit"
-    override def allowedInputs: Set[String] = Set("n", "neu", "l", "laden", "q", "quit")
     override def handle(input: String): ControllerState = input.toLowerCase match {
         
         case "n" | "neu" =>

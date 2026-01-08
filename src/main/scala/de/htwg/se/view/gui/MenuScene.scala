@@ -3,9 +3,9 @@ package de.htwg.se.view.gui
 import scalafx.scene.layout.VBox
 import scalafx.scene.control.{Button, Label}
 import scalafx.geometry.Pos
-import de.htwg.se.controller.ControllerInterface
+import de.htwg.se.controller.Controller
 
-class MenuScene(controller: ControllerInterface) extends VBox {
+class MenuScene(controller: Controller) extends VBox {
   spacing = 20
   alignment = Pos.Center
   style = "-fx-background-color: #336699;" 
