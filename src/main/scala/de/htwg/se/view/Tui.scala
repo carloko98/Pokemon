@@ -1,10 +1,12 @@
 package de.htwg.se.view
 
+import de.htwg.se.controller.Controller
+import de.htwg.se.controller.state.{MenuState, PlayerAttackState, EnemyAttackState, NameInputState, SelectProfileState, TitleState}
 import de.htwg.se.util.Observer
 import scala.io.StdIn.readLine
-import de.htwg.se.controller.ControllerInterface
 
-class Tui(val controller: ControllerInterface) extends Observer {
+class Tui(val controller: Controller) extends Observer {
+
   controller.add(this)
 
   override def update(): Unit = {
@@ -20,10 +22,10 @@ class Tui(val controller: ControllerInterface) extends Observer {
 
   def render(): Unit = {
     clearScreen()
+    
+    controller.state match {
 
-    // Zentrale Anzeige – komplett über currentPhase gesteuert
-    controller.currentPhase match {
-      case "title" =>
+      case TitleState(_) =>
         println(border)
         println(line("POKEMON SCALA EDITION"))
         println(line(""))
@@ -31,25 +33,27 @@ class Tui(val controller: ControllerInterface) extends Observer {
         println(line("l. Spiel laden"))
         println(line("q. Beenden"))
         println(border)
-        printHintAndMessage()
+        val (_, m2) = controller.getMessage
+        if (m2.nonEmpty) println(s"\n$m2")
 
-      case "menu" =>
+      case MenuState(_) =>
         println(border)
         println(line("HAUPTMENUE"))
         println(line(""))
-        println(line("s. Wilden Kampf starten"))
-        println(line("t. Trainer Kampf starten"))
+        println(line("s. Wilden Kampf starten"))   
+        println(line("t. Trainer Kampf starten")) 
         println(line("q. Beenden"))
         println(border)
-        printHintAndMessage()
+        val (m1, m2) = controller.getMessage
+        if (m1.nonEmpty) println(s"\n$m1\n$m2")
 
-      case "player_attack" =>
+      case PlayerAttackState(_, _) => 
         renderBattle(showActions = true)
 
-      case "enemy_attack" =>
+      case EnemyAttackState(_, _) =>
         renderBattle(showActions = false)
-
-      case "name_input" =>
+      
+      case NameInputState(_) =>
         println(border)
         println(line("NEUES SPIEL"))
         println(line(""))
@@ -57,36 +61,38 @@ class Tui(val controller: ControllerInterface) extends Observer {
         println(line(""))
         println(line(">>> Tippe Namen und Enter <<<"))
         println(border)
-        printHintAndMessage()
+        val (m1, m2) = controller.getMessage
+        if (m2.nonEmpty) println(s"\n$m2") // Fehlermeldung bei leerem Namen
 
-      case "select_profile" =>
+      case SelectProfileState(_) =>
         println(border)
         println(line("SPIEL LADEN"))
         println(line(""))
         println(line("Verfuegbare Profile:"))
-
+        
         val saves = controller.getAvailableSaves
         if (saves.isEmpty) {
-          println(line(" - Keine Spielstaende gefunden -"))
+            println(line("  - Keine Spielstaende gefunden -"))
         } else {
-          saves.foreach(name => println(line(s" * $name")))
+            saves.foreach(name => println(line(s"  * $name")))
         }
-
+        
         println(line(""))
         println(line("Gib den Namen ein (oder 'b' fuer Zurueck):"))
         println(border)
-        printHintAndMessage()
+        val (m1, m2) = controller.getMessage
+        if (m2.nonEmpty) println(s"\n$m2") // Fehlermeldung "Profil nicht gefunden"
     }
   }
-
+  
   private def renderBattle(showActions: Boolean): Unit = {
     val (m1, m2) = controller.getMessage
     val e = controller.getEnemyPokemon
     val p = controller.getPlayerPokemon
 
     val enemyLines = Seq(
-      line(s" ${e.name} (${e.pType})"),
-      line(s" HP: [${hpBar(e.currentHp, e.maxHp)}] ${e.currentHp}/${e.maxHp}"),
+      line(s"  ${e.name} (${e.pType})"),
+      line(s"  HP: [${hpBar(e.currentHp, e.maxHp)}] ${e.currentHp}/${e.maxHp}"),
       line(""),
       line(enemySprite)
     )
@@ -94,8 +100,8 @@ class Tui(val controller: ControllerInterface) extends Observer {
     val playerLines = Seq(
       line(playerSprite),
       line(""),
-      line(s" ${p.name} (${p.pType})"),
-      line(s" HP: [${hpBar(p.currentHp, p.maxHp)}] ${p.currentHp}/${p.maxHp}")
+      line(s"  ${p.name} (${p.pType})"),
+      line(s"  HP: [${hpBar(p.currentHp, p.maxHp)}] ${p.currentHp}/${p.maxHp}")
     )
 
     val msgLines = if (m1.nonEmpty || m2.nonEmpty) {
@@ -103,43 +109,31 @@ class Tui(val controller: ControllerInterface) extends Observer {
     } else Seq(line(""))
 
     val menuLines = if (showActions) {
-      val attacks = p.attacks.zipWithIndex.map { case (atk, i) =>
-        s" ${i + 1}. ${atk.name} (${atk.damage} DMG, ${atk.attackType})"
-      }
-      Seq(
-        line("Kampf-Aktion waehlen:"),
-        line(attacks.mkString(" | ")),
-        line(" f. Fliehen")
-      )
+        // Kampfmenü anzeigen
+        val attacks = p.attacks.zipWithIndex.map { case (atk, i) =>
+          s"  ${i + 1}. ${atk.name} (${atk.damage} DMG, ${atk.attackType})"
+        }
+        val flee = "  f. Fliehen"
+        Seq(line("Kampf-Aktion waehlen:"), line(attacks.mkString(" | ")), line(flee))
     } else {
-      Seq(line(""), line(">> Druecke Enter fuer Gegnerzug... <<"))
+        // Warte-Bildschirm anzeigen
+        Seq(line(""), line(">> Druecke Enter fuer Gegnerzug... <<"))
     }
 
     val allLines = Seq(border) ++ enemyLines ++ playerLines ++ msgLines ++ menuLines ++ Seq(border)
     println(allLines.mkString("\n"))
   }
 
-  // Hilfsmethode: Zeigt hint und ggf. Fehlermeldung einheitlich an
-  private def printHintAndMessage(): Unit = {
-    val (_, m2) = controller.getMessage
-    if (controller.hint.nonEmpty) {
-      println(s"\n${controller.hint}")
-    }
-    if (m2.nonEmpty) {
-      println(s"\n$m2")
-    }
-  }
-
   def inputLoop(): Unit = {
-    render()
+    render() 
     while (true) {
-      val input = readLine().trim
+      val input = readLine().trim.toLowerCase
       controller.handleInput(input)
     }
   }
 
-  // --- Hilfsmethoden (unverändert) ---
-  private val width = 80
+  // --- Hilfsmethoden ---
+  private val width = 80 
   private def pad(s: String): String = s + " " * (width - 4 - s.length).max(0)
   private def line(txt: String): String = s"| ${pad(txt)} |"
   private def hpBar(cur: Int, max: Int): String = {
@@ -147,7 +141,7 @@ class Tui(val controller: ControllerInterface) extends Observer {
     "#" * filled + "-" * (20 - filled)
   }
   private val border = "+" + "-" * (width - 2) + "+"
-  private val enemySprite = " " * 40 + "/^\\"
-  private val playerSprite = " " * 10 + "(o.o)"
+  private val enemySprite = " " * 40 + "/^\\" 
+  private val playerSprite = " " * 10 + "(o.o)" 
   private def clearScreen(): Unit = print("\u001b[2J\u001b[H")
 }

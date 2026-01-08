@@ -5,13 +5,13 @@ import java.io._
 import scala.xml.{Node, Elem, XML}
 import scala.util.{Try, Success, Failure} 
 
-trait FileIOInterface {
+trait FileIO {
   def save(player: Player): Try[Unit]
   def load(name: String): Try[Player]
   def listSaveGames(): List[String]
 }
 
-class XmlFileIO extends FileIOInterface {
+class XmlFileIO extends FileIO {
 
   override def save(player: Player): Try[Unit] = {
     Try { 

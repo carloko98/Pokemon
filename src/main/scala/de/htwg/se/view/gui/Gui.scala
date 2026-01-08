@@ -4,48 +4,40 @@ import scalafx.application.JFXApp3
 import scalafx.application.Platform
 import scalafx.scene.Scene
 import scalafx.scene.Parent
-import scalafx.Includes._
+import scalafx.Includes._  
+import de.htwg.se.controller.Controller
 import de.htwg.se.util.Observer
-import de.htwg.se.controller.ControllerInterface
+import de.htwg.se.controller.state._
 
-
-class Gui(val controller: ControllerInterface) extends JFXApp3 with Observer {
+class Gui(val controller: Controller) extends JFXApp3 with Observer {
 
   controller.add(this)
 
   override def start(): Unit = {
     stage = new JFXApp3.PrimaryStage {
       title = "Pokemon Scala Edition"
-      width = 900   // etwas breiter für bessere Darstellung
-      height = 700
+      width = 800
+      height = 600
       scene = new Scene {
-        root = createSceneForPhase(controller.currentPhase)
+        root = new TitleScene(controller)
       }
     }
-    stage.show()
   }
 
   override def update(): Unit = {
     Platform.runLater {
-      val newRoot: Parent = createSceneForPhase(controller.currentPhase)
-
+      val newRoot: Parent = controller.state match {
+        case _: TitleState => new TitleScene(controller)
+        case _: MenuState => new MenuScene(controller)
+        case _: NameInputState => new NameInputScene(controller)
+        case _: SelectProfileState => new SelectProfileScene(controller)
+        case _: PlayerAttackState | _: EnemyAttackState => new BattleScene(controller)
+        case _ => new TitleScene(controller)
+      }
+      
       if (stage != null && stage.scene() != null) {
-        stage.scene().root = newRoot
+         stage.scene().root = newRoot
       }
     }
-  }
-
-  /**
-   * Zentrale Methode: Wählt die richtige Scene basierend auf dem aktuellen Phase-String
-   * Kein Zugriff auf konkrete States mehr – perfekte Kapselung!
-   */
-  private def createSceneForPhase(phase: String): Parent = phase match {
-    case "title"           => new TitleScene(controller)
-    case "name_input"      => new NameInputScene(controller)
-    case "menu"            => new MenuScene(controller)
-    case "select_profile"  => new SelectProfileScene(controller)
-    case "player_attack"   => new BattleScene(controller)
-    case "enemy_attack"    => new BattleScene(controller)
-    case _                 => new TitleScene(controller)  // Sicherer Fallback
   }
 }
