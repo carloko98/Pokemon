@@ -4,10 +4,10 @@ import scalafx.scene.layout.VBox
 import scalafx.scene.control.{Button, Label}
 import scalafx.geometry.Pos
 import scalafx.scene.image.{Image, ImageView}
-import de.htwg.se.controller.Controller
+import de.htwg.se.controller.ControllerInterface
 
 
-class TitleScene(controller: Controller) extends VBox {
+class TitleScene(controller: ControllerInterface) extends VBox {
 
 
   spacing = 20

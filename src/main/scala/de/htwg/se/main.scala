@@ -1,6 +1,7 @@
 package de.htwg.se
 
 import de.htwg.se.controller.Controller
+import de.htwg.se.controller.ControllerInterface
 import de.htwg.se.view.Tui
 import de.htwg.se.view.gui.Gui 
 import de.htwg.se.model.PokemonFactory
@@ -13,7 +14,7 @@ object PokemonApp {
     val initialPlayer = PokemonFactory.createPlayer("Gast", Vector("Glurak", "Bisaflor"))
     val initialEnemy = PokemonFactory.createRandomEnemy()
     
-    val controller = new Controller(initialPlayer, initialEnemy)
+    val controller : ControllerInterface = new Controller(initialPlayer, initialEnemy)
 
     // 2. TUI initialisieren und in einem separaten Thread starten
     val tui = new Tui(controller)
