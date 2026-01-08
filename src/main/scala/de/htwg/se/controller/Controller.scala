@@ -28,10 +28,7 @@ class Controller(initialPlayer: PlayerInterface, initialEnemy: PlayerInterface) 
     notifyObservers()
   }
 
-  def setState(newState: ControllerState): Unit = {
-    currentState = newState
-    notifyObservers()
-  }
+  
 
   class AttackCommand(input: String) extends Command {
     private val oldState = currentState
@@ -42,30 +39,39 @@ class Controller(initialPlayer: PlayerInterface, initialEnemy: PlayerInterface) 
   }
 
   def handleInput(input: String): Unit = {
-    val normalizedInput = input.trim.toLowerCase
+  val normalizedInput = input.trim.toLowerCase
 
-    normalizedInput match {
-      case "z" | "undo" => undo()
-      case "y" | "redo" => redo()
-      case "save" => saveGame()
-      case _ =>
-        if (currentPhase == "select_profile" && normalizedInput == "b") {
-          currentState = TitleState(currentState.gameState)
-        } else if (currentPhase == "player_attack" || currentPhase == "enemy_attack") {
-          undoManager.doStep(new AttackCommand(normalizedInput))
+  normalizedInput match {
+    case "z" | "undo" => undo()
+    case "y" | "redo" => redo()
+    case "save" => saveGame()
+    case _ =>
+      if (currentPhase == "select_profile") {
+        if (normalizedInput == "b") {
+          currentState = TitleState(currentState.gameState.copy(
+            msg1 = "Pokemon Scala Edition",
+            msg2 = "[n]eues Spiel, [l]aden oder [q]uit"
+          ))
         } else {
-          currentState = currentState.handle(normalizedInput)
+          // Hier kommt der Fix: Profilname → loadGame direkt aufrufen!
+          loadGame(normalizedInput)
+          return  // Wichtig: Nicht weiter delegieren!
         }
-    }
-
-    // Automatischer Übergang nach Kampfende
-    if (currentState.gameState.battleOver && currentPhase != "menu") {
-      currentState = MenuState(currentState.gameState)
-      saveGame()  // autosave nach Kampf
-    }
-
-    notifyObservers()
+      } else if (currentPhase == "player_attack" || currentPhase == "enemy_attack") {
+        undoManager.doStep(new AttackCommand(normalizedInput))
+      } else {
+        currentState = currentState.handle(normalizedInput)
+      }
   }
+
+  // Automatischer Übergang nach Kampfende
+  if (currentState.gameState.battleOver && currentPhase != "menu") {
+    currentState = MenuState(currentState.gameState)
+    saveGame()
+  }
+
+  notifyObservers()
+}
 
   private def wasBattleState(s: ControllerState): Boolean = {
     s.isInstanceOf[PlayerAttackState] || s.isInstanceOf[EnemyAttackState]
@@ -97,10 +103,12 @@ class Controller(initialPlayer: PlayerInterface, initialEnemy: PlayerInterface) 
           msg2 = s"Willkommen zurück, ${loadedPlayer.name}."
         )
         currentState = MenuState(newGameState)
+        notifyObservers()
         
       case Failure(e) =>
         val errorState = currentState.gameState.copy(msg2 = s"Konnte Profil '$name' nicht laden: ${e.getMessage}")
         currentState = SelectProfileState(errorState)
+        notifyObservers()
     }
   }
 
