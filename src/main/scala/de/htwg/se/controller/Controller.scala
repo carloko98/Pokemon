@@ -8,7 +8,13 @@ import scala.util.{Success, Failure}
 
 class Controller(initialPlayer: PlayerInterface, initialEnemy: PlayerInterface) extends ControllerInterface {
 
-  var state: ControllerState = TitleState(GameState(initialPlayer, initialEnemy))
+  private var currentState: ControllerState = TitleState(GameState(initialPlayer, initialEnemy))
+
+  def currentPhase: String = currentState.currentPhase
+  def prompt: String = currentState.prompt
+  def hint: String = currentState.hint
+  def allowedInputs: Set[String] = currentState.allowedInputs
+
   val fileIo: FileIOInterface = new XmlFileIO()
   private val undoManager = new UndoManager()
 
@@ -23,48 +29,39 @@ class Controller(initialPlayer: PlayerInterface, initialEnemy: PlayerInterface) 
   }
 
   def setState(newState: ControllerState): Unit = {
-    state = newState
+    currentState = newState
     notifyObservers()
   }
 
   class AttackCommand(input: String) extends Command {
-    val oldState = state
-    val newState = state.handle(input)
-
-    override def doStep(): Unit = state = newState
-    override def undoStep(): Unit = state = oldState
-    override def redoStep(): Unit = state = newState
+    private val oldState = currentState
+    private val newState = oldState.handle(input)
+    override def doStep(): Unit = currentState = newState
+    override def undoStep(): Unit = currentState = oldState
+    override def redoStep(): Unit = currentState = newState
   }
 
   def handleInput(input: String): Unit = {
-    val oldState = state
+    val normalizedInput = input.trim.toLowerCase
 
-    input match {
+    normalizedInput match {
       case "z" | "undo" => undo()
       case "y" | "redo" => redo()
-      
+      case "save" => saveGame()
       case _ =>
-        state match {
-          case _: PlayerAttackState | _: EnemyAttackState =>
-             undoManager.doStep(new AttackCommand(input))
-
-          case _: SelectProfileState =>
-             if (input == "b") state = TitleState(state.gameState)
-             else loadGame(input)
-
-          case _ =>
-             if (input == "save") saveGame()
-             else state = state.handle(input)
+        if (currentPhase == "select_profile" && normalizedInput == "b") {
+          currentState = TitleState(currentState.gameState)
+        } else if (currentPhase == "player_attack" || currentPhase == "enemy_attack") {
+          undoManager.doStep(new AttackCommand(normalizedInput))
+        } else {
+          currentState = currentState.handle(normalizedInput)
         }
     }
 
-    if (state.gameState.battleOver && !state.isInstanceOf[MenuState]) {
-      state = MenuState(state.gameState)
-    }
-
-    if (wasBattleState(oldState) && state.isInstanceOf[MenuState]) {
-      println("Kampf beendet - Automatisches Speichern ...")
-      saveGame()
+    // Automatischer Übergang nach Kampfende
+    if (currentState.gameState.battleOver && currentPhase != "menu") {
+      currentState = MenuState(currentState.gameState)
+      saveGame()  // autosave nach Kampf
     }
 
     notifyObservers()
@@ -75,7 +72,7 @@ class Controller(initialPlayer: PlayerInterface, initialEnemy: PlayerInterface) 
   }
 
   def saveGame(): Unit = {
-    val currentPlayerInterface = state.gameState.player
+    val currentPlayerInterface = currentState.gameState.player
     currentPlayerInterface match {
       case concretePlayer: Player =>
         fileIo.save(concretePlayer) match {
@@ -99,19 +96,19 @@ class Controller(initialPlayer: PlayerInterface, initialEnemy: PlayerInterface) 
           msg1 = "Spielstand geladen!",
           msg2 = s"Willkommen zurück, ${loadedPlayer.name}."
         )
-        state = MenuState(newGameState)
+        currentState = MenuState(newGameState)
         
       case Failure(e) =>
-        val errorState = state.gameState.copy(msg2 = s"Konnte Profil '$name' nicht laden: ${e.getMessage}")
-        state = SelectProfileState(errorState)
+        val errorState = currentState.gameState.copy(msg2 = s"Konnte Profil '$name' nicht laden: ${e.getMessage}")
+        currentState = SelectProfileState(errorState)
     }
   }
 
   def getAvailableSaves: List[String] = fileIo.listSaveGames()
-  def getPlayer: PlayerInterface = state.gameState.player
-  def getEnemy: PlayerInterface = state.gameState.enemy
-  def getPlayerPokemon: PokemonInterface = state.gameState.player.activePokemon
-  def getEnemyPokemon: PokemonInterface = state.gameState.enemy.activePokemon
-  def isBattleOver: Boolean = state.gameState.battleOver
-  def getMessage: (String, String) = (state.gameState.msg1, state.gameState.msg2)
+  def getPlayer: PlayerInterface = currentState.gameState.player
+  def getEnemy: PlayerInterface = currentState.gameState.enemy
+  def getPlayerPokemon: PokemonInterface = currentState.gameState.player.activePokemon
+  def getEnemyPokemon: PokemonInterface = currentState.gameState.enemy.activePokemon
+  def isBattleOver: Boolean = currentState.gameState.battleOver
+  def getMessage: (String, String) = (currentState.gameState.msg1, currentState.gameState.msg2)
 }

@@ -13,9 +13,6 @@ trait ControllerInterface extends Observable {
   def redo(): Unit
   def saveGame(): Unit
   def loadGame(name: String): Unit
-
-  // Daten-Zugriff (Getter für die GUI/TUI)
-  def state: ControllerState            
   def getAvailableSaves: List[String]
   def getPlayer: PlayerInterface
   def getEnemy: PlayerInterface
@@ -23,4 +20,10 @@ trait ControllerInterface extends Observable {
   def getEnemyPokemon: PokemonInterface
   def isBattleOver: Boolean
   def getMessage: (String, String)
+
+  // NEU – statt def state
+  def currentPhase: String
+  def prompt: String
+  def hint: String
+  def allowedInputs: Set[String]
 }

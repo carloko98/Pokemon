@@ -5,7 +5,12 @@ import de.htwg.se.model.{GameState, BattleLogic}
 import de.htwg.se.model.{PlayerInterface, PokemonInterface}
 import scala.util.Random
 
-case class EnemyAttackState(gameState: GameState, logic: BattleLogic) extends ControllerState {
+private[controller] case class EnemyAttackState(gameState: GameState, logic: BattleLogic) extends ControllerState {
+
+  override def currentPhase: String = "enemy_attack"
+  override def prompt: String = gameState.msg1
+  override def hint: String = "Gegner greift an... (warte)"
+  override def allowedInputs: Set[String] = Set()
 
   override def handle(input: String): ControllerState = {
     executeEnemyAttack()
