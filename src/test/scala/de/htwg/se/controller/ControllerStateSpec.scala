@@ -5,6 +5,7 @@ import org.scalatest.matchers.should.Matchers
 import de.htwg.se.model._
 import de.htwg.se.model.PokemonType._
 import de.htwg.se.controller.controllerImpl.state.*
+import de.htwg.se.model.StateComponent.MenuState
 
 class ControllerStateSpec extends AnyWordSpec with Matchers {
 

@@ -1,9 +1,11 @@
-package de.htwg.se.controller.controllerImpl.state
+package de.htwg.se.model.StateComponent.StateImpl
 
 
 import de.htwg.se.model.{GameState, Attack, BattleLogic}
 import de.htwg.se.model.PlayerInterface
 import de.htwg.se.model.PokemonInterface
+import de.htwg.se.model.StateComponent.ControllerState
+import de.htwg.se.model.StateComponent.MenuState
 
 case class PlayerAttackState(gameState: GameState, logic: BattleLogic) extends ControllerState {
 

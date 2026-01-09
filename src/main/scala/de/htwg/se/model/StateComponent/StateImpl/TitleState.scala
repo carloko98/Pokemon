@@ -1,7 +1,10 @@
-package de.htwg.se.controller.controllerImpl.state
+package de.htwg.se.model.StateComponent.StateImpl
 
 
 import de.htwg.se.model.{GameState, PokemonFactory}
+import de.htwg.se.model.StateComponent.ControllerState
+import de.htwg.se.model.StateComponent.NameInputState
+import de.htwg.se.model.StateComponent.SelectProfileState
 
 
 case class TitleState(gameState: GameState) extends ControllerState {

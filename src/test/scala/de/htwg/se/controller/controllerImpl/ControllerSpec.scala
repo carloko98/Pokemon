@@ -4,7 +4,8 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
 import de.htwg.se.model.{Player, Pokemon, GameState}
 import de.htwg.se.controller.{TitleState => VTitle, MenuState => VMenu, SelectProfileState => VSelectProfile}
-import de.htwg.se.controller.controllerImpl.state.{MenuState, SelectProfileState}
+import de.htwg.se.controller.controllerImpl.state.{SelectProfileState}
+import de.htwg.se.model.StateComponent.MenuState
 import java.io.File
 
 class ControllerSpec extends AnyWordSpec with Matchers {

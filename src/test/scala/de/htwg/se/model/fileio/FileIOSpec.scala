@@ -2,7 +2,8 @@ package de.htwg.se.model.fileio
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
-import de.htwg.se.model.{Player, Pokemon, PokemonType, PokemonFactory}
+import de.htwg.se.model.{Player, PokemonType, PokemonFactory}
+import de.htwg.se.model.PokemonComponent.PokemonImpl.Pokemon
 import java.io.File
 
 class XmlFileIOSpec extends AnyWordSpec with Matchers {

@@ -1,9 +1,13 @@
-package de.htwg.se.controller.controllerImpl.state
+package de.htwg.se.model.StateComponent
 
 
-import de.htwg.se.model.{GameState, BattleLogic}
-import de.htwg.se.model.{PlayerInterface, PokemonInterface}
+import de.htwg.se.model.GameStateComponent.GameStateImpl.GameState
+import de.htwg.se.model.BattleComponent.BattleLogic
+import de.htwg.se.model.PlayerComponent.IntPlayer
+import de.htwg.se.model.PokemonComponent.IntPokemon
 import scala.util.Random
+
+
 
 case class EnemyAttackState(gameState: GameState, logic: BattleLogic) extends ControllerState {
 
@@ -12,20 +16,19 @@ case class EnemyAttackState(gameState: GameState, logic: BattleLogic) extends Co
   }
 
   private def executeEnemyAttack(): ControllerState = {
-    val currentPlayer: PlayerInterface = gameState.player
-    val currentEnemy: PlayerInterface = gameState.enemy
+    val currentPlayer: IntPlayer = gameState.player
+    val currentEnemy: IntPlayer = gameState.enemy
 
-    val activeEnemyPoke: PokemonInterface = currentEnemy.activePokemon
-    val activePlayerPoke: PokemonInterface = currentPlayer.activePokemon
-
+    val activeEnemyPoke: IntPokemon = currentEnemy.activePokemon
+    val activePlayerPoke: IntPokemon = currentPlayer.activePokemon
     val rnd = new Random()
     val enemyAtk = activeEnemyPoke.attacks(rnd.nextInt(activeEnemyPoke.attacks.size))
 
     val eff = enemyAtk.attackType.effectivenessAgainst(activePlayerPoke.pType)
     val damage = (enemyAtk.damage * eff).toInt
 
-    val newPlayerPoke: PokemonInterface = activePlayerPoke.withHp(activePlayerPoke.currentHp - damage)
-    val newPlayer: PlayerInterface = currentPlayer.updatePokemon(newPlayerPoke)
+    val newPlayerPoke: IntPokemon = activePlayerPoke.withHp(activePlayerPoke.currentHp - damage)
+    val newPlayer: IntPlayer = currentPlayer.updatePokemon(newPlayerPoke)
 
     val finalGameState = gameState.copy(
       player = newPlayer,

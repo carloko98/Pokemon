@@ -2,6 +2,7 @@ package de.htwg.se.model
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
+import de.htwg.se.model.BattleComponent.BattleImpl.{TrainerBattleLogic, WildBattleLogic}
 
 class BattleLogicSpec extends AnyWordSpec with Matchers {
 

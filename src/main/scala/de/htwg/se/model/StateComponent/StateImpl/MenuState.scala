@@ -1,7 +1,9 @@
-package de.htwg.se.controller.controllerImpl.state
+package de.htwg.se.model.StateComponent
 
 import de.htwg.se.controller.controllerImpl.state
 import de.htwg.se.model.{GameState, WildBattleLogic, TrainerBattleLogic}
+import de.htwg.se.model.StateComponent.ControllerState
+import PlayerAttackState
 
 case class MenuState(gameState: GameState) extends ControllerState {
   

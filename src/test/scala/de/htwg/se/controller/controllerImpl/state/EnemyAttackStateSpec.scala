@@ -4,7 +4,8 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
 import de.htwg.se.model._
 import de.htwg.se.model.PokemonType._
-import de.htwg.se.controller.controllerImpl.state.{EnemyAttackState, MenuState, PlayerAttackState}
+import de.htwg.se.controller.controllerImpl.state.{MenuState, PlayerAttackState}
+import de.htwg.se.model.StateComponent.EnemyAttackState
 
 class EnemyAttackStateSpec extends AnyWordSpec with Matchers {
 

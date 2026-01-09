@@ -2,6 +2,7 @@ package de.htwg.se.model
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
+import de.htwg.se.model.PokemonComponent.PokemonImpl.Attack
 
 class AttackSpec extends AnyWordSpec {
 

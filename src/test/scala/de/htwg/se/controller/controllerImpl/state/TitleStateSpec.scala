@@ -3,7 +3,8 @@ package de.htwg.se.controller.state
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
 import de.htwg.se.model.{GameState, Player, Pokemon, PokemonType, Attack}
-import de.htwg.se.controller.controllerImpl.state.{NameInputState, SelectProfileState, TitleState}
+import de.htwg.se.controller.controllerImpl.state.{SelectProfileState, TitleState}
+import de.htwg.se.model.StateComponent.NameInputState
 
 class TitleStateSpec extends AnyWordSpec with Matchers {
 

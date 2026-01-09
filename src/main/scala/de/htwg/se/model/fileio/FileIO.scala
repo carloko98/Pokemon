@@ -1,19 +1,21 @@
 package de.htwg.se.model.fileio
 
-import de.htwg.se.model.{Player, PokemonFactory, PlayerInterface}
+import de.htwg.se.model.PlayerComponent.IntPlayer
+import de.htwg.se.model.PlayerComponent.PlayerImpl.Player
+import de.htwg.se.model.PokemonComponent.PokemonImpl.PokemonFactory
 import java.io._
 import scala.xml.{Node, Elem, XML}
 import scala.util.{Try, Success, Failure} 
 
 trait FileIOInterface {
-  def save(player: PlayerInterface): Try[Unit]
-  def load(name: String): Try[PlayerInterface]
+  def save(player: IntPlayer): Try[Unit]
+  def load(name: String): Try[IntPlayer]
   def listSaveGames(): List[String]
 }
 
 class XmlFileIO extends FileIOInterface {
 
-  override def save(player: PlayerInterface): Try[Unit] = {
+  override def save(player: IntPlayer): Try[Unit] = {
     Try { 
       val xml = playerToXml(player)
       val file = new File(s"save_${player.name}.xml")
@@ -23,7 +25,7 @@ class XmlFileIO extends FileIOInterface {
     }
   }
 
-  override def load(name: String): Try[PlayerInterface] = {
+  override def load(name: String): Try[IntPlayer] = {
     Try {
       val file = XML.loadFile(s"save_${name}.xml")
       playerFromXml(file)
@@ -39,7 +41,7 @@ class XmlFileIO extends FileIOInterface {
       .getOrElse(List.empty)
   }
 
-  private def playerToXml(player: PlayerInterface): Elem = {
+  private def playerToXml(player: IntPlayer): Elem = {
     <player>
       <name>{player.name}</name>
       <team>
@@ -53,7 +55,7 @@ class XmlFileIO extends FileIOInterface {
     </player>
   }
 
-  private def playerFromXml(node: Node): PlayerInterface = {
+  private def playerFromXml(node: Node): IntPlayer = {
     val name = (node \ "name").text.trim
     val teamNodes = (node \ "team" \ "pokemon")
     val team = teamNodes.map { pNode =>

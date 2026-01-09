@@ -3,7 +3,8 @@ package de.htwg.se.controller.state
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
 import de.htwg.se.model._
-import de.htwg.se.controller.controllerImpl.state.{MenuState, PlayerAttackState}
+import de.htwg.se.controller.controllerImpl.state.{PlayerAttackState}
+import de.htwg.se.model.StateComponent.MenuState
 
 class PlayerAttackStateSpec extends AnyWordSpec with Matchers {
 

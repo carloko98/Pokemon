@@ -1,11 +1,13 @@
-package de.htwg.se.model
+// PokemonComponent/PokemonImpl/PokemonDBSImpl.scala
+package de.htwg.se.model.PokemonComponent.PokemonImpl
 
-import de.htwg.se.model.PokemonType._
+import de.htwg.se.model.PokemonComponent.{IntPokemon, IntPokemonDBS, IntAttack}
+import de.htwg.se.model.PokemonComponent.PokemonType._
 
-object PokemonDBS {
 
-  
-  private val entries: Map[String, Pokemon] = Map(
+object PokemonDBS extends IntPokemonDBS {
+
+  private val entries: Map[String, IntPokemon] = Map(
     "glurak" -> Pokemon("Glurak", Fire, 150, 150, Vector(
       Attack("Flammenwurf", 40, Fire),
       Attack("Kratzer", 10, Normal),
@@ -30,10 +32,10 @@ object PokemonDBS {
     )),
     "zubat" -> Pokemon("Zubat", Poison, 50, 50, Vector(
       Attack("Blutsauger", 10, Grass),
-      Attack("Superschall", 0, Normal) 
+      Attack("Superschall", 0, Normal)
     ))
   )
 
-  
-  def get(name: String): Option[Pokemon] = entries.get(name.toLowerCase)
+  override def get(name: String): Option[IntPokemon] =
+    entries.get(name.toLowerCase)
 }

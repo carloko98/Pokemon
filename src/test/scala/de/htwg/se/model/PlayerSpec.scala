@@ -2,6 +2,7 @@ package de.htwg.se.model
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
+import de.htwg.se.model.PokemonComponent.PokemonImpl.Pokemon
 
 class PlayerSpec extends AnyWordSpec with Matchers {
   "A Player" should {

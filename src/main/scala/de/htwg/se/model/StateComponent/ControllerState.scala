@@ -1,6 +1,6 @@
-package de.htwg.se.controller.controllerImpl.state
+package de.htwg.se.model.StateComponent
 
-import de.htwg.se.model.GameState
+import de.htwg.se.model.GameStateComponent.GameState
 
 trait ControllerState {
   val gameState: GameState

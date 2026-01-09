@@ -4,7 +4,7 @@ import de.htwg.se.controller.controllerImpl.Controller
 import de.htwg.se.controller.ControllerInterface
 import de.htwg.se.view.Tui
 import de.htwg.se.view.gui.Gui 
-import de.htwg.se.model.PokemonFactory
+import de.htwg.se.model.PokemonComponent.PokemonImpl.PokemonFactory
 
 object PokemonApp { 
 
