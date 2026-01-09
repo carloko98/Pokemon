@@ -1,11 +1,10 @@
 package de.htwg.se.view
 
-import de.htwg.se.controller.Controller
-import de.htwg.se.controller.state.{MenuState, PlayerAttackState, EnemyAttackState, NameInputState, SelectProfileState, TitleState}
+import de.htwg.se.controller.{ControllerInterface, TitleState, MenuState, PlayerAttackState, EnemyAttackState, NameInputState, SelectProfileState}
 import de.htwg.se.util.Observer
 import scala.io.StdIn.readLine
 
-class Tui(val controller: Controller) extends Observer {
+class Tui(val controller: ControllerInterface) extends Observer {
 
   controller.add(this)
 
@@ -23,9 +22,10 @@ class Tui(val controller: Controller) extends Observer {
   def render(): Unit = {
     clearScreen()
     
-    controller.state match {
+    // Match auf den abstrakten ViewState
+    controller.viewState match {
 
-      case TitleState(_) =>
+      case TitleState =>
         println(border)
         println(line("POKEMON SCALA EDITION"))
         println(line(""))
@@ -36,7 +36,7 @@ class Tui(val controller: Controller) extends Observer {
         val (_, m2) = controller.getMessage
         if (m2.nonEmpty) println(s"\n$m2")
 
-      case MenuState(_) =>
+      case MenuState =>
         println(border)
         println(line("HAUPTMENUE"))
         println(line(""))
@@ -47,13 +47,13 @@ class Tui(val controller: Controller) extends Observer {
         val (m1, m2) = controller.getMessage
         if (m1.nonEmpty) println(s"\n$m1\n$m2")
 
-      case PlayerAttackState(_, _) => 
+      case PlayerAttackState => 
         renderBattle(showActions = true)
 
-      case EnemyAttackState(_, _) =>
+      case EnemyAttackState =>
         renderBattle(showActions = false)
       
-      case NameInputState(_) =>
+      case NameInputState =>
         println(border)
         println(line("NEUES SPIEL"))
         println(line(""))
@@ -62,9 +62,9 @@ class Tui(val controller: Controller) extends Observer {
         println(line(">>> Tippe Namen und Enter <<<"))
         println(border)
         val (m1, m2) = controller.getMessage
-        if (m2.nonEmpty) println(s"\n$m2") // Fehlermeldung bei leerem Namen
+        if (m2.nonEmpty) println(s"\n$m2")
 
-      case SelectProfileState(_) =>
+      case SelectProfileState =>
         println(border)
         println(line("SPIEL LADEN"))
         println(line(""))
@@ -81,10 +81,12 @@ class Tui(val controller: Controller) extends Observer {
         println(line("Gib den Namen ein (oder 'b' fuer Zurueck):"))
         println(border)
         val (m1, m2) = controller.getMessage
-        if (m2.nonEmpty) println(s"\n$m2") // Fehlermeldung "Profil nicht gefunden"
+        if (m2.nonEmpty) println(s"\n$m2") 
     }
   }
   
+  // renderBattle, inputLoop etc. bleiben unverändert, da sie nur Interfaces benutzen
+  // ... (Hier den Rest der Klasse Tui einfügen, wie er vorher war) ...
   private def renderBattle(showActions: Boolean): Unit = {
     val (m1, m2) = controller.getMessage
     val e = controller.getEnemyPokemon
@@ -109,14 +111,12 @@ class Tui(val controller: Controller) extends Observer {
     } else Seq(line(""))
 
     val menuLines = if (showActions) {
-        // Kampfmenü anzeigen
         val attacks = p.attacks.zipWithIndex.map { case (atk, i) =>
           s"  ${i + 1}. ${atk.name} (${atk.damage} DMG, ${atk.attackType})"
         }
         val flee = "  f. Fliehen"
         Seq(line("Kampf-Aktion waehlen:"), line(attacks.mkString(" | ")), line(flee))
     } else {
-        // Warte-Bildschirm anzeigen
         Seq(line(""), line(">> Druecke Enter fuer Gegnerzug... <<"))
     }
 
@@ -132,7 +132,6 @@ class Tui(val controller: Controller) extends Observer {
     }
   }
 
-  // --- Hilfsmethoden ---
   private val width = 80 
   private def pad(s: String): String = s + " " * (width - 4 - s.length).max(0)
   private def line(txt: String): String = s"| ${pad(txt)} |"

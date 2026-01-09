@@ -8,7 +8,7 @@ case class Pokemon(
   maxHp: Int,
   currentHp: Int,
   attacks: Vector[Attack]
-) {
+) extends PokemonInterface {
   
   def withHp(newHp: Int): Pokemon = copy(currentHp = newHp.max(0).min(maxHp))
 

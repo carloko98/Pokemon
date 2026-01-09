@@ -1,6 +1,6 @@
-package de.htwg.se.controller.state
+package de.htwg.se.controller.controllerImpl.state
 
-import de.htwg.se.controller.state.ControllerState
+
 import de.htwg.se.model.{GameState, PokemonFactory}
 
 case class SelectProfileState(gameState: GameState) extends ControllerState {

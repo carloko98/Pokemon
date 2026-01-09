@@ -1,4 +1,4 @@
-package de.htwg.se.controller.state
+package de.htwg.se.controller.controllerImpl.state
 
 import de.htwg.se.model.GameState
 

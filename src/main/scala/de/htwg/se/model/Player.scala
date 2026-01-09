@@ -2,13 +2,13 @@ package de.htwg.se.model
 
 case class Player(
     name: String,
-    team: Vector[Pokemon] = Vector.empty,
+    team: Vector[PokemonInterface] = Vector.empty,
     currentPokemonIndex: Int = 0,
     items: Vector[String] = Vector.empty // Erstmal String spaeter erweitern
-){
-    def activePokemon: Pokemon = team(currentPokemonIndex)
+) extends PlayerInterface{
+    def activePokemon: PokemonInterface = team(currentPokemonIndex)
 
-    def updatePokemon(newPokemon: Pokemon): Player = {
+    def updatePokemon(newPokemon: PokemonInterface): Player = {
         val newTeam = team.updated(currentPokemonIndex, newPokemon)
         copy(team = newTeam)
     }
@@ -17,12 +17,12 @@ case class Player(
         copy(currentPokemonIndex = index)
     }
 
-    def addPokemon(p: Pokemon): Player = {
+    def addPokemon(p: PokemonInterface): Player = {
         val newTeam = team :+ p
         copy(team = newTeam)
     }
 
-    //Abfragen
+    
 
     def isActiveFainted: Boolean = activePokemon.isFainted
 

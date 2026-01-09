@@ -3,10 +3,10 @@ package de.htwg.se.view.gui
 import scalafx.scene.layout.{BorderPane, VBox, HBox, Priority}
 import scalafx.scene.control.{Button, Label, ProgressBar}
 import scalafx.geometry.{Pos, Insets}
-import de.htwg.se.controller.Controller
-import de.htwg.se.controller.state.{PlayerAttackState, EnemyAttackState}
+// WICHTIG: Importiere die Status-Objekte aus dem Interface-Package!
+import de.htwg.se.controller.{ControllerInterface, PlayerAttackState, EnemyAttackState}
 
-class BattleScene(controller: Controller) extends BorderPane {
+class BattleScene(controller: ControllerInterface) extends BorderPane {
 
   val playerPoke = controller.getPlayerPokemon
   val enemyPoke = controller.getEnemyPokemon
@@ -32,18 +32,15 @@ class BattleScene(controller: Controller) extends BorderPane {
         )
       },
       new Label(s"${enemyPoke.currentHp} / ${enemyPoke.maxHp}") { style = "-fx-text-fill: #aaaaaa;" },
-      // Platzhalter für Gegner-Sprite 
       new Label("👾") { style = "-fx-font-size: 80px;" } 
     )
   }
 
-  // --- MITTLERER BEREICH: SPIELER ---
   val playerInfo = new VBox {
     alignment = Pos.CenterLeft
     padding = Insets(20)
     spacing = 5
     children = Seq(
-      // Platzhalter für Spieler-Sprite
       new Label("🤠") { style = "-fx-font-size: 80px;" }, 
       new Label(s"${playerPoke.name} (Lvl 5)") { style = "-fx-text-fill: white; -fx-font-size: 18px;" },
       new HBox {
@@ -62,7 +59,6 @@ class BattleScene(controller: Controller) extends BorderPane {
     )
   }
 
-  // --- UNTERER BEREICH ---
   val actionBox = new VBox {
     padding = Insets(20)
     spacing = 10
@@ -74,9 +70,10 @@ class BattleScene(controller: Controller) extends BorderPane {
       style = "-fx-text-fill: yellow; -fx-font-size: 16px; -fx-font-weight: bold;"
     }
 
-    val controls = controller.state match {
-      case _: PlayerAttackState => createPlayerActions()
-      case _: EnemyAttackState => createWaitButton()
+    // ÄNDERUNG: Matching auf viewState und Objekte (ohne "_:")
+    val controls = controller.viewState match {
+      case PlayerAttackState => createPlayerActions()
+      case EnemyAttackState => createWaitButton()
       case _ => new Label("")
     }
     children += controls
@@ -86,13 +83,9 @@ class BattleScene(controller: Controller) extends BorderPane {
   center = playerInfo
   bottom = actionBox
 
-
-  // --- HILFSMETHODEN FÜR BUTTONS ---
-
   def createPlayerActions(): HBox = {
     val box = new HBox { spacing = 10; alignment = Pos.Center }
     
-    // Attacken Buttons erstellen
     playerPoke.attacks.zipWithIndex.foreach { case (attack, index) =>
       val btn = new Button(s"${attack.name} (${attack.damage})") {
         style = "-fx-base: #555555; -fx-text-fill: white; -fx-font-size: 14px;"

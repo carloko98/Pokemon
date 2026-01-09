@@ -1,0 +1,131 @@
+package de.htwg.se.controller.controllerImpl
+
+import de.htwg.se.model._
+import de.htwg.se.util.{Observable, UndoManager, Command}
+import de.htwg.se.model.fileio.{FileIOInterface, XmlFileIO}
+import scala.util.{Success, Failure}
+import de.htwg.se.controller.{ControllerInterface, ViewState}
+
+// Wir importieren die öffentlichen ViewStates mit Alias, um Namenskonflikte zu vermeiden
+import de.htwg.se.controller.{TitleState => VTitle, MenuState => VMenu, PlayerAttackState => VPlayerAtk, EnemyAttackState => VEnemyAtk, NameInputState => VNameInput, SelectProfileState => VSelectProfile}
+
+// Wir importieren die internen States
+import de.htwg.se.controller.controllerImpl.state._
+
+class Controller(initialPlayer: PlayerInterface, initialEnemy: PlayerInterface) extends ControllerInterface {
+
+  // Interner State ist private!
+  private var internalState: ControllerState = TitleState(GameState(initialPlayer, initialEnemy))
+  
+  val fileIo: FileIOInterface = new XmlFileIO()
+  private val undoManager = new UndoManager()
+
+  // Mapping: Interner Logic-State -> Externer View-State
+  override def viewState: ViewState = internalState match {
+    case _: TitleState         => VTitle
+    case _: MenuState          => VMenu
+    case _: PlayerAttackState  => VPlayerAtk
+    case _: EnemyAttackState   => VEnemyAtk
+    case _: NameInputState     => VNameInput
+    case _: SelectProfileState => VSelectProfile
+  }
+
+  def undo(): Unit = {
+    undoManager.undoStep()
+    notifyObservers()
+  }
+
+  def redo(): Unit = {
+    undoManager.redoStep()
+    notifyObservers()
+  }
+
+  // Hilfsmethode für interne State-Wechsel
+  def setState(newState: ControllerState): Unit = {
+    internalState = newState
+    notifyObservers()
+  }
+
+  class AttackCommand(input: String) extends Command {
+    val oldState = internalState
+    val newState = internalState.handle(input)
+
+    override def doStep(): Unit = internalState = newState
+    override def undoStep(): Unit = internalState = oldState
+    override def redoStep(): Unit = internalState = newState
+  }
+
+  def handleInput(input: String): Unit = {
+    val oldState = internalState
+
+    input match {
+      case "z" | "undo" => undo()
+      case "y" | "redo" => redo()
+      
+      case _ =>
+        internalState match {
+          case _: PlayerAttackState | _: EnemyAttackState =>
+             undoManager.doStep(new AttackCommand(input))
+
+          case _: SelectProfileState =>
+             if (input == "b") internalState = TitleState(internalState.gameState)
+             else loadGame(input)
+
+          case _ =>
+             if (input == "save") saveGame()
+             else internalState = internalState.handle(input)
+        }
+    }
+
+    if (internalState.gameState.battleOver && !internalState.isInstanceOf[MenuState]) {
+      internalState = MenuState(internalState.gameState)
+    }
+
+    if (wasBattleState(oldState) && internalState.isInstanceOf[MenuState]) {
+      println("Kampf beendet - Automatisches Speichern ...")
+      saveGame()
+    }
+
+    notifyObservers()
+  }
+
+  private def wasBattleState(s: ControllerState): Boolean = {
+    s.isInstanceOf[PlayerAttackState] || s.isInstanceOf[EnemyAttackState]
+  }
+
+  def saveGame(): Unit = {
+    val currentPlayer = internalState.gameState.player
+    fileIo.save(currentPlayer) match {
+      case Success(_) => 
+        println(s"Spiel gespeichert: ${currentPlayer.name}")
+      case Failure(e) => 
+        println(s"Fehler beim Speichern: ${e.getMessage}")
+    }
+  }
+
+  def loadGame(name: String): Unit = {
+    fileIo.load(name) match {
+      case Success(loadedPlayer) =>
+        val newEnemy = PokemonFactory.createRandomEnemy()
+        val newGameState = GameState(
+          player = loadedPlayer,
+          enemy = newEnemy,
+          msg1 = "Spielstand geladen!",
+          msg2 = s"Willkommen zurück, ${loadedPlayer.name}."
+        )
+        internalState = MenuState(newGameState)
+        
+      case Failure(e) =>
+        val errorState = internalState.gameState.copy(msg2 = s"Konnte Profil '$name' nicht laden: ${e.getMessage}")
+        internalState = SelectProfileState(errorState)
+    }
+  }
+
+  def getAvailableSaves: List[String] = fileIo.listSaveGames()
+  def getPlayer: PlayerInterface = internalState.gameState.player
+  def getEnemy: PlayerInterface = internalState.gameState.enemy
+  def getPlayerPokemon: PokemonInterface = internalState.gameState.player.activePokemon
+  def getEnemyPokemon: PokemonInterface = internalState.gameState.enemy.activePokemon
+  def isBattleOver: Boolean = internalState.gameState.battleOver
+  def getMessage: (String, String) = (internalState.gameState.msg1, internalState.gameState.msg2)
+}
