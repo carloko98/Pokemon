@@ -13,7 +13,7 @@ val osName: String = {
   else throw new Exception("Unknown OS")
 }
 
-// KORREKTUR: Die Version heißt im Repo "20", nicht "20.0.0"
+
 val javaFXVersion = "20"
 
 lazy val root = (project in file("."))
@@ -42,6 +42,5 @@ lazy val root = (project in file("."))
     ),
 
     // Coverage Einstellungen
-    coverageExcludedPackages := ".*view.*",
-    coverageExcludedFiles := "(?i).*main.scala"
+  coverageExcludedFiles := "(?i).*main;.*Tui;.*Gui;.*Scene"
   )

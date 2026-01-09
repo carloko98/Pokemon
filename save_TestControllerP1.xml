@@ -1,0 +1,9 @@
+<player>
+      <name>TestControllerP1</name>
+      <team>
+        <pokemon>
+            <name>MissingNo</name>
+            <hp>100</hp>
+          </pokemon>
+      </team>
+    </player>

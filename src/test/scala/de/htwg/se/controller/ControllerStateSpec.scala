@@ -4,7 +4,7 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
 import de.htwg.se.model._
 import de.htwg.se.model.PokemonType._
-import de.htwg.se.controller.state._
+import de.htwg.se.controller.controllerImpl.state.*
 
 class ControllerStateSpec extends AnyWordSpec with Matchers {
 
