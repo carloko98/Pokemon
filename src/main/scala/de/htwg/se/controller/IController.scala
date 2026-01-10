@@ -1,7 +1,7 @@
 package de.htwg.se.controller
 
 import de.htwg.se.util.Observable
-import de.htwg.se.model.PlayerInterface
+import de.htwg.se.model.PlayerComponent.IPlayer
 import de.htwg.se.model.PokemonInterface
 
 // Neuer Enum/Sealed Trait für den View-Status (Entkopplung von Logik-States)
@@ -25,8 +25,8 @@ trait ControllerInterface extends Observable {
   def viewState: ViewState
   
   def getAvailableSaves: List[String]
-  def getPlayer: PlayerInterface
-  def getEnemy: PlayerInterface
+  def getPlayer: IPlayer
+  def getEnemy: IPlayer
   def getPlayerPokemon: PokemonInterface
   def getEnemyPokemon: PokemonInterface
   def isBattleOver: Boolean

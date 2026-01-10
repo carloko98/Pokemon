@@ -1,11 +1,11 @@
-package de.htwg.se.model
+package de.htwg.se.model.PlayerComponent.PlayerBaseImpl
 
 case class Player(
     name: String,
     team: Vector[PokemonInterface] = Vector.empty,
     currentPokemonIndex: Int = 0,
     items: Vector[String] = Vector.empty // Erstmal String spaeter erweitern
-) extends PlayerInterface{
+) extends IPlayer{
     def activePokemon: PokemonInterface = team(currentPokemonIndex)
 
     def updatePokemon(newPokemon: PokemonInterface): Player = {

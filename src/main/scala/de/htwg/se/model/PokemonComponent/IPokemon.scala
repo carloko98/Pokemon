@@ -1,9 +1,9 @@
-package de.htwg.se.model
+package de.htwg.se.model.PokemonComponent
 
 import de.htwg.se.model.PokemonType 
 import de.htwg.se.model.Attack      
 
-trait PokemonInterface {
+trait IPokemon {
   def name: String
   def pType: PokemonType
   def maxHp: Int
@@ -13,5 +13,5 @@ trait PokemonInterface {
 
   def isFainted: Boolean
   
-  def withHp(newHp: Int): PokemonInterface
+  def withHp(newHp: Int): IPokemon
 }

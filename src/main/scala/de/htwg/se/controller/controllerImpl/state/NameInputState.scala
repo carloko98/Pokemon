@@ -1,7 +1,8 @@
 package de.htwg.se.controller.controllerImpl.state
 
 import de.htwg.se.controller.ControllerInterface
-import de.htwg.se.model.{GameState, PokemonFactory}
+import de.htwg.se.model.{PokemonFactory}
+import de.htwg.se.model.GameStateComponent.GameStateBaseImpl.GameState
 
 case class NameInputState(gameState: GameState) extends ControllerState {
 

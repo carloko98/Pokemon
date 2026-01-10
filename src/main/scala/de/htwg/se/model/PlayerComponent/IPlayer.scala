@@ -1,6 +1,6 @@
-package de.htwg.se.model
+package de.htwg.se.model.PlayerComponent
 
-trait PlayerInterface {
+trait IPlayer {
   def name: String
   def team: Vector[PokemonInterface] 
   def currentPokemonIndex: Int

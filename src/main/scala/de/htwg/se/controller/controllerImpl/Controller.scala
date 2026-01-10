@@ -1,7 +1,7 @@
 package de.htwg.se.controller.controllerImpl
 
 import de.htwg.se.model._
-import de.htwg.se.model.battleLogicComponent.IBattleLogic
+import de.htwg.se.model.BattleLogicComponent.IBattleLogic
 import de.htwg.se.util.{Observable, UndoManager, Command}
 import de.htwg.se.model.fileio.{FileIOInterface, XmlFileIO}
 import scala.util.{Success, Failure}
@@ -12,8 +12,9 @@ import de.htwg.se.controller.{TitleState => VTitle, MenuState => VMenu, PlayerAt
 
 // Wir importieren die internen States
 import de.htwg.se.controller.controllerImpl.state._
+import de.htwg.se.model.PlayerComponent.IPlayer
 
-class Controller(initialPlayer: PlayerInterface, initialEnemy: PlayerInterface) extends ControllerInterface {
+class Controller(initialPlayer: IPlayer, initialEnemy: IPlayer) extends ControllerInterface {
 
   // Interner State ist private!
   private var internalState: ControllerState = TitleState(GameState(initialPlayer, initialEnemy))

@@ -1,6 +1,8 @@
-package de.htwg.se.model
+package de.htwg.se.model.PokemonComponent.PokemonBaseImpl
 
 import de.htwg.se.model.PokemonType
+import de.htwg.se.model.Attack
+import de.htwg.se.model.PokemonComponent.IPokemon
 
 case class Pokemon(
   name: String,
@@ -8,7 +10,7 @@ case class Pokemon(
   maxHp: Int,
   currentHp: Int,
   attacks: Vector[Attack]
-) extends PokemonInterface {
+) extends IPokemon {
   
   def withHp(newHp: Int): Pokemon = copy(currentHp = newHp.max(0).min(maxHp))
 

@@ -1,11 +1,11 @@
 package de.htwg.se.controller.controllerImpl.state
 
 
-import de.htwg.se.model.{GameState, Attack, BattleLogic}
-import de.htwg.se.model.PlayerInterface
+import de.htwg.se.model.{GameState, Attack, BattleLogicComponent}
+import de.htwg.se.model.PlayerComponent.IPlayer
 import de.htwg.se.model.PokemonInterface
 
-case class PlayerAttackState(gameState: GameState, logic: BattleLogic) extends ControllerState {
+case class PlayerAttackState(gameState: GameState, logic: IBattleLogic) extends ControllerState {
 
   override def handle(input: String): ControllerState = {
     if (input == "f" || input == "fliehen") {
@@ -45,8 +45,8 @@ case class PlayerAttackState(gameState: GameState, logic: BattleLogic) extends C
 
 
   private def executePlayerAttack(attack: Attack): ControllerState = {
-    val currentPlayer: PlayerInterface = gameState.player
-    val currentEnemy: PlayerInterface  = gameState.enemy
+    val currentPlayer: IPlayer = gameState.player
+    val currentEnemy: IPlayer  = gameState.enemy
     
     val activePlayerPoke: PokemonInterface = currentPlayer.activePokemon
     val activeEnemyPoke: PokemonInterface = currentEnemy.activePokemon
@@ -55,7 +55,7 @@ case class PlayerAttackState(gameState: GameState, logic: BattleLogic) extends C
     val damage = (attack.damage * eff).toInt
     val newEnemyPoke: PokemonInterface = activeEnemyPoke.withHp(activeEnemyPoke.currentHp - damage)
     
-    val newEnemy: PlayerInterface = currentEnemy.updatePokemon(newEnemyPoke)
+    val newEnemy: IPlayer = currentEnemy.updatePokemon(newEnemyPoke)
 
     val intermediateGameState = gameState.copy(
       enemy = newEnemy,

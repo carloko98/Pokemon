@@ -1,6 +1,7 @@
-package de.htwg.se.model
+package de.htwg.se.model.PokemonComponent.PokemonBaseImpl
 
 import de.htwg.se.model.PokemonType._
+import de.htwg.se.model.PokemonComponent.PokemonBaseImpl.Pokemon
 
 object PokemonDBS {
 

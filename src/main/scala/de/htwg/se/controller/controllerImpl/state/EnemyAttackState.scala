@@ -1,19 +1,20 @@
 package de.htwg.se.controller.controllerImpl.state
 
 
-import de.htwg.se.model.{GameState, BattleLogic}
-import de.htwg.se.model.{PlayerInterface, PokemonInterface}
+import de.htwg.se.model.{GameState, IBattleLogic}
+import de.htwg.se.model.{PokemonInterface}
+import de.htwg.se.model.PlayerComponent.IPlayer
 import scala.util.Random
 
-case class EnemyAttackState(gameState: GameState, logic: BattleLogic) extends ControllerState {
+case class EnemyAttackState(gameState: GameState, logic: IBattleLogic) extends ControllerState {
 
   override def handle(input: String): ControllerState = {
     executeEnemyAttack()
   }
 
   private def executeEnemyAttack(): ControllerState = {
-    val currentPlayer: PlayerInterface = gameState.player
-    val currentEnemy: PlayerInterface = gameState.enemy
+    val currentPlayer: IPlayer = gameState.player
+    val currentEnemy: IPlayer = gameState.enemy
 
     val activeEnemyPoke: PokemonInterface = currentEnemy.activePokemon
     val activePlayerPoke: PokemonInterface = currentPlayer.activePokemon
@@ -25,7 +26,7 @@ case class EnemyAttackState(gameState: GameState, logic: BattleLogic) extends Co
     val damage = (enemyAtk.damage * eff).toInt
 
     val newPlayerPoke: PokemonInterface = activePlayerPoke.withHp(activePlayerPoke.currentHp - damage)
-    val newPlayer: PlayerInterface = currentPlayer.updatePokemon(newPlayerPoke)
+    val newPlayer: IPlayer = currentPlayer.updatePokemon(newPlayerPoke)
 
     val finalGameState = gameState.copy(
       player = newPlayer,
