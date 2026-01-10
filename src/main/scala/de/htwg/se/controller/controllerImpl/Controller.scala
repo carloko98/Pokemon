@@ -1,6 +1,7 @@
 package de.htwg.se.controller.controllerImpl
 
 import de.htwg.se.model._
+import de.htwg.se.model.battleLogicComponent.IBattleLogic
 import de.htwg.se.util.{Observable, UndoManager, Command}
 import de.htwg.se.model.fileio.{FileIOInterface, XmlFileIO}
 import scala.util.{Success, Failure}

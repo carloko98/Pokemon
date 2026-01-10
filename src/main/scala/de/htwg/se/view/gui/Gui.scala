@@ -8,7 +8,6 @@ import scalafx.Includes._
 import de.htwg.se.util.Observer
 import de.htwg.se.controller.{ControllerInterface, TitleState, MenuState, PlayerAttackState, EnemyAttackState, NameInputState, SelectProfileState}
 
-// KEINE IMPORTS MEHR AUS controllerImpl.state!
 
 class Gui(val controller: ControllerInterface) extends JFXApp3 with Observer {
 
@@ -34,8 +33,6 @@ class Gui(val controller: ControllerInterface) extends JFXApp3 with Observer {
         case NameInputState => new NameInputScene(controller)
         case SelectProfileState => new SelectProfileScene(controller)
         case PlayerAttackState | EnemyAttackState => new BattleScene(controller)
-        // Falls neue States hinzukommen, die hier noch nicht behandelt werden, Default:
-        case _ => new TitleScene(controller) 
       }
       
       if (stage != null && stage.scene() != null) {
