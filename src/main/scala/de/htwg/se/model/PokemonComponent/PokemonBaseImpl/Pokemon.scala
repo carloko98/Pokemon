@@ -1,7 +1,7 @@
 package de.htwg.se.model.PokemonComponent.PokemonBaseImpl
 
-import de.htwg.se.model.PokemonType
-import de.htwg.se.model.Attack
+import de.htwg.se.model.PokemonComponent.PokemonType
+import de.htwg.se.model.PokemonComponent.Attack
 import de.htwg.se.model.PokemonComponent.IPokemon
 
 case class Pokemon(
@@ -12,6 +12,7 @@ case class Pokemon(
   attacks: Vector[Attack]
 ) extends IPokemon {
   
+  // Implementierung der Methoden aus IPokemon
   def withHp(newHp: Int): Pokemon = copy(currentHp = newHp.max(0).min(maxHp))
 
   def isFainted: Boolean = currentHp <= 0

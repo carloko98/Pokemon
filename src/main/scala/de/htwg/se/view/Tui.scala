@@ -1,10 +1,10 @@
 package de.htwg.se.view
 
-import de.htwg.se.controller.{ControllerInterface, TitleState, MenuState, PlayerAttackState, EnemyAttackState, NameInputState, SelectProfileState}
+import de.htwg.se.controller.{IController, TitleState, MenuState, PlayerAttackState, EnemyAttackState, NameInputState, SelectProfileState}
 import de.htwg.se.util.Observer
 import scala.io.StdIn.readLine
 
-class Tui(val controller: ControllerInterface) extends Observer {
+class Tui(val controller: IController) extends Observer {
 
   controller.add(this)
 

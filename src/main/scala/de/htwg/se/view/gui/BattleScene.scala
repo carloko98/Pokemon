@@ -3,10 +3,9 @@ package de.htwg.se.view.gui
 import scalafx.scene.layout.{BorderPane, VBox, HBox, Priority}
 import scalafx.scene.control.{Button, Label, ProgressBar}
 import scalafx.geometry.{Pos, Insets}
-// WICHTIG: Importiere die Status-Objekte aus dem Interface-Package!
-import de.htwg.se.controller.{ControllerInterface, PlayerAttackState, EnemyAttackState}
+import de.htwg.se.controller.{IController, PlayerAttackState, EnemyAttackState}
 
-class BattleScene(controller: ControllerInterface) extends BorderPane {
+class BattleScene(controller: IController) extends BorderPane {
 
   val playerPoke = controller.getPlayerPokemon
   val enemyPoke = controller.getEnemyPokemon
@@ -70,7 +69,7 @@ class BattleScene(controller: ControllerInterface) extends BorderPane {
       style = "-fx-text-fill: yellow; -fx-font-size: 16px; -fx-font-weight: bold;"
     }
 
-    // ÄNDERUNG: Matching auf viewState und Objekte (ohne "_:")
+    // Matching auf viewState
     val controls = controller.viewState match {
       case PlayerAttackState => createPlayerActions()
       case EnemyAttackState => createWaitButton()

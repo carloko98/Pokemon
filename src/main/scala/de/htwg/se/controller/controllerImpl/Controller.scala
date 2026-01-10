@@ -1,28 +1,33 @@
 package de.htwg.se.controller.controllerImpl
 
-import de.htwg.se.model._
-import de.htwg.se.model.BattleLogicComponent.IBattleLogic
+import com.google.inject.Inject
+import de.htwg.se.model.FileIOComponent.IFileIO
 import de.htwg.se.util.{Observable, UndoManager, Command}
-import de.htwg.se.model.fileio.{FileIOInterface, XmlFileIO}
+import de.htwg.se.controller.{IController, ViewState}
 import scala.util.{Success, Failure}
-import de.htwg.se.controller.{ControllerInterface, ViewState}
 
-// Wir importieren die öffentlichen ViewStates mit Alias, um Namenskonflikte zu vermeiden
+// Alias Imports für die ViewStates
 import de.htwg.se.controller.{TitleState => VTitle, MenuState => VMenu, PlayerAttackState => VPlayerAtk, EnemyAttackState => VEnemyAtk, NameInputState => VNameInput, SelectProfileState => VSelectProfile}
 
-// Wir importieren die internen States
+// Interne States
 import de.htwg.se.controller.controllerImpl.state._
+
+// Model Imports
 import de.htwg.se.model.PlayerComponent.IPlayer
+import de.htwg.se.model.GameStateComponent.GameStateBaseImpl.GameState
+import de.htwg.se.model.PokemonComponent.PokemonBaseImpl.PokemonFactory
+import de.htwg.se.model.PokemonComponent.IPokemon
 
-class Controller(initialPlayer: IPlayer, initialEnemy: IPlayer) extends ControllerInterface {
+class Controller @Inject() (
+  initialPlayer: IPlayer,
+  initialEnemy: IPlayer,
+  val fileIo: IFileIO
+) extends IController {
 
-  // Interner State ist private!
   private var internalState: ControllerState = TitleState(GameState(initialPlayer, initialEnemy))
-  
-  val fileIo: FileIOInterface = new XmlFileIO()
+
   private val undoManager = new UndoManager()
 
-  // Mapping: Interner Logic-State -> Externer View-State
   override def viewState: ViewState = internalState match {
     case _: TitleState         => VTitle
     case _: MenuState          => VMenu
@@ -42,7 +47,6 @@ class Controller(initialPlayer: IPlayer, initialEnemy: IPlayer) extends Controll
     notifyObservers()
   }
 
-  // Hilfsmethode für interne State-Wechsel
   def setState(newState: ControllerState): Unit = {
     internalState = newState
     notifyObservers()
@@ -124,10 +128,15 @@ class Controller(initialPlayer: IPlayer, initialEnemy: IPlayer) extends Controll
   }
 
   def getAvailableSaves: List[String] = fileIo.listSaveGames()
-  def getPlayer: PlayerInterface = internalState.gameState.player
-  def getEnemy: PlayerInterface = internalState.gameState.enemy
-  def getPlayerPokemon: PokemonInterface = internalState.gameState.player.activePokemon
-  def getEnemyPokemon: PokemonInterface = internalState.gameState.enemy.activePokemon
+  
+  def getPlayer: de.htwg.se.model.PlayerComponent.PlayerBaseImpl.Player = 
+    internalState.gameState.player.asInstanceOf[de.htwg.se.model.PlayerComponent.PlayerBaseImpl.Player]
+    
+  def getEnemy: de.htwg.se.model.PlayerComponent.PlayerBaseImpl.Player = 
+    internalState.gameState.enemy.asInstanceOf[de.htwg.se.model.PlayerComponent.PlayerBaseImpl.Player]
+    
+  def getPlayerPokemon: IPokemon = internalState.gameState.player.activePokemon
+  def getEnemyPokemon: IPokemon = internalState.gameState.enemy.activePokemon
   def isBattleOver: Boolean = internalState.gameState.battleOver
   def getMessage: (String, String) = (internalState.gameState.msg1, internalState.gameState.msg2)
 }

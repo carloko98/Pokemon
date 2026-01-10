@@ -3,9 +3,9 @@ package de.htwg.se.view.gui
 import scalafx.scene.layout.VBox
 import scalafx.scene.control.{Button, Label, ScrollPane}
 import scalafx.geometry.{Pos, Insets}
-import de.htwg.se.controller.ControllerInterface
+import de.htwg.se.controller.IController
 
-class SelectProfileScene(controller: ControllerInterface) extends VBox {
+class SelectProfileScene(controller: IController) extends VBox {
   spacing = 20
   alignment = Pos.Center
   style = "-fx-background-color: #222222;"

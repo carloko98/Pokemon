@@ -1,11 +1,12 @@
 package de.htwg.se.model.PokemonComponent.PokemonBaseImpl
 
-import de.htwg.se.model.PokemonType._
-import de.htwg.se.model.PokemonComponent.PokemonBaseImpl.Pokemon
+// Importiert die Typen und Attacken aus dem übergeordneten Component-Package
+import de.htwg.se.model.PokemonComponent.PokemonType
+import de.htwg.se.model.PokemonComponent.PokemonType._ // Damit du direkt 'Fire', 'Water' schreiben kannst
+import de.htwg.se.model.PokemonComponent.Attack
 
 object PokemonDBS {
 
-  
   private val entries: Map[String, Pokemon] = Map(
     "glurak" -> Pokemon("Glurak", Fire, 150, 150, Vector(
       Attack("Flammenwurf", 40, Fire),
@@ -35,6 +36,5 @@ object PokemonDBS {
     ))
   )
 
-  
   def get(name: String): Option[Pokemon] = entries.get(name.toLowerCase)
 }

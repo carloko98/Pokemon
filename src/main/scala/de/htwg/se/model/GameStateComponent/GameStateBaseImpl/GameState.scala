@@ -1,12 +1,12 @@
 package de.htwg.se.model.GameStateComponent.GameStateBaseImpl
 
+import de.htwg.se.model.GameStateComponent.IGameState
 import de.htwg.se.model.PlayerComponent.IPlayer
 
 case class GameState(
-    player: IPlayer,
-    enemy: IPlayer,
-    battleOver: Boolean = false,
-    msg1: String = "",
-    msg2: String = ""
-)
-
+    override val player: IPlayer,
+    override val enemy: IPlayer,
+    override val battleOver: Boolean = false,
+    override val msg1: String = "",
+    override val msg2: String = ""
+) extends IGameState

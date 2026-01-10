@@ -29,6 +29,8 @@ lazy val root = (project in file("."))
     // Testing & XML
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.18" % Test,
     libraryDependencies += "org.scala-lang.modules" %% "scala-xml" % "2.1.0",
+    libraryDependencies += "org.playframework" %% "play-json" % "3.0.4",
+    libraryDependencies += "net.codingwell" %% "scala-guice" % "7.0.0",
 
     // ScalaFX & JavaFX
     libraryDependencies ++= Seq(

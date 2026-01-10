@@ -1,8 +1,7 @@
 package de.htwg.se.controller.controllerImpl.state
 
-import de.htwg.se.controller.controllerImpl.state
-import de.htwg.se.model.{WildBattleLogic, TrainerBattleLogic}
 import de.htwg.se.model.GameStateComponent.GameStateBaseImpl.GameState
+import de.htwg.se.model.BattleLogicComponent.BattleLogicService
 
 case class MenuState(gameState: GameState) extends ControllerState {
   
@@ -13,7 +12,7 @@ case class MenuState(gameState: GameState) extends ControllerState {
         msg1 = "Wilder Kampf gestartet!",
         msg2 = s"Ein wildes ${gameState.enemy.name} taucht auf!"
       )
-      PlayerAttackState(newGameState, WildBattleLogic)
+      PlayerAttackState(newGameState, BattleLogicService.getWildLogic())
 
     case "t" | "trainer" =>
       val newGameState = gameState.copy(
@@ -21,7 +20,7 @@ case class MenuState(gameState: GameState) extends ControllerState {
         msg1 = "Trainerkampf gestartet!",
         msg2 = s"${gameState.enemy.name} fordert dich heraus!"
       )
-      PlayerAttackState(newGameState, TrainerBattleLogic)
+      PlayerAttackState(newGameState, BattleLogicService.getTrainerLogic())
 
     case "q" | "quit" =>
       System.exit(0)

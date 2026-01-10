@@ -1,4 +1,5 @@
-package de.htwg.se.model
+package de.htwg.se.model.PokemonComponent
+
 
 
 case class Attack(

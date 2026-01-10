@@ -1,8 +1,8 @@
 package de.htwg.se.controller.controllerImpl.state
 
-
-import de.htwg.se.model.{GameState, IBattleLogic}
-import de.htwg.se.model.{PokemonInterface}
+import de.htwg.se.model.GameStateComponent.GameStateBaseImpl.GameState
+import de.htwg.se.model.BattleLogicComponent.IBattleLogic
+import de.htwg.se.model.PokemonComponent.IPokemon
 import de.htwg.se.model.PlayerComponent.IPlayer
 import scala.util.Random
 
@@ -16,8 +16,8 @@ case class EnemyAttackState(gameState: GameState, logic: IBattleLogic) extends C
     val currentPlayer: IPlayer = gameState.player
     val currentEnemy: IPlayer = gameState.enemy
 
-    val activeEnemyPoke: PokemonInterface = currentEnemy.activePokemon
-    val activePlayerPoke: PokemonInterface = currentPlayer.activePokemon
+    val activeEnemyPoke: IPokemon = currentEnemy.activePokemon
+    val activePlayerPoke: IPokemon = currentPlayer.activePokemon
 
     val rnd = new Random()
     val enemyAtk = activeEnemyPoke.attacks(rnd.nextInt(activeEnemyPoke.attacks.size))
@@ -25,7 +25,7 @@ case class EnemyAttackState(gameState: GameState, logic: IBattleLogic) extends C
     val eff = enemyAtk.attackType.effectivenessAgainst(activePlayerPoke.pType)
     val damage = (enemyAtk.damage * eff).toInt
 
-    val newPlayerPoke: PokemonInterface = activePlayerPoke.withHp(activePlayerPoke.currentHp - damage)
+    val newPlayerPoke: IPokemon = activePlayerPoke.withHp(activePlayerPoke.currentHp - damage)
     val newPlayer: IPlayer = currentPlayer.updatePokemon(newPlayerPoke)
 
     val finalGameState = gameState.copy(

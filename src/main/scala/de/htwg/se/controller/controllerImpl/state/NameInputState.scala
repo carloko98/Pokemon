@@ -1,7 +1,6 @@
 package de.htwg.se.controller.controllerImpl.state
 
-import de.htwg.se.controller.ControllerInterface
-import de.htwg.se.model.{PokemonFactory}
+import de.htwg.se.model.PokemonComponent.PokemonBaseImpl.PokemonFactory
 import de.htwg.se.model.GameStateComponent.GameStateBaseImpl.GameState
 
 case class NameInputState(gameState: GameState) extends ControllerState {
@@ -10,7 +9,7 @@ case class NameInputState(gameState: GameState) extends ControllerState {
         if (input.trim.isEmpty) {
             val newGS = gameState.copy(msg2 = "Name darf nicht leer sein!")
             copy(gameState = newGS)
-        }else {
+        } else {
             val playerName = input.trim
             val newPlayer = PokemonFactory.createPlayer(playerName, Vector("Glurak", "Bisaflor"))
             val newEnemy = PokemonFactory.createRandomEnemy()

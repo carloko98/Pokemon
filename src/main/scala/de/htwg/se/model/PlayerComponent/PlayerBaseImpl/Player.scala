@@ -1,14 +1,16 @@
 package de.htwg.se.model.PlayerComponent.PlayerBaseImpl
+import de.htwg.se.model.PlayerComponent.IPlayer
+import de.htwg.se.model.PokemonComponent.IPokemon
 
 case class Player(
     name: String,
-    team: Vector[PokemonInterface] = Vector.empty,
+    team: Vector[IPokemon] = Vector.empty,
     currentPokemonIndex: Int = 0,
     items: Vector[String] = Vector.empty // Erstmal String spaeter erweitern
 ) extends IPlayer{
-    def activePokemon: PokemonInterface = team(currentPokemonIndex)
+    def activePokemon: IPokemon = team(currentPokemonIndex)
 
-    def updatePokemon(newPokemon: PokemonInterface): Player = {
+    def updatePokemon(newPokemon: IPokemon): Player = {
         val newTeam = team.updated(currentPokemonIndex, newPokemon)
         copy(team = newTeam)
     }
@@ -17,7 +19,7 @@ case class Player(
         copy(currentPokemonIndex = index)
     }
 
-    def addPokemon(p: PokemonInterface): Player = {
+    def addPokemon(p: IPokemon): Player = {
         val newTeam = team :+ p
         copy(team = newTeam)
     }

@@ -1,18 +1,13 @@
 package de.htwg.se.model.FileIOComponent
 
-import de.htwg.se.model.PokemonFactory
+import de.htwg.se.model.PokemonComponent.PokemonBaseImpl.PokemonFactory // Korrigierter Import
 import de.htwg.se.model.PlayerComponent.IPlayer
+import de.htwg.se.model.PlayerComponent.PlayerBaseImpl.Player
 import java.io._
 import scala.xml.{Node, Elem, XML}
 import scala.util.{Try, Success, Failure} 
 
-trait FileIOInterface {
-  def save(player: IPlayer): Try[Unit]
-  def load(name: String): Try[IPlayer]
-  def listSaveGames(): List[String]
-}
-
-class XmlFileIO extends FileIOInterface {
+class XmlFileIO extends IFileIO {
 
   override def save(player: IPlayer): Try[Unit] = {
     Try { 
@@ -60,12 +55,11 @@ class XmlFileIO extends FileIOInterface {
     val team = teamNodes.map { pNode =>
       val pokeName = (pNode \ "name").text.trim
       val hp = (pNode \ "hp").text.trim.toInt
-      // Factory gibt Interface zurück, das ist ok
+      
       val freshPoke = PokemonFactory.getPokemon(pokeName)
       freshPoke.withHp(hp)
     }.toVector
     
-    // Da wir im Model-Paket (bzw. Sub-Paket) sind, dürfen wir die konkrete Klasse Player zur Instanziierung nutzen
     Player(name, team)
   }
 }

@@ -1,9 +1,10 @@
 package de.htwg.se.controller.controllerImpl.state
 
-
-import de.htwg.se.model.{GameState, Attack, BattleLogicComponent}
+import de.htwg.se.model.GameStateComponent.GameStateBaseImpl.GameState
+import de.htwg.se.model.BattleLogicComponent.IBattleLogic
+import de.htwg.se.model.PokemonComponent.Attack
 import de.htwg.se.model.PlayerComponent.IPlayer
-import de.htwg.se.model.PokemonInterface
+import de.htwg.se.model.PokemonComponent.IPokemon 
 
 case class PlayerAttackState(gameState: GameState, logic: IBattleLogic) extends ControllerState {
 
@@ -28,7 +29,6 @@ case class PlayerAttackState(gameState: GameState, logic: IBattleLogic) extends 
     }
   }
 
-
   private def handleFlee(): ControllerState = {
     if (logic.isFleeingAllowed) {
       val newGameState = gameState.copy(
@@ -43,17 +43,16 @@ case class PlayerAttackState(gameState: GameState, logic: IBattleLogic) extends 
     }
   }
 
-
   private def executePlayerAttack(attack: Attack): ControllerState = {
     val currentPlayer: IPlayer = gameState.player
     val currentEnemy: IPlayer  = gameState.enemy
     
-    val activePlayerPoke: PokemonInterface = currentPlayer.activePokemon
-    val activeEnemyPoke: PokemonInterface = currentEnemy.activePokemon
+    val activePlayerPoke: IPokemon = currentPlayer.activePokemon
+    val activeEnemyPoke: IPokemon = currentEnemy.activePokemon
 
     val eff = attack.attackType.effectivenessAgainst(activeEnemyPoke.pType)
     val damage = (attack.damage * eff).toInt
-    val newEnemyPoke: PokemonInterface = activeEnemyPoke.withHp(activeEnemyPoke.currentHp - damage)
+    val newEnemyPoke: IPokemon = activeEnemyPoke.withHp(activeEnemyPoke.currentHp - damage)
     
     val newEnemy: IPlayer = currentEnemy.updatePokemon(newEnemyPoke)
 

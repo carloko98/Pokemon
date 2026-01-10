@@ -1,4 +1,4 @@
-package de.htwg.se.model
+package de.htwg.se.model.PokemonComponent
  
 enum PokemonType {
   case Normal, Fire, Water, Grass, Electric, Ice, Fighting, Poison, Ground,

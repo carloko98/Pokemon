@@ -4,12 +4,21 @@ import scalafx.application.JFXApp3
 import scalafx.application.Platform
 import scalafx.scene.Scene
 import scalafx.scene.Parent
-import scalafx.Includes._  
+import scalafx.Includes._ 
 import de.htwg.se.util.Observer
-import de.htwg.se.controller.{ControllerInterface, TitleState, MenuState, PlayerAttackState, EnemyAttackState, NameInputState, SelectProfileState}
+import de.htwg.se.controller.IController
 
+// WICHTIG: Importiere die ViewStates, damit das 'match' funktioniert
+import de.htwg.se.controller.{
+  TitleState, 
+  MenuState, 
+  NameInputState, 
+  SelectProfileState, 
+  PlayerAttackState, 
+  EnemyAttackState
+}
 
-class Gui(val controller: ControllerInterface) extends JFXApp3 with Observer {
+class Gui(val controller: IController) extends JFXApp3 with Observer {
 
   controller.add(this)
 
@@ -28,9 +37,9 @@ class Gui(val controller: ControllerInterface) extends JFXApp3 with Observer {
     Platform.runLater {
       // Matching auf die abstrakten ViewStates
       val newRoot: Parent = controller.viewState match {
-        case TitleState => new TitleScene(controller)
-        case MenuState => new MenuScene(controller)
-        case NameInputState => new NameInputScene(controller)
+        case TitleState         => new TitleScene(controller)
+        case MenuState          => new MenuScene(controller)
+        case NameInputState     => new NameInputScene(controller)
         case SelectProfileState => new SelectProfileScene(controller)
         case PlayerAttackState | EnemyAttackState => new BattleScene(controller)
       }
