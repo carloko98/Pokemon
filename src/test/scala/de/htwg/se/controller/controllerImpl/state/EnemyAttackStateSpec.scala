@@ -1,65 +1,163 @@
-package de.htwg.se.controller.state
+package de.htwg.se.controller.controllerImpl.state
 
-import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
-import de.htwg.se.model._
-import de.htwg.se.model.PokemonType._
-import de.htwg.se.controller.controllerImpl.state.{EnemyAttackState, MenuState, PlayerAttackState}
+import org.scalatest.wordspec.AnyWordSpec
+import de.htwg.se.model.GameStateComponent.GameState
+import de.htwg.se.model.BattleLogicComponent.IBattleLogic
+import de.htwg.se.model.PlayerComponent.IPlayer
+import de.htwg.se.model.PokemonComponent.{IPokemon, Attack, AttackType}
 
 class EnemyAttackStateSpec extends AnyWordSpec with Matchers {
 
-  "The EnemyAttackState" should {
+  // --- MOCK DEFINITIONS ---
+  
+  // Ein einfacher Mock für die BattleLogic
+  class BattleLogicMock(fleeAllowed: Boolean = true) extends IBattleLogic {
+    override def getLossMessage(name: String): String = s"$name hat verloren"
+    override def getWinMessage(name: String): String = s"$name hat gewonnen"
+    override def isFleeingAllowed: Boolean = fleeAllowed
+  }
+
+  // Helper zum Erstellen von Dummy-Attacken mit kontrollierter Effektivität
+  // Wir erstellen eine anonyme Klasse von AttackType, um 'effectivenessAgainst' zu steuern
+  def createAttackWithEffectiveness(effValue: Double): Attack = {
+    val mockType = new AttackType {
+      override def toString: String = "MockType"
+      // Wir überschreiben die Methode, um genau den Wert zurückzugeben, den wir testen wollen
+      override def effectivenessAgainst(opponent: AttackType): Double = effValue
+    }
+    // Name, Damage, MaxPP, Type
+    Attack("TestAttack", 10, 10, mockType)
+  }
+
+  // Ein generischer Pokemon Mock
+  case class MockPokemon(
+      hp: Int, 
+      atkList: List[Attack], 
+      isFaintedVal: Boolean = false
+  ) extends IPokemon {
+    override def name: String = "TestMon"
+    override def currentHp: Int = hp
+    override def attacks: List[Attack] = atkList
+    override def pType: AttackType = new AttackType { override def toString = "DefType" override def effectivenessAgainst(o: AttackType) = 1.0 }
     
-    def createScenario(playerType: PokemonType, enemyType: PokemonType, enemyAttackType: PokemonType, playerHp: Int = 100): GameState = {
-      val attack = Attack("TestAttack", 10, enemyAttackType)
-      val playerPoke = Pokemon("PlayerPoke", playerType, 100, playerHp, Vector(attack))
-      val enemyPoke = Pokemon("EnemyPoke", enemyType, 100, 100, Vector(attack))
+    // Unwichtige Dummies
+    override def attack: Int = 10
+    override def defense: Int = 10
+    override def speed: Int = 10
+    override def withHp(newHp: Int): IPokemon = this.copy(hp = newHp)
+    override def isFainted: Boolean = isFaintedVal
+  }
+
+  // Ein Player Mock
+  case class MockPlayer(
+      poke: IPokemon, 
+      fainted: Boolean
+  ) extends IPlayer {
+    override def name: String = "TestPlayer"
+    override def activePokemon: IPokemon = poke
+    override def isActiveFainted: Boolean = fainted
+    override def updatePokemon(newPoke: IPokemon): IPlayer = this.copy(poke = newPoke)
+    // Unwichtig
+    override def pokemonList: List[IPokemon] = List(poke)
+  }
+
+  "An EnemyAttackState" should {
+
+    "transition to PlayerAttackState when player survives (Effectiveness 1.0)" in {
+      // Setup: 1.0 Effektivität
+      val attack = createAttackWithEffectiveness(1.0)
+      val pPoke = MockPokemon(100, List(attack))
+      val ePoke = MockPokemon(100, List(attack)) // Enemy hat nur 1 Attacke -> Random ist deterministisch
       
-      val player = Player("Ash", Vector(playerPoke))
-      val enemy = Player("Gary", Vector(enemyPoke))
+      val player = MockPlayer(pPoke, fainted = false)
+      val enemy = MockPlayer(ePoke, fainted = false)
       
-      GameState(player, enemy)
+      val gs = GameState(player, enemy, battleOver = false, "", "")
+      val logic = new BattleLogicMock()
+      val state = EnemyAttackState(gs, logic)
+
+      val result = state.handle("")
+      
+      result shouldBe a [PlayerAttackState]
+      // Prüfen ob Nachricht leer ist (Standard bei 1.0)
+      val casted = result.asInstanceOf[PlayerAttackState]
+      casted.gameState.msg2 should include ("Schaden!")
+      casted.gameState.msg2 should not include "(" 
     }
 
-    "handle a 'Super Effective' attack (> 1.0)" in {
-      val gs = createScenario(Fire, Water, Water)
-      val state = EnemyAttackState(gs, WildBattleLogic)
+    "transition to MenuState when player faints" in {
+      val attack = createAttackWithEffectiveness(1.0)
+      val pPoke = MockPokemon(0, List(attack))
+      val ePoke = MockPokemon(100, List(attack))
       
-      val nextState = state.handle("")
+      // WICHTIG: fainted = true simulieren
+      val player = MockPlayer(pPoke, fainted = true) 
+      val enemy = MockPlayer(ePoke, fainted = false)
       
-      nextState shouldBe a [PlayerAttackState]
-      nextState.gameState.msg2 should include ("(Sehr effektiv!)")
+      val gs = GameState(player, enemy, battleOver = false, "", "")
+      val logic = new BattleLogicMock()
+      val state = EnemyAttackState(gs, logic)
+
+      val result = state.handle("")
+
+      result shouldBe a [MenuState]
+      val casted = result.asInstanceOf[MenuState]
+      casted.gameState.battleOver should be (true)
+      casted.gameState.msg1 should be ("VERLOREN!")
     }
 
-    "handle a 'Not Very Effective' attack (< 1.0)" in {
-      val gs = createScenario(Water, Fire, Fire)
-      val state = EnemyAttackState(gs, WildBattleLogic)
+    "display 'Sehr effektiv' message when effectiveness > 1.0" in {
+      val attack = createAttackWithEffectiveness(2.0)
+      val pPoke = MockPokemon(100, List(attack))
+      val ePoke = MockPokemon(100, List(attack))
       
-      val nextState = state.handle("")
+      val player = MockPlayer(pPoke, fainted = false)
+      val enemy = MockPlayer(ePoke, fainted = false)
       
-      nextState shouldBe a [PlayerAttackState]
-      nextState.gameState.msg2 should include ("(Nicht sehr effektiv...)")
+      val gs = GameState(player, enemy, battleOver = false, "", "")
+      val state = EnemyAttackState(gs, new BattleLogicMock())
+
+      val result = state.handle("")
+      
+      // Wir müssen den State casten, um an msg2 zu kommen
+      result shouldBe a [PlayerAttackState]
+      val nextState = result.asInstanceOf[PlayerAttackState]
+      nextState.gameState.msg2 should include ("Sehr effektiv!")
     }
 
-    "handle a 'No Effect' attack (0.0)" in {
-      val gs = createScenario(Ground, Electric, Electric)
-      val state = EnemyAttackState(gs, WildBattleLogic)
+    "display 'Nicht sehr effektiv' message when effectiveness < 1.0 but > 0" in {
+      val attack = createAttackWithEffectiveness(0.5)
+      val pPoke = MockPokemon(100, List(attack))
+      val ePoke = MockPokemon(100, List(attack))
       
-      val nextState = state.handle("")
+      val player = MockPlayer(pPoke, fainted = false)
+      val enemy = MockPlayer(ePoke, fainted = false)
       
-      nextState shouldBe a [PlayerAttackState]
-      nextState.gameState.msg2 should include ("(Keine Wirkung!)")
+      val gs = GameState(player, enemy, battleOver = false, "", "")
+      val state = EnemyAttackState(gs, new BattleLogicMock())
+
+      val result = state.handle("")
+      
+      val nextState = result.asInstanceOf[PlayerAttackState]
+      nextState.gameState.msg2 should include ("Nicht sehr effektiv...")
     }
 
-    "switch to MenuState if the player is defeated" in {
-      val gs = createScenario(Normal, Normal, Normal, playerHp = 1)
-      val state = EnemyAttackState(gs, WildBattleLogic)
+    "display 'Keine Wirkung' message when effectiveness is 0.0" in {
+      val attack = createAttackWithEffectiveness(0.0)
+      val pPoke = MockPokemon(100, List(attack))
+      val ePoke = MockPokemon(100, List(attack))
       
-      val nextState = state.handle("")
+      val player = MockPlayer(pPoke, fainted = false)
+      val enemy = MockPlayer(ePoke, fainted = false)
       
-      nextState shouldBe a [MenuState]
-      nextState.gameState.battleOver should be(true)
-      nextState.gameState.msg1 should be("VERLOREN!")
+      val gs = GameState(player, enemy, battleOver = false, "", "")
+      val state = EnemyAttackState(gs, new BattleLogicMock())
+
+      val result = state.handle("")
+      
+      val nextState = result.asInstanceOf[PlayerAttackState]
+      nextState.gameState.msg2 should include ("Keine Wirkung!")
     }
   }
 }

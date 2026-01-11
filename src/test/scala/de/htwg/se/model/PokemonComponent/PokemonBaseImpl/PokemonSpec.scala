@@ -1,4 +1,4 @@
-package de.htwg.se.model
+package de.htwg.se.model.PokemonComponent.PokemonBaseImpl
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers

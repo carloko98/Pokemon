@@ -1,25 +1,24 @@
-package de.htwg.se.controller.state
+package de.htwg.se.controller.controllerImpl.state
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
-import de.htwg.se.model.{GameState, Player, Pokemon, PokemonType, Attack}
-import de.htwg.se.controller.controllerImpl.state.SelectProfileState
+import de.htwg.se.model.GameStateComponent.GameState
+import de.htwg.se.model.PokemonComponent.PokemonService
 
 class SelectProfileStateSpec extends AnyWordSpec with Matchers {
 
-  "The SelectProfileState" should {
-    val pokemon = Pokemon("TestMon", PokemonType.Fire, 100, 100, Vector(Attack("Test", 10, PokemonType.Normal)))
-    val player = Player("TestPlayer", Vector(pokemon))
-    val enemy = Player("TestEnemy", Vector(pokemon))
-    val gameState = GameState(player, enemy)
-    
-    val state = SelectProfileState(gameState)
+  "A SelectProfileState" should {
+    val p = PokemonService.createPlayer("Test", Vector("Glurak"))
+    val e = PokemonService.createRandomEnemy()
+    val gs = GameState(p, e, false, "", "")
+    val state = SelectProfileState(gs)
 
-    "return itself when handle is called (logic is in Controller)" in {
+    "transition to TitleState on input 'b'" in {
+      state.handle("b") should be(a [TitleState])
+    }
     
-      val nextState = state.handle("irgendein input")
-      
-      nextState should be(state)
+    "stay in SelectProfileState (or transition) on other input" in {
+      noException should be thrownBy state.handle("AnySaveGame")
     }
   }
 }

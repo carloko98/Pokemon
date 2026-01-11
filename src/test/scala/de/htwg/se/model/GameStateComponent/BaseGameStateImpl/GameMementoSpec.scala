@@ -1,4 +1,4 @@
-package de.htwg.se.model
+package de.htwg.se.model.GameStateComponent.BaseGameStateImpl
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers

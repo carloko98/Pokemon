@@ -1,4 +1,4 @@
-package de.htwg.se.model.fileio
+package de.htwg.se.model.FileIOComponent
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
