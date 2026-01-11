@@ -2,24 +2,13 @@ package de.htwg.se.model.PlayerComponent.BasePlayerImpl
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
-import de.htwg.se.model.PokemonComponent.{IPokemon, PokemonType, Attack}
 import de.htwg.se.model.PlayerComponent.PlayerBaseImpl.Player
+import de.htwg.se.model.PokemonComponent.MockPokemonImpl.MockPokemon
 
 class PlayerSpec extends AnyWordSpec with Matchers {
 
-  case class MockPokemon(
-      name: String,
-      pType: PokemonType = PokemonType.Normal,
-      maxHp: Int = 100,
-      currentHp: Int = 100,
-      attacks: Vector[Attack] = Vector.empty
-  ) extends IPokemon {
-    override def isFainted: Boolean = currentHp <= 0
-    override def withHp(newHp: Int): IPokemon = copy(currentHp = newHp)
-    override def toString: String = name
-  }
-
   "A Player" should {
+    // Hier nutzen wir jetzt MockPokemon statt Pokemon
     val p1 = MockPokemon("P1", currentHp = 100)
     val p2 = MockPokemon("P2", currentHp = 0)
     val player = Player("Ash", Vector(p1, p2))

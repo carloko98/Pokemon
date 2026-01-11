@@ -4,7 +4,7 @@ import com.google.inject.AbstractModule
 import net.codingwell.scalaguice.ScalaModule
 
 import de.htwg.se.controller.IController
-import de.htwg.se.controller.MockControllerImpl.MockController
+import de.htwg.se.controller.ControllerMockImpl.MockController
 
 import de.htwg.se.model.FileIOComponent.IFileIO
 import de.htwg.se.model.FileIOComponent.MockFileIOImpl.MockFileIO
