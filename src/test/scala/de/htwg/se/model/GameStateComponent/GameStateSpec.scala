@@ -2,26 +2,57 @@ package de.htwg.se.model.GameStateComponent
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
+import de.htwg.se.model.PlayerComponent.IPlayer
+import de.htwg.se.model.PokemonComponent.{IPokemon, PokemonType, Attack}
 
 class GameStateSpec extends AnyWordSpec with Matchers {
-  "A GameState" should {
-    val p1 = Player("P1")
-    val p2 = Player("P2")
-    val state = GameState(p1, p2)
 
-    "be initialized correctly with default values" in {
-      state.player should be(p1)
-      state.enemy should be(p2)
-      state.battleOver should be(false)
-      state.msg1 should be("")
-      state.msg2 should be("")
+  case class MockPokemon() extends IPokemon {
+    override def name: String = "Mock"
+    override def pType: PokemonType = PokemonType.Normal
+    override def maxHp: Int = 100
+    override def currentHp: Int = 100
+    override def attacks: Vector[Attack] = Vector.empty
+    override def isFainted: Boolean = false
+    override def withHp(newHp: Int): IPokemon = this
+  }
+
+  case class MockPlayer(name: String) extends IPlayer {
+    override def team: Vector[IPokemon] = Vector(MockPokemon())
+    override def currentPokemonIndex: Int = 0
+    override def items: Vector[String] = Vector.empty
+    override def activePokemon: IPokemon = MockPokemon()
+    override def updatePokemon(p: IPokemon): IPlayer = this
+    override def switchActivePokemon(index: Int): IPlayer = this
+    override def addPokemon(p: IPokemon): IPlayer = this
+    override def isActiveFainted: Boolean = false
+    override def isDefeated: Boolean = false
+    override def nextAlivePokemonIndex: Option[Int] = None
+  }
+
+  "A GameState" should {
+    val p = MockPlayer("P1")
+    val e = MockPlayer("E1")
+    val gs = GameState(p, e, false, "Msg1", "Msg2")
+
+    "have correct initial values" in {
+      gs.player should be(p)
+      gs.enemy should be(e)
+      gs.battleOver should be(false)
+      gs.msg1 should be("Msg1")
+      gs.msg2 should be("Msg2")
     }
 
-    "allow copying with modified values" in {
-      val newState = state.copy(battleOver = true, msg1 = "Win")
-      newState.battleOver should be(true)
-      newState.msg1 should be("Win")
-      newState.player should be(p1)
+    "support copy mechanism" in {
+      val newGs = gs.copy(battleOver = true, msg1 = "NewMsg")
+      newGs.battleOver should be(true)
+      newGs.msg1 should be("NewMsg")
+      newGs.player should be(p)
+    }
+    
+    "be equal to another instance with same values" in {
+      val gs2 = GameState(p, e, false, "Msg1", "Msg2")
+      gs should be(gs2)
     }
   }
 }
