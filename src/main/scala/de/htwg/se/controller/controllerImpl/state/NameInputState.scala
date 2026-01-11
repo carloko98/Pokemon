@@ -1,7 +1,7 @@
 package de.htwg.se.controller.controllerImpl.state
 
-import de.htwg.se.model.PokemonComponent.PokemonBaseImpl.PokemonFactory
-import de.htwg.se.model.GameStateComponent.GameStateBaseImpl.GameState
+import de.htwg.se.model.PokemonComponent.PokemonService
+import de.htwg.se.model.GameStateComponent.GameState
 
 case class NameInputState(gameState: GameState) extends ControllerState {
 
@@ -11,8 +11,8 @@ case class NameInputState(gameState: GameState) extends ControllerState {
             copy(gameState = newGS)
         } else {
             val playerName = input.trim
-            val newPlayer = PokemonFactory.createPlayer(playerName, Vector("Glurak", "Bisaflor"))
-            val newEnemy = PokemonFactory.createRandomEnemy()
+            val newPlayer = PokemonService.createPlayer(playerName, Vector("Glurak", "Bisaflor"))
+            val newEnemy = PokemonService.createRandomEnemy()
 
             val newGame = GameState(
                 player = newPlayer, 

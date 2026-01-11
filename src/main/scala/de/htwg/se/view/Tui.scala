@@ -1,8 +1,12 @@
 package de.htwg.se.view
 
-import de.htwg.se.controller.{IController, TitleState, MenuState, PlayerAttackState, EnemyAttackState, NameInputState, SelectProfileState}
+import de.htwg.se.controller.IController
 import de.htwg.se.util.Observer
 import scala.io.StdIn.readLine
+
+// Importiere das ViewState Enum
+import de.htwg.se.controller.ViewState
+import de.htwg.se.controller.ViewState._
 
 class Tui(val controller: IController) extends Observer {
 
@@ -22,10 +26,10 @@ class Tui(val controller: IController) extends Observer {
   def render(): Unit = {
     clearScreen()
     
-    // Match auf den abstrakten ViewState
+    // Match auf den abstrakten ViewState (Task 10 konform)
     controller.viewState match {
 
-      case TitleState =>
+      case VTitle =>
         println(border)
         println(line("POKEMON SCALA EDITION"))
         println(line(""))
@@ -36,7 +40,7 @@ class Tui(val controller: IController) extends Observer {
         val (_, m2) = controller.getMessage
         if (m2.nonEmpty) println(s"\n$m2")
 
-      case MenuState =>
+      case VMenu =>
         println(border)
         println(line("HAUPTMENUE"))
         println(line(""))
@@ -47,13 +51,13 @@ class Tui(val controller: IController) extends Observer {
         val (m1, m2) = controller.getMessage
         if (m1.nonEmpty) println(s"\n$m1\n$m2")
 
-      case PlayerAttackState => 
+      case VPlayerAtk => 
         renderBattle(showActions = true)
 
-      case EnemyAttackState =>
+      case VEnemyAtk =>
         renderBattle(showActions = false)
       
-      case NameInputState =>
+      case VNameInput =>
         println(border)
         println(line("NEUES SPIEL"))
         println(line(""))
@@ -64,7 +68,7 @@ class Tui(val controller: IController) extends Observer {
         val (m1, m2) = controller.getMessage
         if (m2.nonEmpty) println(s"\n$m2")
 
-      case SelectProfileState =>
+      case VSelectProfile =>
         println(border)
         println(line("SPIEL LADEN"))
         println(line(""))
@@ -85,8 +89,7 @@ class Tui(val controller: IController) extends Observer {
     }
   }
   
-  // renderBattle, inputLoop etc. bleiben unverändert, da sie nur Interfaces benutzen
-  // ... (Hier den Rest der Klasse Tui einfügen, wie er vorher war) ...
+  
   private def renderBattle(showActions: Boolean): Unit = {
     val (m1, m2) = controller.getMessage
     val e = controller.getEnemyPokemon

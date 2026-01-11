@@ -1,4 +1,4 @@
-package de.htwg.se.model.GameStateComponent.GameStateBaseImpl
+package de.htwg.se.model.GameStateComponent
 
 import de.htwg.se.model.GameStateComponent.IGameState
 import de.htwg.se.model.PlayerComponent.IPlayer

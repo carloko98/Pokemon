@@ -1,8 +1,8 @@
 package de.htwg.se.model.FileIOComponent
 
-import de.htwg.se.model.PlayerComponent.IPlayer
-import de.htwg.se.model.PlayerComponent.PlayerBaseImpl.Player
-import de.htwg.se.model.PokemonComponent.PokemonBaseImpl.PokemonFactory
+import de.htwg.se.model.PlayerComponent.{IPlayer, PlayerService}
+import de.htwg.se.model.PokemonComponent.PokemonService
+
 import play.api.libs.json._
 import scala.util.Try
 import scala.io.Source
@@ -34,12 +34,14 @@ class JsonFileIO extends IFileIO {
       val source: String = Source.fromFile(s"save_$name.json").getLines.mkString
       val json: JsValue = Json.parse(source)
       val playerName = (json \ "name").as[String]
+      
       val team = (json \ "team").as[JsArray].value.map { obj =>
         val pokeName = (obj \ "name").as[String]
         val hp = (obj \ "hp").as[Int]
-        PokemonFactory.getPokemon(pokeName).withHp(hp)
+        PokemonService.getPokemon(pokeName).withHp(hp)
       }.toVector
-      Player(playerName, team)
+      
+      PlayerService.buildPlayer(playerName, team)
     }
   }
 

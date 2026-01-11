@@ -1,6 +1,6 @@
 package de.htwg.se.controller.controllerImpl.state
 
-import de.htwg.se.model.GameStateComponent.GameStateBaseImpl.GameState
+import de.htwg.se.model.GameStateComponent.GameState
 import de.htwg.se.model.BattleLogicComponent.IBattleLogic
 import de.htwg.se.model.PokemonComponent.IPokemon
 import de.htwg.se.model.PlayerComponent.IPlayer

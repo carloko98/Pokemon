@@ -1,7 +1,5 @@
 package de.htwg.se.model.PokemonComponent
-
-import de.htwg.se.model.PokemonComponent.PokemonType 
-import de.htwg.se.model.PokemonComponent.Attack      
+   
 
 trait IPokemon {
   def name: String

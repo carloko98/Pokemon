@@ -6,15 +6,13 @@ import de.htwg.se.util.{Observable, UndoManager, Command}
 import de.htwg.se.controller.{IController, ViewState}
 import scala.util.{Success, Failure}
 
-// Alias Imports für die ViewStates
-import de.htwg.se.controller.{TitleState => VTitle, MenuState => VMenu, PlayerAttackState => VPlayerAtk, EnemyAttackState => VEnemyAtk, NameInputState => VNameInput, SelectProfileState => VSelectProfile}
-
-// Interne States
+import de.htwg.se.controller.ViewState
+import de.htwg.se.controller.ViewState._
 import de.htwg.se.controller.controllerImpl.state._
 
 // Model Imports
 import de.htwg.se.model.PlayerComponent.IPlayer
-import de.htwg.se.model.GameStateComponent.GameStateBaseImpl.GameState
+import de.htwg.se.model.GameStateComponent.GameState
 import de.htwg.se.model.PokemonComponent.PokemonBaseImpl.PokemonFactory
 import de.htwg.se.model.PokemonComponent.IPokemon
 

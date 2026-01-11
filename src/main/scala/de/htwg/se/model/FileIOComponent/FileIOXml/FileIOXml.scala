@@ -1,8 +1,10 @@
 package de.htwg.se.model.FileIOComponent
 
-import de.htwg.se.model.PokemonComponent.PokemonBaseImpl.PokemonFactory // Korrigierter Import
-import de.htwg.se.model.PlayerComponent.IPlayer
-import de.htwg.se.model.PlayerComponent.PlayerBaseImpl.Player
+
+import de.htwg.se.model.PokemonComponent.PokemonService
+import de.htwg.se.model.PlayerComponent.{IPlayer, PlayerService}
+import de.htwg.se.model.PokemonComponent.IPokemon 
+
 import java.io._
 import scala.xml.{Node, Elem, XML}
 import scala.util.{Try, Success, Failure} 
@@ -52,14 +54,15 @@ class XmlFileIO extends IFileIO {
   private def playerFromXml(node: Node): IPlayer = {
     val name = (node \ "name").text.trim
     val teamNodes = (node \ "team" \ "pokemon")
+    
     val team = teamNodes.map { pNode =>
       val pokeName = (pNode \ "name").text.trim
       val hp = (pNode \ "hp").text.trim.toInt
       
-      val freshPoke = PokemonFactory.getPokemon(pokeName)
+      val freshPoke = PokemonService.getPokemon(pokeName)
       freshPoke.withHp(hp)
     }.toVector
     
-    Player(name, team)
+    PlayerService.buildPlayer(name, team)
   }
 }

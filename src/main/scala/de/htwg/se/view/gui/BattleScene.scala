@@ -3,7 +3,11 @@ package de.htwg.se.view.gui
 import scalafx.scene.layout.{BorderPane, VBox, HBox, Priority}
 import scalafx.scene.control.{Button, Label, ProgressBar}
 import scalafx.geometry.{Pos, Insets}
-import de.htwg.se.controller.{IController, PlayerAttackState, EnemyAttackState}
+
+// WICHTIG: Nur Interface und ViewState! KEINE LOGIK-STATES!
+import de.htwg.se.controller.IController
+import de.htwg.se.controller.ViewState
+import de.htwg.se.controller.ViewState._ // Importiert VPlayerAttack, VEnemyAttack
 
 class BattleScene(controller: IController) extends BorderPane {
 
@@ -69,11 +73,12 @@ class BattleScene(controller: IController) extends BorderPane {
       style = "-fx-text-fill: yellow; -fx-font-size: 16px; -fx-font-weight: bold;"
     }
 
-    // Matching auf viewState
+    // ÄNDERUNG: Hier nutzen wir jetzt die V-Namen
+    // Das beweist, dass wir NICHT die Logik-Klasse PlayerAttackState nutzen!
     val controls = controller.viewState match {
-      case PlayerAttackState => createPlayerActions()
-      case EnemyAttackState => createWaitButton()
-      case _ => new Label("")
+      case VPlayerAtk => createPlayerActions()
+      case VEnemyAtk  => createWaitButton()
+      case _             => new Label("")
     }
     children += controls
   }
