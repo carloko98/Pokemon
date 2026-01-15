@@ -44,5 +44,5 @@ lazy val root = (project in file("."))
     ),
 
     // Coverage Einstellungen
-  coverageExcludedFiles := "(?i).*main;.*Tui;.*Gui;.*Scene"
+  coverageExcludedFiles := "(?i).*Main.*;.*Tui.*;.*Gui.*;.*Scene.*;.*Mock.*"
   )

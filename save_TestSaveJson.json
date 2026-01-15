@@ -1,7 +1,0 @@
-{
-  "name" : "TestSaveJson",
-  "team" : [ {
-    "name" : "Glurak",
-    "hp" : 100
-  } ]
-}
