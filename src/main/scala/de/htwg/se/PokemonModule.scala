@@ -18,8 +18,11 @@ class PokemonModule extends AbstractModule with ScalaModule {
   @Provides
   def provideController(fileIo: IFileIO): IController = {
     
-    val initialPlayer = PokemonFactory.createPlayer("Gast", Vector("Glurak", "Bisaflor"))
-    val initialEnemy = PokemonFactory.createRandomEnemy()
+    // ÄNDERUNG: Zufälliges Starter-Team für den Spieler!
+    val initialPlayer = PokemonFactory.createRandomPlayer("Ash")
+    
+    // Start-Gegner (Standardmäßig wild oder Trainer, hier nehmen wir mal Wild)
+    val initialEnemy = PokemonFactory.createWildEnemy()
 
     new Controller(initialPlayer, initialEnemy, fileIo)
   }

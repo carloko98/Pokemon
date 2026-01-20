@@ -9,6 +9,10 @@ import de.htwg.se.model.PokemonComponent.IPokemon
 case class PlayerAttackState(gameState: GameState, logic: IBattleLogic) extends ControllerState {
 
   override def handle(input: String): ControllerState = {
+
+    if(input== "w" | input == "wechseln") {
+      return SwitchPokemonState(gameState, logic)
+    }
     if (input == "f" || input == "fliehen") {
       return handleFlee()
     }
@@ -44,33 +48,57 @@ case class PlayerAttackState(gameState: GameState, logic: IBattleLogic) extends 
   }
 
   private def executePlayerAttack(attack: Attack): ControllerState = {
+
     val currentPlayer: IPlayer = gameState.player
     val currentEnemy: IPlayer  = gameState.enemy
     
     val activePlayerPoke: IPokemon = currentPlayer.activePokemon
     val activeEnemyPoke: IPokemon = currentEnemy.activePokemon
 
-    val eff = attack.attackType.effectivenessAgainst(activeEnemyPoke.pType)
+    val eff1 = attack.attackType.effectivenessAgainst(activeEnemyPoke.pType)
+    val eff2 = activeEnemyPoke.secondaryType match {
+      case Some(t2) => attack.attackType.effectivenessAgainst(t2)
+      case None => 1.0
+    }
+    val eff = eff1 * eff2
     val damage = (attack.damage * eff).toInt
-    val newEnemyPoke: IPokemon = activeEnemyPoke.withHp(activeEnemyPoke.currentHp - damage)
     
+    val newEnemyPoke: IPokemon = activeEnemyPoke.withHp(activeEnemyPoke.currentHp - damage)
     val newEnemy: IPlayer = currentEnemy.updatePokemon(newEnemyPoke)
 
-    val intermediateGameState = gameState.copy(
-      enemy = newEnemy,
-      msg1 = s"${activePlayerPoke.name} setzt ${attack.name} ein!",
-      msg2 = s"${damage} Schaden!${effMsg(eff)}"
-    )
 
     if (newEnemy.isActiveFainted) {
-      val winMsg = logic.getWinMessage(currentPlayer.name)
-      val winState = intermediateGameState.copy(
-        battleOver = true,
-        msg1 = "GEWONNEN!",
-        msg2 = winMsg
-      )
-      MenuState(winState)
+      
+      newEnemy.nextAlivePokemonIndex match {
+        
+        case Some(idx) =>
+          val nextEnemyPlayer = newEnemy.switchActivePokemon(idx)
+          val nextEnemyPoke = nextEnemyPlayer.activePokemon
+          
+          val nextGameState = gameState.copy(
+            enemy = nextEnemyPlayer,
+            msg1 = s"${activeEnemyPoke.name} wurde besiegt!",
+            msg2 = s"Trainer schickt ${nextEnemyPoke.name} und greift an!"
+          )
+          EnemyAttackState(nextGameState, logic)
+
+        case None =>
+          val winMsg = logic.getWinMessage(currentPlayer.name)
+          val winState = gameState.copy(
+            enemy = newEnemy, 
+            battleOver = true,
+            msg1 = "GEWONNEN!",
+            msg2 = winMsg
+          )
+          MenuState(winState)
+      }
+      
     } else {
+      val intermediateGameState = gameState.copy(
+        enemy = newEnemy,
+        msg1 = s"${activePlayerPoke.name} setzt ${attack.name} ein!",
+        msg2 = s"${damage} Schaden!${effMsg(eff)}"
+      )
       EnemyAttackState(intermediateGameState, logic)
     }
   }

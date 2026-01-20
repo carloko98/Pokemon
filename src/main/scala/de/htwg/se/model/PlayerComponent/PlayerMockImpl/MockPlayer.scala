@@ -19,6 +19,8 @@ case class MockPlayer(
   
   override def addPokemon(p: IPokemon): IPlayer = copy(team = team :+ p)
   
+  override def withTeam(newTeam: Vector[IPokemon]): IPlayer = this
+  
   override def isActiveFainted: Boolean = activePokemon.isFainted
   
   override def isDefeated: Boolean = team.forall(_.isFainted)

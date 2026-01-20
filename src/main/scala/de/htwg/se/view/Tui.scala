@@ -26,7 +26,6 @@ class Tui(val controller: IController) extends Observer {
   def render(): Unit = {
     clearScreen()
     
-    // Match auf den abstrakten ViewState (Task 10 konform)
     controller.viewState match {
 
       case VTitle =>
@@ -42,11 +41,23 @@ class Tui(val controller: IController) extends Observer {
 
       case VMenu =>
         println(border)
-        println(line("HAUPTMENUE"))
+        println(line("Hauptmenue")) 
         println(line(""))
-        println(line("s. Wilden Kampf starten"))   
+        println(line("w. Wilden Kampf starten"))  
         println(line("t. Trainer Kampf starten")) 
+        println(line("c. Ins PokeCenter gehen")) 
         println(line("q. Beenden"))
+        println(border)
+        val (m1, m2) = controller.getMessage
+        if (m1.nonEmpty) println(s"\n$m1\n$m2")
+
+      case VPokeCenter =>
+        println(border)
+        println(line("POKECENTER"))
+        println(line(""))
+        println(line("h. Team heilen"))
+        println(line("i. Items kaufen"))
+        println(line("z. Zurueck zum Dashboard"))
         println(border)
         val (m1, m2) = controller.getMessage
         if (m1.nonEmpty) println(s"\n$m1\n$m2")
@@ -86,6 +97,28 @@ class Tui(val controller: IController) extends Observer {
         println(border)
         val (m1, m2) = controller.getMessage
         if (m2.nonEmpty) println(s"\n$m2") 
+
+      case VSwitchPokemon => 
+        println(border)
+        println(line("POKEMON WECHSELN")) 
+        println(line(""))
+
+        val team = controller.getPlayer.team
+        val currentIdx = controller.getPlayer.currentPokemonIndex
+        
+        team.zipWithIndex.foreach { case (p, i) =>
+          val marker = if (i == currentIdx) ">" else " "
+          val status = if (p.isFainted) "K.O." else s"${p.currentHp}/${p.maxHp} HP"
+          println(line(s"$marker ${i+1}. ${p.name} ($status)"))
+        }
+        
+        println(line(""))
+        println(line("Waehle Nummer oder 'z' fuer Zurueck"))
+        println(border)
+        val (_, m2) = controller.getMessage
+        if (m2.nonEmpty) println(s"\n$m2")
+
+      
     }
   }
   
@@ -115,10 +148,10 @@ class Tui(val controller: IController) extends Observer {
 
     val menuLines = if (showActions) {
         val attacks = p.attacks.zipWithIndex.map { case (atk, i) =>
-          s"  ${i + 1}. ${atk.name} (${atk.damage} DMG, ${atk.attackType})"
+          s"  ${i + 1}. ${atk.name} (${atk.damage} DMG)"
         }
-        val flee = "  f. Fliehen"
-        Seq(line("Kampf-Aktion waehlen:"), line(attacks.mkString(" | ")), line(flee))
+        val options = "  f. Fliehen | w. Wechseln" 
+        Seq(line("Kampf-Aktion waehlen:"), line(attacks.mkString(" | ")), line(options))
     } else {
         Seq(line(""), line(">> Druecke Enter fuer Gegnerzug... <<"))
     }

@@ -11,7 +11,7 @@ case class NameInputState(gameState: GameState) extends ControllerState {
             copy(gameState = newGS)
         } else {
             val playerName = input.trim
-            val newPlayer = PokemonService.createPlayer(playerName, Vector("Glurak", "Bisaflor"))
+            val newPlayer = PokemonService.createRandomPlayer(playerName)
             val newEnemy = PokemonService.createRandomEnemy()
 
             val newGame = GameState(

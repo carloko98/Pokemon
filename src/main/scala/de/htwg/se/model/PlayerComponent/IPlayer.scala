@@ -17,4 +17,5 @@ trait IPlayer {
   def updatePokemon(newPokemon: IPokemon): IPlayer
   def switchActivePokemon(index: Int): IPlayer 
   def addPokemon(p: IPokemon): IPlayer         
+  def withTeam(newTeam: Vector[IPokemon]): IPlayer
 }

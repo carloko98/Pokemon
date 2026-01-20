@@ -25,6 +25,8 @@ lazy val root = (project in file("."))
 
     // Wichtig damit JavaFX Fenster sauber starten
     fork := true,
+    
+    libraryDependencies += "com.google.inject" % "guice" % "7.0.0",
 
     // Testing & XML
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.18" % Test,
