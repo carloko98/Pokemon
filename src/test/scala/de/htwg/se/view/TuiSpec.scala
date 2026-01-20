@@ -8,15 +8,12 @@ import de.htwg.se.controller.ControllerMockImpl.MockController
 
 class TuiSpec extends AnyWordSpec with Matchers {
 
-  // 1. Definiere eine lokale Klasse, die testSaves offiziell hat
   class TuiMockController extends MockController {
     var testSaves: List[String] = List.empty
     override def getAvailableSaves: List[String] = testSaves
   }
 
-  // 2. Nutze diese Klasse (Der Typ ist jetzt TuiMockController)
   val controller = new TuiMockController()
-  
   val tui = new Tui(controller)
 
   def captureOutput(block: => Unit): String = {
@@ -38,7 +35,7 @@ class TuiSpec extends AnyWordSpec with Matchers {
       controller.setViewState(ViewState.VMenu)
       val out = captureOutput { tui.render() }
       out should include ("HAUPTMENUE")
-      out should include ("s. Wilden Kampf starten")
+      out should include ("w. Wilden Kampf starten")
     }
 
     "render NameInput screen correctly" in {
@@ -49,7 +46,6 @@ class TuiSpec extends AnyWordSpec with Matchers {
 
     "render SelectProfile screen correctly (empty)" in {
       controller.setViewState(ViewState.VSelectProfile)
-      // Das hier funktioniert jetzt, weil controller vom Typ TuiMockController ist
       controller.testSaves = List.empty
       val out = captureOutput { tui.render() }
       out should include ("Keine Spielstaende gefunden")
@@ -68,6 +64,7 @@ class TuiSpec extends AnyWordSpec with Matchers {
       controller.setViewState(ViewState.VPlayerAtk)
       val out = captureOutput { tui.render() }
       out should include ("Kampf-Aktion waehlen")
+      // MockController gibt standardmäßig TestMon zurück
       out should include ("TestMon") 
     }
 

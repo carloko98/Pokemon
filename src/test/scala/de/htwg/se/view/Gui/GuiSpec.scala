@@ -43,5 +43,14 @@ class GuiSpec extends AnyWordSpec with Matchers {
       controller.setViewState(ViewState.VEnemyAtk)
       noException should be thrownBy gui.update()
     }
+    "update successfully for VSwitchPokemon" in {
+      controller.setViewState(ViewState.VSwitchPokemon)
+      noException should be thrownBy gui.update()
+    }
+
+    "update successfully for VPokeCenter" in {
+      controller.setViewState(ViewState.VPokeCenter)
+      noException should be thrownBy gui.update()
+    }
   }
 }

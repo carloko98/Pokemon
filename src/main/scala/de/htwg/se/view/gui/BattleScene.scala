@@ -1,13 +1,13 @@
 package de.htwg.se.view.gui
 
-import scalafx.scene.layout.{BorderPane, VBox, HBox, Priority}
+import scalafx.scene.layout.{BorderPane, VBox, HBox, GridPane, Priority, Region} 
 import scalafx.scene.control.{Button, Label, ProgressBar}
 import scalafx.geometry.{Pos, Insets}
-
-// WICHTIG: Nur Interface und ViewState! KEINE LOGIK-STATES!
+import scalafx.scene.image.{Image, ImageView}
+import scalafx.scene.Cursor // Wichtig für den Mauszeiger
 import de.htwg.se.controller.IController
 import de.htwg.se.controller.ViewState
-import de.htwg.se.controller.ViewState._ // Importiert VPlayerAttack, VEnemyAttack
+import de.htwg.se.controller.ViewState._ 
 
 class BattleScene(controller: IController) extends BorderPane {
 
@@ -16,12 +16,29 @@ class BattleScene(controller: IController) extends BorderPane {
   
   style = "-fx-background-color: #2b2b2b;" 
 
+  // --- HIER IST DIE MAGIE ---
+  // Wenn der Gegner dran ist, machen wir das ganze Fenster klickbar!
+  if (controller.viewState == VEnemyAtk) {
+    cursor = Cursor.Hand // Zeigt an: Du kannst klicken
+    onMouseClicked = _ => controller.handleInput("") // Klick irgendwohin -> Weiter
+  }
+  // --------------------------
+
+  def createPokemonImage(url: String): ImageView = {
+    val image = if (url != null && url.nonEmpty) new Image(url, true) else null
+    new ImageView(image) {
+      fitWidth = 250
+      fitHeight = 250
+      preserveRatio = true
+    }
+  }
+
   val enemyInfo = new VBox {
     alignment = Pos.CenterRight
     padding = Insets(20)
     spacing = 5
     children = Seq(
-      new Label(s"${enemyPoke.name} (Lvl ?)") { style = "-fx-text-fill: white; -fx-font-size: 18px;" },
+      new Label(s"${enemyPoke.name}") { style = "-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" },
       new HBox {
         alignment = Pos.CenterRight
         spacing = 10
@@ -35,7 +52,8 @@ class BattleScene(controller: IController) extends BorderPane {
         )
       },
       new Label(s"${enemyPoke.currentHp} / ${enemyPoke.maxHp}") { style = "-fx-text-fill: #aaaaaa;" },
-      new Label("👾") { style = "-fx-font-size: 80px;" } 
+      
+      createPokemonImage(enemyPoke.spriteUrl)
     )
   }
 
@@ -44,8 +62,9 @@ class BattleScene(controller: IController) extends BorderPane {
     padding = Insets(20)
     spacing = 5
     children = Seq(
-      new Label("🤠") { style = "-fx-font-size: 80px;" }, 
-      new Label(s"${playerPoke.name} (Lvl 5)") { style = "-fx-text-fill: white; -fx-font-size: 18px;" },
+      createPokemonImage(playerPoke.spriteUrl),
+      
+      new Label(s"${playerPoke.name}") { style = "-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" },
       new HBox {
         alignment = Pos.CenterLeft
         spacing = 10
@@ -73,46 +92,80 @@ class BattleScene(controller: IController) extends BorderPane {
       style = "-fx-text-fill: yellow; -fx-font-size: 16px; -fx-font-weight: bold;"
     }
 
-    // ÄNDERUNG: Hier nutzen wir jetzt die V-Namen
-    // Das beweist, dass wir NICHT die Logik-Klasse PlayerAttackState nutzen!
     val controls = controller.viewState match {
       case VPlayerAtk => createPlayerActions()
-      case VEnemyAtk  => createWaitButton()
-      case _             => new Label("")
+      case VEnemyAtk  => createWaitLabel() // <--- Geändert zu Label statt Button
+      case _          => new Label("")
     }
     children += controls
   }
 
+  // Layout zusammenbauen
   top = enemyInfo
   center = playerInfo
   bottom = actionBox
 
-  def createPlayerActions(): HBox = {
-    val box = new HBox { spacing = 10; alignment = Pos.Center }
+  def createPlayerActions(): BorderPane = {
     
-    playerPoke.attacks.zipWithIndex.foreach { case (attack, index) =>
-      val btn = new Button(s"${attack.name} (${attack.damage})") {
-        style = "-fx-base: #555555; -fx-text-fill: white; -fx-font-size: 14px;"
-        minWidth = 120
-        onAction = _ => controller.handleInput((index + 1).toString)
-      }
-      box.children += btn
+    val layout = new BorderPane {
+      padding = Insets(0, 20, 0, 20)
     }
 
-    val fleeBtn = new Button("Fliehen") {
-      style = "-fx-base: #aa3333; -fx-text-fill: white;"
-      onAction = _ => controller.handleInput("f")
+    val attackGrid = new GridPane {
+      hgap = 10 
+      vgap = 10 
+      alignment = Pos.Center 
     }
-    box.children += fleeBtn
+
+    playerPoke.attacks.zipWithIndex.foreach { case (attack, index) =>
+      val btn = new Button(s"${attack.name}\n(Dmg: ${attack.damage})") {
+        style = "-fx-base: #555555; -fx-text-fill: white; -fx-font-size: 13px; -fx-background-radius: 8;"
+        minWidth = 200       
+        prefWidth = 200      
+        minHeight = 60      
+        textAlignment = scalafx.scene.text.TextAlignment.Center
+        wrapText = true      
+        onAction = _ => controller.handleInput((index + 1).toString) 
+      }
+      
+      val col = index % 2
+      val row = index / 2
+      attackGrid.add(btn, col, row)
+    }
     
-    box
+    layout.center = attackGrid
+
+    val sideButtons = new VBox {
+      spacing = 15
+      alignment = Pos.CenterRight 
+      padding = Insets(0, 0, 0, 40) 
+      
+      children = Seq(
+        new Button("Wechseln") {
+           style = "-fx-base: #aaaa44; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;"
+           minWidth = 120
+           prefHeight = 45
+           onAction = _ => controller.handleInput("w")
+        },
+        new Button("Fliehen") {
+          style = "-fx-base: #aa3333; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;"
+          minWidth = 120
+          prefHeight = 45
+          onAction = _ => controller.handleInput("f")
+        }
+      )
+    }
+
+    layout.right = sideButtons
+    layout
   }
 
-  def createWaitButton(): Button = {
-    new Button("Weiter (Gegnerzug)...") {
-      style = "-fx-font-size: 16px; -fx-base: #3333aa; -fx-text-fill: white;"
+  // --- NEU: Nur noch ein Label, kein Button mehr ---
+  def createWaitLabel(): Label = {
+    new Label(">> Klicke irgendwo für Gegnerzug... <<") {
+      style = "-fx-font-size: 16px; -fx-text-fill: #cccccc; -fx-font-weight: bold;"
       maxWidth = Double.MaxValue
-      onAction = _ => controller.handleInput("")  
+      alignment = Pos.Center
     }
   }
 }

@@ -20,30 +20,62 @@ case class EnemyAttackState(gameState: GameState, logic: IBattleLogic) extends C
     val activePlayerPoke: IPokemon = currentPlayer.activePokemon
 
     val rnd = new Random()
-    val enemyAtk = activeEnemyPoke.attacks(rnd.nextInt(activeEnemyPoke.attacks.size))
+    // Sicherheits-Check falls moves.json leer war, sonst Absturz bei nextInt(0)
+    val attacks = if (activeEnemyPoke.attacks.nonEmpty) activeEnemyPoke.attacks else Vector(de.htwg.se.model.PokemonComponent.Attack("Verzweifler", 10, de.htwg.se.model.PokemonComponent.PokemonType.Normal))
+    val enemyAtk = attacks(rnd.nextInt(attacks.size))
 
-    val eff = enemyAtk.attackType.effectivenessAgainst(activePlayerPoke.pType)
+    val eff1 = enemyAtk.attackType.effectivenessAgainst(activePlayerPoke.pType)
+    val eff2 = activePlayerPoke.secondaryType match {
+      case Some(t2) => enemyAtk.attackType.effectivenessAgainst(t2)
+      case None => 1.0
+    }
+    val eff = eff1 * eff2
     val damage = (enemyAtk.damage * eff).toInt
 
     val newPlayerPoke: IPokemon = activePlayerPoke.withHp(activePlayerPoke.currentHp - damage)
     val newPlayer: IPlayer = currentPlayer.updatePokemon(newPlayerPoke)
 
-    val finalGameState = gameState.copy(
+    // Zwischenstand mit Schaden (noch kein Game Over Status)
+    val damageState = gameState.copy(
       player = newPlayer,
       msg1 = s"${activeEnemyPoke.name} setzt ${enemyAtk.name} ein!",
       msg2 = s"${damage} Schaden!${effMsg(eff)}"
     )
 
+    // HIER IST DIE WICHTIGE ÄNDERUNG:
     if (newPlayer.isActiveFainted) {
-      val lossMsg = logic.getLossMessage(currentPlayer.name)
-      val looseState = finalGameState.copy(
-        battleOver = true,
-        msg1 = "VERLOREN!",
-        msg2 = lossMsg
-      )
-      MenuState(looseState)
+      
+      // Prüfen: Hast du noch ein anderes Pokemon?
+      newPlayer.nextAlivePokemonIndex match {
+        
+        case Some(idx) =>
+          // JA: Wir wechseln automatisch dein Pokemon
+          val nextPlayer = newPlayer.switchActivePokemon(idx)
+          val nextPokeName = nextPlayer.activePokemon.name
+          
+          val switchState = damageState.copy(
+            player = nextPlayer,
+            msg1 = s"${activePlayerPoke.name} wurde besiegt!",
+            msg2 = s"Du schickst $nextPokeName in den Kampf!"
+          )
+          
+          // Du bist wieder dran (mit dem neuen Pokemon)
+          PlayerAttackState(switchState, logic)
+
+        case None =>
+          // NEIN: Keine Pokemon mehr -> JETZT ist verloren
+          val lossMsg = logic.getLossMessage(currentPlayer.name)
+          val looseState = damageState.copy(
+            battleOver = true,
+            msg1 = "VERLOREN!",
+            msg2 = lossMsg
+          )
+          MenuState(looseState)
+      }
+      
     } else {
-      PlayerAttackState(finalGameState, logic)
+      // Pokemon lebt noch -> Du bist dran
+      PlayerAttackState(damageState, logic)
     }
   }
 

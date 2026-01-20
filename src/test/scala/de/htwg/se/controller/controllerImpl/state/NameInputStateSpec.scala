@@ -8,18 +8,25 @@ import de.htwg.se.model.PokemonComponent.{IPokemon, Attack, PokemonType}
 
 class NameInputStateSpec extends AnyWordSpec with Matchers {
 
+  // 1. Mock für Pokemon (mit allen neuen Feldern)
   case class MockPokemon() extends IPokemon {
     override def name: String = "TestMon"
+    override def id: Int = 0                                     // NEU
     override def pType: PokemonType = PokemonType.Normal
+    override def secondaryType: Option[PokemonType] = None       // NEU
     override def maxHp: Int = 100
     override def currentHp: Int = 100
     override def attacks: Vector[Attack] = Vector.empty
+    override def spriteUrl: String = ""                          // NEU
     override def isFainted: Boolean = false
     override def withHp(newHp: Int): IPokemon = this
+    override def toString: String = name
   }
 
+  // 2. Mock für Player (mit allen neuen Methoden)
   case class MockPlayer(name: String) extends IPlayer {
     override def team: Vector[IPokemon] = Vector(MockPokemon())
+    override def withTeam(newTeam: Vector[IPokemon]): IPlayer = this // NEU
     override def currentPokemonIndex: Int = 0
     override def items: Vector[String] = Vector.empty
     override def activePokemon: IPokemon = MockPokemon()
@@ -48,6 +55,8 @@ class NameInputStateSpec extends AnyWordSpec with Matchers {
       result shouldBe a [MenuState]
       val menuState = result.asInstanceOf[MenuState]
       
+      // Da NameInputState den PokemonService nutzt, wird hier ein echter Player 
+      // erstellt (kein MockPlayer), daher funktioniert der Test jetzt.
       menuState.gameState.player.name should be("Ash")
       menuState.gameState.msg1 should be("Hallo Ash!")
     }

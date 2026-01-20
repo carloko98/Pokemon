@@ -13,7 +13,7 @@ import de.htwg.se.controller.controllerImpl.state._
 // Model Imports
 import de.htwg.se.model.PlayerComponent.IPlayer
 import de.htwg.se.model.GameStateComponent.GameState
-import de.htwg.se.model.PokemonComponent.PokemonBaseImpl.PokemonFactory
+import de.htwg.se.model.PokemonComponent.PokemonService
 import de.htwg.se.model.PokemonComponent.IPokemon
 
 class Controller @Inject() (
@@ -27,12 +27,15 @@ class Controller @Inject() (
   private val undoManager = new UndoManager()
 
   override def viewState: ViewState = internalState match {
+    case _: SwitchPokemonState => VSwitchPokemon
     case _: TitleState         => VTitle
     case _: MenuState          => VMenu
     case _: PlayerAttackState  => VPlayerAtk
     case _: EnemyAttackState   => VEnemyAtk
     case _: NameInputState     => VNameInput
     case _: SelectProfileState => VSelectProfile
+    case _: PokeCenterState    => VPokeCenter
+  
   }
 
   def undo(): Unit = {
@@ -68,7 +71,8 @@ class Controller @Inject() (
       
       case _ =>
         internalState match {
-          case _: PlayerAttackState | _: EnemyAttackState =>
+          // Undo/Redo nur im Kampf erlauben
+          case _: PlayerAttackState | _: EnemyAttackState | _: SwitchPokemonState =>
              undoManager.doStep(new AttackCommand(input))
 
           case _: SelectProfileState =>
@@ -80,11 +84,8 @@ class Controller @Inject() (
              else internalState = internalState.handle(input)
         }
     }
-
-    if (internalState.gameState.battleOver && !internalState.isInstanceOf[MenuState]) {
-      internalState = MenuState(internalState.gameState)
-    }
-
+    
+    // Prüfen ob Kampf gerade vorbei ist für Auto-Save
     if (wasBattleState(oldState) && internalState.isInstanceOf[MenuState]) {
       println("Kampf beendet - Automatisches Speichern ...")
       saveGame()
@@ -110,7 +111,7 @@ class Controller @Inject() (
   def loadGame(name: String): Unit = {
     fileIo.load(name) match {
       case Success(loadedPlayer) =>
-        val newEnemy = PokemonFactory.createRandomEnemy()
+        val newEnemy = PokemonService.createRandomEnemy()
         val newGameState = GameState(
           player = loadedPlayer,
           enemy = newEnemy,
@@ -126,13 +127,8 @@ class Controller @Inject() (
   }
 
   def getAvailableSaves: List[String] = fileIo.listSaveGames()
-  
-  def getPlayer: de.htwg.se.model.PlayerComponent.PlayerBaseImpl.Player = 
-    internalState.gameState.player.asInstanceOf[de.htwg.se.model.PlayerComponent.PlayerBaseImpl.Player]
-    
-  def getEnemy: de.htwg.se.model.PlayerComponent.PlayerBaseImpl.Player = 
-    internalState.gameState.enemy.asInstanceOf[de.htwg.se.model.PlayerComponent.PlayerBaseImpl.Player]
-    
+  def getPlayer: IPlayer = internalState.gameState.player
+  def getEnemy: IPlayer = internalState.gameState.enemy
   def getPlayerPokemon: IPokemon = internalState.gameState.player.activePokemon
   def getEnemyPokemon: IPokemon = internalState.gameState.enemy.activePokemon
   def isBattleOver: Boolean = internalState.gameState.battleOver

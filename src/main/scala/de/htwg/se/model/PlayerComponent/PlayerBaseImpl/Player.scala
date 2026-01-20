@@ -35,5 +35,9 @@ case class Player(
         if (index >= 0) Some(index) else None
     }
 
+    def withTeam(newTeam: Vector[IPokemon]): IPlayer = {
+        copy(team = newTeam)
+    }
+
     override def toString: String = name
 }

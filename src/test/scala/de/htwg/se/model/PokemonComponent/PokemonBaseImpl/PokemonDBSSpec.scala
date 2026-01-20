@@ -6,29 +6,34 @@ import org.scalatest.matchers.should.Matchers
 class PokemonDBSSpec extends AnyWordSpec with Matchers {
   "The PokemonDBS" should {
     "find a pokemon by name (lowercase)" in {
-      val result = PokemonDBS.get("glurak")
+      // "Charizard" ist der Name in deiner pokedex.json
+      val result = PokemonDBS.get("charizard")
       result should be(defined)
-      result.get.name should be("Glurak")
+      result.get.name should be("Charizard")
     }
 
     "find a pokemon by name (mixed case)" in {
       // Testet das .toLowerCase in der Implementierung
-      val result = PokemonDBS.get("Glurak") 
+      val result = PokemonDBS.get("ChArIzArD") 
       result should be(defined)
+      result.get.name should be("Charizard")
     }
 
     "return None for unknown pokemon" in {
-      PokemonDBS.get("MissingNo") should be(None)
+      PokemonDBS.get("DasGibtsNicht") should be(None)
     }
 
     "contain expected default pokemon data" in {
-      // Prüft exemplarisch, ob die Werte stimmen (Deckung der Map-Initialisierung)
-      val glurak = PokemonDBS.get("glurak").get
-      glurak.maxHp should be(150)
-      glurak.attacks should have size 4
+      // Beispiel Charizard (ID 6): 
+      // Weight in JSON: "90.5 kg" -> 90.5 / 2 = 45.25 -> + 100 = 145 HP
+      val charizard = PokemonDBS.get("charizard").get
+      charizard.maxHp should be(145)
+      charizard.attacks should have size 4
       
-      val rattfratz = PokemonDBS.get("rattfratz").get
-      rattfratz.maxHp should be(60)
+      // Beispiel Bulbasaur (ID 1):
+      // Weight in JSON: "6.9 kg" -> 6.9 / 2 = 3.45 -> + 100 = 103 HP
+      val bulba = PokemonDBS.get("bulbasaur").get
+      bulba.maxHp should be(103)
     }
   }
 }

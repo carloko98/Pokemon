@@ -6,10 +6,13 @@ import de.htwg.se.model.PokemonComponent.IPokemon
 
 case class Pokemon(
   name: String,
+  id: Int,
   pType: PokemonType,
+  secondaryType: Option[PokemonType],
   maxHp: Int,
   currentHp: Int,
-  attacks: Vector[Attack]
+  attacks: Vector[Attack],
+  spriteUrl: String,
 ) extends IPokemon {
   
   // Implementierung der Methoden aus IPokemon
@@ -17,5 +20,5 @@ case class Pokemon(
 
   def isFainted: Boolean = currentHp <= 0
 
-  override def toString: String = s"$name (HP: $currentHp/$maxHp)"
+  override def toString: String = s"$name (#$id) [HP: $currentHp/$maxHp]"
 }

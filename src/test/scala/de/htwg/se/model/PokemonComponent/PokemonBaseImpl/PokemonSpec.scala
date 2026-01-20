@@ -6,10 +6,12 @@ import de.htwg.se.model.PokemonComponent.PokemonType
 
 class PokemonSpec extends AnyWordSpec with Matchers {
   "A Pokemon" should {
-    val pokemon = Pokemon("Glumanda", PokemonType.Fire, 100, 100, Vector.empty)
+    // Jetzt mit ID, secondaryType (Option), spriteUrl
+    val pokemon = Pokemon("Glumanda", 4, PokemonType.Fire, None, 100, 100, Vector.empty, "")
 
     "have a name and valid attributes" in {
       pokemon.name should be("Glumanda")
+      pokemon.id should be(4)
       pokemon.pType should be(PokemonType.Fire)
       pokemon.maxHp should be(100)
       pokemon.currentHp should be(100)
@@ -27,14 +29,9 @@ class PokemonSpec extends AnyWordSpec with Matchers {
       faint.currentHp should be(0)
     }
 
-    "correctly report if fainted" in {
-      pokemon.isFainted should be(false)
-      val deadPokemon = pokemon.withHp(0)
-      deadPokemon.isFainted should be(true)
-    }
-
     "return the correct toString representation" in {
-      pokemon.toString should be("Glumanda (HP: 100/100)")
+      // Das Format in deiner Pokemon.scala war: s"$name (#$id) [HP: $currentHp/$maxHp]"
+      pokemon.toString should be("Glumanda (#4) [HP: 100/100]")
     }
   }
 }

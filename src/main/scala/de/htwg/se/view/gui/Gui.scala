@@ -19,7 +19,7 @@ class Gui(val controller: IController) extends JFXApp3 with Observer {
     stage = new JFXApp3.PrimaryStage {
       title = "Pokemon Scala Edition"
       width = 800
-      height = 600
+      height = 1000
       scene = new Scene {
         root = new TitleScene(controller)
       }
@@ -34,6 +34,9 @@ class Gui(val controller: IController) extends JFXApp3 with Observer {
         case VNameInput     => new NameInputScene(controller)
         case VSelectProfile => new SelectProfileScene(controller)
         case VPlayerAtk | VEnemyAtk => new BattleScene(controller)
+        case VSwitchPokemon => new SwitchPokemonScene(controller)
+        case VPokeCenter    => new PokeCenterScene(controller)
+        
       }
       
       if (stage != null && stage.scene() != null) {

@@ -22,4 +22,7 @@ case class MockPokemon(
   def speed: Int = 10
   def xp: Int = 0
   def level: Int = 5
+  def id: Int = 0
+  def secondaryType: Option[PokemonType] = None
+  def spriteUrl: String = ""
 }

@@ -32,9 +32,12 @@ class MockController extends IController {
 
   private val dummyPokemon = new IPokemon {
     override def name: String = "TestMon"
+    override def id: Int = 1
     override def currentHp: Int = 100
     override def maxHp: Int = 100
-    override def pType: PokemonType = PokemonType.Normal // FIX: Kein null mehr!
+    override def pType: PokemonType = PokemonType.Normal 
+    override def secondaryType: Option[PokemonType] = None
+    override def spriteUrl: String = ""
     override def attacks: Vector[Attack] = Vector(Attack("TestAttack", 10, PokemonType.Normal))
     override def withHp(newHp: Int): IPokemon = this
     override def isFainted: Boolean = false
@@ -53,10 +56,12 @@ class MockController extends IController {
     override def nextAlivePokemonIndex: Option[Int] = None 
     override def switchActivePokemon(index: Int): IPlayer = this 
     override def addPokemon(p: IPokemon): IPlayer = this 
+    override def withTeam(newTeam: Vector[IPokemon]): IPlayer = this
   }
 
   override def getPlayer: IPlayer = dummyPlayer
   override def getEnemy: IPlayer = dummyPlayer
   override def getPlayerPokemon: IPokemon = dummyPokemon
   override def getEnemyPokemon: IPokemon = dummyPokemon
+  
 }

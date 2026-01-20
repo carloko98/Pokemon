@@ -4,31 +4,38 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
 import de.htwg.se.model.GameStateComponent.GameState
 import de.htwg.se.model.PlayerComponent.IPlayer
-import de.htwg.se.model.PokemonComponent.IPokemon
+import de.htwg.se.model.PokemonComponent.{IPokemon, Attack, PokemonType}
 
 class TitleStateSpec extends AnyWordSpec with Matchers {
 
+  // 1. Mock für Pokemon (mit allen neuen Feldern des IPokemon Traits)
   case class MockPokemon() extends IPokemon {
-    def name = "MockPokemon"
-    def pType = null
-    def maxHp = 100
-    def currentHp = 100
-    def attacks = Vector.empty
-    def isFainted = false
-    def withHp(newHp: Int) = this
+    override def name: String = "MockPokemon"
+    override def id: Int = 0
+    override def pType: PokemonType = PokemonType.Normal
+    override def secondaryType: Option[PokemonType] = None
+    override def maxHp: Int = 100
+    override def currentHp: Int = 100
+    override def attacks: Vector[Attack] = Vector.empty
+    override def spriteUrl: String = ""
+    override def isFainted: Boolean = false
+    override def withHp(newHp: Int): IPokemon = this
+    override def toString: String = name
   }
 
+  // 2. Mock für Player (mit allen Methoden des IPlayer Traits)
   case class MockPlayer(name: String) extends IPlayer {
-    def team = Vector(MockPokemon())
-    def currentPokemonIndex = 0
-    def items = Vector.empty
-    def activePokemon = MockPokemon()
-    def updatePokemon(p: IPokemon) = this
-    def switchActivePokemon(i: Int) = this
-    def addPokemon(p: IPokemon) = this
-    def isActiveFainted = false
-    def isDefeated = false
-    def nextAlivePokemonIndex = Some(0)
+    override def team: Vector[IPokemon] = Vector(MockPokemon())
+    override def withTeam(newTeam: Vector[IPokemon]): IPlayer = this
+    override def currentPokemonIndex: Int = 0
+    override def items: Vector[String] = Vector.empty
+    override def activePokemon: IPokemon = MockPokemon()
+    override def updatePokemon(p: IPokemon): IPlayer = this
+    override def switchActivePokemon(index: Int): IPlayer = this
+    override def addPokemon(p: IPokemon): IPlayer = this
+    override def isActiveFainted: Boolean = false
+    override def isDefeated: Boolean = false
+    override def nextAlivePokemonIndex: Option[Int] = Some(0)
   }
 
   "A TitleState" should {
@@ -54,9 +61,9 @@ class TitleStateSpec extends AnyWordSpec with Matchers {
     }
 
     "stay in TitleState on invalid input" in {
-      state.handle("xyz") shouldBe a [TitleState]
-      val result = state.handle("xyz").asInstanceOf[TitleState]
-      result.gameState.msg2 should include ("[n]eues Spiel")
+      val result = state.handle("xyz")
+      result shouldBe a [TitleState]
+      result.asInstanceOf[TitleState].gameState.msg2 should include ("[n]eues Spiel")
     }
   }
 }

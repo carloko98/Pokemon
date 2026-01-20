@@ -8,18 +8,25 @@ import de.htwg.se.model.PokemonComponent.{IPokemon, Attack, PokemonType}
 
 class SelectProfileStateSpec extends AnyWordSpec with Matchers {
 
+  // 1. Mock für Pokemon (mit allen neuen Feldern)
   case class MockPokemon() extends IPokemon {
     override def name: String = "TestMon"
+    override def id: Int = 0
     override def pType: PokemonType = PokemonType.Normal
+    override def secondaryType: Option[PokemonType] = None
     override def maxHp: Int = 100
     override def currentHp: Int = 100
     override def attacks: Vector[Attack] = Vector.empty
+    override def spriteUrl: String = ""
     override def isFainted: Boolean = false
     override def withHp(newHp: Int): IPokemon = this
+    override def toString: String = name
   }
 
+  // 2. Mock für Player (mit allen neuen Methoden)
   case class MockPlayer(name: String) extends IPlayer {
     override def team: Vector[IPokemon] = Vector(MockPokemon())
+    override def withTeam(newTeam: Vector[IPokemon]): IPlayer = this
     override def currentPokemonIndex: Int = 0
     override def items: Vector[String] = Vector.empty
     override def activePokemon: IPokemon = MockPokemon()
@@ -41,8 +48,9 @@ class SelectProfileStateSpec extends AnyWordSpec with Matchers {
       state.handle("b") shouldBe a [TitleState]
     }
 
-    "stay in SelectProfileState (or transition) on other input" in {
-      noException should be thrownBy state.handle("AnySaveGame")
+    "stay in SelectProfileState on other input" in {
+      // Laut deiner Implementierung gibt 'case _ => this' zurück
+      state.handle("AnySaveGame") shouldBe state
     }
   }
 }
