@@ -19,7 +19,7 @@ class MenuScene(controller: IController) extends VBox {
   }
 
   val wildBtn = new Button("Wilder Kampf") {
-    onAction = _ => controller.handleInput("s")
+    onAction = _ => controller.handleInput("w")
     style = "-fx-font-size: 16px; -fx-min-width: 200px;"
   }
 
