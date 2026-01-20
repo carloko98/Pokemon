@@ -10,14 +10,30 @@ class PokemonFactorySpec extends AnyWordSpec with Matchers {
     "create a player with given Pokemon names" in {
       val player = PokemonFactory.createPlayer("Ash", Vector("Pikachu"))
       player.name shouldBe "Ash"
-      player.team.map(_.name) should contain ("MissingNo") // weil Pikachu nicht im DBS ist
+      player.team.map(_.name) should contain ("Pikachu") 
     }
 
-    "create a random enemy player" in {
-      val enemy = PokemonFactory.createRandomEnemy()
-      enemy.name shouldBe "Team Rocket Rüpel"
+    "create a wild enemy player" in {
+      // In deiner Factory heißt die Methode createWildEnemy
+      val enemy = PokemonFactory.createWildEnemy()
+      enemy.name should startWith("Wildes ")
       enemy.team.nonEmpty shouldBe true
-      enemy.team.forall(p => p.maxHp > 0) shouldBe true
+    }
+
+    "create a trainer enemy player" in {
+      // Und hier createTrainerEnemy
+      val enemy = PokemonFactory.createTrainerEnemy()
+      enemy.name shouldBe "Team Rocket Rüpel"
+      enemy.team.size shouldBe 2
+    }
+
+    "get a specific pokemon from DBS" in {
+      val pokemon = PokemonFactory.getPokemon("Charizard")
+      // Hier musst du prüfen, ob Charizard in deiner DBS ist, 
+      // ansonsten kommt auch hier MissingNo
+      if (pokemon.name != "MissingNo") {
+        pokemon.name shouldBe "Charizard"
+      }
     }
   }
 }

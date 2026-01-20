@@ -5,7 +5,10 @@ import de.htwg.se.model.PlayerComponent.IPlayer
 
 object PokemonService {
   
-   // Bestehende Methoden
+  
+   def createPlayer(name: String, pokemonNames: Vector[String]): IPlayer = 
+      PokemonFactory.createPlayer(name, pokemonNames)
+      
    def createRandomPlayer(name: String): IPlayer = 
       PokemonFactory.createRandomPlayer(name)
 

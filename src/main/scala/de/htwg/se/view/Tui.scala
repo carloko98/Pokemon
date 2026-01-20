@@ -41,7 +41,7 @@ class Tui(val controller: IController) extends Observer {
 
       case VMenu =>
         println(border)
-        println(line("Hauptmenue")) 
+        println(line("HAUPTMENUE")) 
         println(line(""))
         println(line("w. Wilden Kampf starten"))  
         println(line("t. Trainer Kampf starten")) 

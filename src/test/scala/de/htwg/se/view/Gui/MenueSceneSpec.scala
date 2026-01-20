@@ -13,7 +13,7 @@ class MenuSceneSpec extends AnyWordSpec with Matchers {
     val scene = new MenuScene(controller)
 
     "be initialized correctly" in {
-      scene.children.size should be(6)
+      scene.children.size should be(7)
     }
   }
 }

@@ -8,10 +8,10 @@ class PokemonServiceSpec extends AnyWordSpec with Matchers {
 
   "PokemonService" should {
     "create a player with specific pokemon" in {
-      val player = PokemonService.createPlayer("Ash", Vector("Glurak"))
+      val player = PokemonService.createPlayer("Ash", Vector("Charizard"))
       player shouldBe a [IPlayer]
       player.name should be("Ash")
-      player.team.head.name should be("Glurak")
+      player.team.head.name should be("Charizard")
     }
 
     "create a random enemy" in {
@@ -21,9 +21,9 @@ class PokemonServiceSpec extends AnyWordSpec with Matchers {
     }
 
     "get a specific pokemon" in {
-      val poke = PokemonService.getPokemon("Glurak")
+      val poke = PokemonService.getPokemon("Charizard")
       poke shouldBe a [IPokemon]
-      poke.name should be("Glurak")
+      poke.name should be("Charizard")
     }
   }
 }
