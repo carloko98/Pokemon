@@ -7,6 +7,7 @@ import de.htwg.se.model.PokemonComponent.PokemonService
 case class MenuState(gameState: GameState) extends ControllerState {
   
   override def handle(input: String): ControllerState = input match {
+
     case "w" | "wild" =>
       // WILDER KAMPF -> Erstelle neuen Wild-Gegner (1 Pokemon)
       val wildEnemy = PokemonService.createWildEnemy()
