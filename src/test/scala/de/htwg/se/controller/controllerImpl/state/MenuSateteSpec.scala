@@ -13,8 +13,8 @@ class MenuStateSpec extends AnyWordSpec with Matchers {
     val gs = GameState(p, e, false, "", "")
     val state = MenuState(gs)
 
-    "transition to PlayerAttackState on input 's'" in {
-      val result = state.handle("s")
+    "transition to PlayerAttackState on input 'w'" in {
+      val result = state.handle("w")
       result should be(a [PlayerAttackState])
       result.gameState.msg1 should include ("Wilder Kampf")
     }
