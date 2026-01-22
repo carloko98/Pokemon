@@ -1,0 +1,12 @@
+<player>
+      <name>marco</name>
+      <team>
+        <pokemon>
+            <name>Meowth</name>
+            <hp>102</hp>
+          </pokemon><pokemon>
+            <name>Shellder</name>
+            <hp>102</hp>
+          </pokemon>
+      </team>
+    </player>
