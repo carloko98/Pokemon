@@ -126,7 +126,11 @@ Da Docker unter Windows keine native GUI-Unterstützung hat, wird ein X-Server b
 Öffne die PowerShell und führe folgenden Befehl aus:
 
 ```powershell
-docker run -ti --rm -e DISPLAY=host.docker.internal:0.0 pokemon:v1
+docker run -ti --rm `
+>>   -e DISPLAY=host.docker.internal:0.0 `
+>>   -v /tmp/.X11-unix:/tmp/.X11-unix `
+>>   --name pokemon-app `
+>>   pokemon:v1
 
 ```
 

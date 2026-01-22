@@ -13,7 +13,6 @@ val osName: String = {
   else throw new Exception("Unknown OS")
 }
 
-
 val javaFXVersion = "20"
 
 lazy val root = (project in file("."))
@@ -23,12 +22,11 @@ lazy val root = (project in file("."))
 
     scalaVersion := scala3Version,
 
-    // Wichtig damit JavaFX Fenster sauber starten
     fork := true,
     
     libraryDependencies += "com.google.inject" % "guice" % "7.0.0",
 
-    // Testing & XML
+    // Testing 
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.18" % Test,
     libraryDependencies += "org.scala-lang.modules" %% "scala-xml" % "2.1.0",
     libraryDependencies += "org.playframework" %% "play-json" % "3.0.4",
@@ -45,6 +43,8 @@ lazy val root = (project in file("."))
       "org.openjfx" % "javafx-web" % javaFXVersion classifier osName
     ),
 
-    // Coverage Einstellungen
-  coverageExcludedFiles := "(?i).*Main.*;.*Tui.*;.*Gui.*;.*Scene.*;.*Mock.*"
+    
+    coverageExcludedFiles := "(?i).*Main.*;.*Tui.*;.*Gui.*;.*Scene.*;.*Mock.*",
+
+    run / connectInput := true
   )
