@@ -93,6 +93,68 @@ Du benötigst Java und SBT (Scala Build Tool).
 
 ---
 
+## 🐳 Docker Setup & Deployment
+
+Dieses Projekt verwendet Docker, um die Anwendung inklusive aller Abhängigkeiten (Java, Scala, JavaFX Bibliotheken) isoliert auszuführen. Da die Anwendung eine grafische Oberfläche (GUI) besitzt, ist ein X-Server auf dem Host-System notwendig.
+
+### 1. Image bauen
+
+Bevor der Container gestartet werden kann, muss das Image erstellt werden. Führe diesen Befehl im Hauptverzeichnis des Projekts aus:
+
+```bash
+docker build -t pokemon:v1 .
+
+```
+
+---
+
+### 2. Ausführen auf Windows 🪟
+
+Da Docker unter Windows keine native GUI-Unterstützung hat, wird ein X-Server benötigt.
+
+**Schritt A: X-Server installieren & konfigurieren**
+
+1. Installiere **VcXsrv** (XLaunch).
+2. Starte **XLaunch** mit folgenden Einstellungen:
+* **Display settings:** "Multiple windows"
+* **Client startup:** "Start no client"
+* **Extra settings:** ✅ **Disable access control** (WICHTIG! Haken setzen, sonst blockiert Windows die Verbindung).
+
+
+
+**Schritt B: Container starten**
+Öffne die PowerShell und führe folgenden Befehl aus:
+
+```powershell
+docker run -ti --rm -e DISPLAY=host.docker.internal:0.0 pokemon:v1
+
+```
+
+*(Falls `host.docker.internal` nicht funktioniert, nutze deine IPv4-Adresse, z.B. `-e DISPLAY=192.168.178.xx:0.0`)*.
+
+---
+
+### 3. Ausführen auf Linux 🐧
+
+Unter Linux (z.B. Kali, Ubuntu) kann der X-Server des Systems direkt genutzt werden.
+
+**Schritt A: Berechtigung erteilen**
+Erlaube dem Docker-Container den Zugriff auf den Bildschirm (muss einmal pro Session ausgeführt werden):
+
+```bash
+xhost +local:docker
+
+```
+
+**Schritt B: Container starten**
+
+```bash
+docker run -ti --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix pokemon:v1
+
+```
+
+---
+
 ## Usage
 
 Das Spiel kann komplett über die TUI (Terminal) oder die GUI gesteuert werden.
